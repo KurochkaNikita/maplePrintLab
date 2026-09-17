@@ -17,7 +17,7 @@ export default function Footer({ lang, dict }: FooterProps) {
   ];
 
   return (
-    <footer className="mt-24 border-t border-line bg-charcoal text-filament">
+    <footer className="border-t border-line bg-charcoal text-filament">
       <div className="mx-auto grid max-w-5xl gap-8 px-5 py-12 sm:grid-cols-3">
         <div>
           <p className="font-display text-base font-semibold">{siteConfig.name}</p>
