@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import type { Dictionary } from "@/lib/dictionaries/en";
 
 export const locales = ["en", "fr"] as const;
@@ -19,6 +20,15 @@ export const localeLabel: Record<Locale, string> = {
 
 export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value);
+}
+
+/** Unwraps the route's `params` promise and validates `lang`, 404-ing if it's not a known locale. */
+export async function resolveLocale(
+  params: Promise<{ lang: string }>,
+): Promise<Locale> {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+  return lang;
 }
 
 const loaders: Record<Locale, () => Promise<Dictionary>> = {
