@@ -24,6 +24,14 @@ const fr: Dictionary = {
     photoSoon: "Photo à venir",
   },
 
+  product: {
+    priceLabel: "Prix",
+    sizesLabel: "Dimensions",
+    materialLabel: "Matériau",
+    backLabel: "Retour aux réalisations",
+    ctaLabel: "Se renseigner sur cette pièce",
+  },
+
   meta: {
     defaultTitle:
       "Maple Print Lab — impression 3D sur commande dans le Grand Vancouver",
@@ -78,26 +86,6 @@ const fr: Dictionary = {
     latest: {
       heading: "Réalisations récentes",
       seeAll: "Tout voir",
-      items: [
-        {
-          title: "Dragon articulé",
-          material: "PLA",
-          note: "Imprimé en place, sans support, 14 cm.",
-          tone: "amber" as const,
-        },
-        {
-          title: "Vase à facettes",
-          material: "PETG",
-          note: "Insert étanche, finition mate des couches.",
-          tone: "teal" as const,
-        },
-        {
-          title: "Support pour casque",
-          material: "PLA",
-          note: "Ajusté à un bord de bureau de 18 mm.",
-          tone: "charcoal" as const,
-        },
-      ],
     },
     trust: {
       heading: "Impression locale, sans entrepôt",
@@ -110,86 +98,6 @@ const fr: Dictionary = {
     title: "Nos réalisations",
     intro:
       "Voici des exemples de ce que nous imprimons. Les photos de commandes réelles apparaîtront ici au fur et à mesure ; pour l’instant, les catégories et les matériaux.",
-    categories: [
-      {
-        id: "toys",
-        title: "Jouets et objets de collection",
-        intro:
-          "Modèles durables pour jouer et exposer — avec une finition soignée.",
-        items: [
-          {
-            title: "Dragon articulé",
-            material: "PLA",
-            note: "Segments articulés, imprimé en place, sans support, 14 cm.",
-            tone: "amber" as const,
-          },
-          {
-            title: "Jeu d’échecs « Granit »",
-            material: "PLA mat",
-            note: "Bases lestées, surface mate des couches.",
-            tone: "charcoal" as const,
-          },
-          {
-            title: "Scarabée mécanique",
-            material: "PETG",
-            note: "Modèle cinétique, engrenages imprimés déjà assemblés.",
-            tone: "teal" as const,
-          },
-        ],
-      },
-      {
-        id: "decor",
-        title: "Déco pour la maison",
-        intro:
-          "Des formes absentes des magasins — adaptées à un intérieur précis.",
-        items: [
-          {
-            title: "Vase à facettes",
-            material: "PETG",
-            note: "Insert étanche amovible, 22 cm.",
-            tone: "teal" as const,
-          },
-          {
-            title: "Cache-pot « Spirale »",
-            material: "PLA",
-            note: "Soucoupe de drainage incluse, pour plantes grasses.",
-            tone: "amber" as const,
-          },
-          {
-            title: "Applique murale",
-            material: "PLA translucide",
-            note: "Diffuseur pour ampoule E14, lumière chaude à travers les couches.",
-            tone: "charcoal" as const,
-          },
-        ],
-      },
-      {
-        id: "custom",
-        title: "Sur mesure",
-        intro:
-          "Imprimé à partir de votre fichier, ou géométrie retravaillée jusqu’à être imprimable.",
-        items: [
-          {
-            title: "Support pour casque",
-            material: "PLA",
-            note: "Pour un bord de bureau de 18 mm, sans perçage.",
-            tone: "charcoal" as const,
-          },
-          {
-            title: "Pièce de moulin à café",
-            material: "PETG",
-            note: "Rétro-ingénierie à partir d’un original usé.",
-            tone: "amber" as const,
-          },
-          {
-            title: "Boîtier pour circuit imprimé",
-            material: "PETG",
-            note: "Découpes pour les connecteurs, encliquetage, sans vis.",
-            tone: "teal" as const,
-          },
-        ],
-      },
-    ],
   },
 
   contact: {

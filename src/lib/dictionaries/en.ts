@@ -22,6 +22,14 @@ const en = {
     photoSoon: "Photo soon",
   },
 
+  product: {
+    priceLabel: "Price",
+    sizesLabel: "Sizes",
+    materialLabel: "Material",
+    backLabel: "Back to work",
+    ctaLabel: "Ask about this piece",
+  },
+
   meta: {
     defaultTitle: "Maple Print Lab — 3D printing on demand in Metro Vancouver",
     titleTemplate: "%s — Maple Print Lab",
@@ -75,26 +83,6 @@ const en = {
     latest: {
       heading: "Latest work",
       seeAll: "See all",
-      items: [
-        {
-          title: "Articulated dragon",
-          material: "PLA",
-          note: "Print-in-place, no supports, 14 cm.",
-          tone: "amber" as const,
-        },
-        {
-          title: "Faceted vase",
-          material: "PETG",
-          note: "Waterproof insert, matte layer finish.",
-          tone: "teal" as const,
-        },
-        {
-          title: "Headphone stand",
-          material: "PLA",
-          note: "Custom fit for an 18 mm desk edge.",
-          tone: "charcoal" as const,
-        },
-      ],
     },
     trust: {
       heading: "Local printing, no warehouse",
@@ -107,83 +95,6 @@ const en = {
     title: "Our work",
     intro:
       "Below are examples of what we print. Photos of real orders will appear here as we shoot them; for now, categories and materials.",
-    categories: [
-      {
-        id: "toys",
-        title: "Toys & collectibles",
-        intro: "Durable models for play and display — with thoughtful finishing.",
-        items: [
-          {
-            title: "Articulated dragon",
-            material: "PLA",
-            note: "Articulated segments, print-in-place, no supports, 14 cm.",
-            tone: "amber" as const,
-          },
-          {
-            title: "“Granite” chess set",
-            material: "PLA matte",
-            note: "Weighted bases, matte layer surface.",
-            tone: "charcoal" as const,
-          },
-          {
-            title: "Mechanical beetle",
-            material: "PETG",
-            note: "Kinetic model, gears print pre-assembled.",
-            tone: "teal" as const,
-          },
-        ],
-      },
-      {
-        id: "decor",
-        title: "Home décor",
-        intro: "Shapes that aren't in the store — matched to a specific interior.",
-        items: [
-          {
-            title: "Faceted vase",
-            material: "PETG",
-            note: "Removable waterproof insert, 22 cm.",
-            tone: "teal" as const,
-          },
-          {
-            title: "“Spiral” planter",
-            material: "PLA",
-            note: "Drainage tray included, for succulents.",
-            tone: "amber" as const,
-          },
-          {
-            title: "Wall lamp",
-            material: "PLA translucent",
-            note: "Diffuser for an E14 bulb, warm light through the layers.",
-            tone: "charcoal" as const,
-          },
-        ],
-      },
-      {
-        id: "custom",
-        title: "Custom",
-        intro: "Printed from your file, or geometry reworked until it's printable.",
-        items: [
-          {
-            title: "Headphone stand",
-            material: "PLA",
-            note: "For an 18 mm desk edge, no drilling.",
-            tone: "charcoal" as const,
-          },
-          {
-            title: "Coffee-grinder part",
-            material: "PETG",
-            note: "Reverse-engineered from a worn original.",
-            tone: "amber" as const,
-          },
-          {
-            title: "PCB enclosure",
-            material: "PETG",
-            note: "Cutouts for connectors, snap-fit, no screws.",
-            tone: "teal" as const,
-          },
-        ],
-      },
-    ],
   },
 
   contact: {
