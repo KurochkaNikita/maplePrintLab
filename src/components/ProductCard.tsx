@@ -1,9 +1,9 @@
 /**
- * A work card. Until real photos exist, the image slot is a coloured gradient
- * block in brand tones.
+ * A product card. Until real photos exist, the image slot is a coloured
+ * gradient block in brand tones.
  *
  * HOW TO SWAP IN A PHOTO once shots are available:
- *   1. Put files in public/work/ (e.g. public/work/dragon.jpg), compressed to
+ *   1. Put files in public/product/ (e.g. public/product/dragon.jpg), compressed to
  *      ~200 KB, ideally 4:3.
  *   2. import Image from "next/image";
  *   3. Add an `image?: string` prop and replace the placeholder block with:
@@ -11,10 +11,11 @@
  *               className="aspect-[4/3] w-full object-cover" />
  *      (images.unoptimized: true is already set in next.config.mjs for export)
  */
+import Link from "next/link";
+import { TONE_GRADIENT, type Tone } from "@/lib/tone";
 
-type Tone = "amber" | "teal" | "charcoal";
-
-type WorkCardProps = {
+type ProductCardProps = {
+  href: string;
   title: string;
   material: string;
   note: string;
@@ -22,21 +23,19 @@ type WorkCardProps = {
   photoSoonLabel: string;
 };
 
-const TONE_GRADIENT: Record<Tone, string> = {
-  amber: "from-amber via-amber-deep to-charcoal",
-  teal: "from-teal via-[#255a52] to-charcoal",
-  charcoal: "from-[#3a3733] via-charcoal to-[#171613]",
-};
-
-export default function WorkCard({
+export default function ProductCard({
+  href,
   title,
   material,
   note,
   tone = "amber",
   photoSoonLabel,
-}: WorkCardProps) {
+}: ProductCardProps) {
   return (
-    <article className="group overflow-hidden rounded-lg border border-line bg-white/40">
+    <Link
+      href={href}
+      className="group block overflow-hidden rounded-lg border border-line bg-white/40 transition-shadow hover:shadow-md"
+    >
       <div
         className={`aspect-[4/3] w-full bg-gradient-to-br ${TONE_GRADIENT[tone]} relative`}
         aria-hidden="true"
@@ -48,7 +47,7 @@ export default function WorkCard({
 
       <div className="p-4">
         <div className="flex items-baseline justify-between gap-3">
-          <h3 className="font-display text-base font-medium text-charcoal">
+          <h3 className="font-display text-base font-medium text-charcoal group-hover:text-amber">
             {title}
           </h3>
           <span className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-teal">
@@ -57,6 +56,6 @@ export default function WorkCard({
         </div>
         <p className="mt-1.5 text-sm text-ink/80">{note}</p>
       </div>
-    </article>
+    </Link>
   );
 }

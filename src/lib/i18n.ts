@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import type { Dictionary } from "@/lib/dictionaries/en";
 
 export const locales = ["en", "fr"] as const;
@@ -41,13 +42,47 @@ export function getDictionary(locale: Locale): Promise<Dictionary> {
 }
 
 /** Page paths without the locale prefix — shared by nav and sitemap. */
-export const routes = ["", "work", "contact"] as const;
+export const routes = ["", "products", "contact"] as const;
 
-/** Absolute path for a locale: localeHref("en", "work") -> "/en/work/" */
+/** Absolute path for a locale: localeHref("en", "products") -> "/en/products/" */
 export function localeHref(locale: Locale, route: (typeof routes)[number]): string {
   return route ? `/${locale}/${route}/` : `/${locale}/`;
 }
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
+}
+
+/** `canonical` + per-locale `languages` for a path shared across locales, e.g. "product/some-slug". */
+function localizedAlternates(lang: Locale, path: string): Metadata["alternates"] {
+  const suffix = path ? `${path}/` : "";
+  return {
+    canonical: `/${lang}/${suffix}`,
+    languages: {
+      ...Object.fromEntries(locales.map((l) => [localeTag[l], `/${l}/${suffix}`])),
+      "x-default": `/en/${suffix}`,
+    },
+  };
+}
+
+/** Builds `title`/`description`/`alternates` for a page's `generateMetadata` — pass only what the page adds. */
+export function pageMetadata({
+  lang,
+  path,
+  title,
+  description,
+}: {
+  lang: Locale;
+  path: string;
+  title?: Metadata["title"];
+  description?: Metadata["description"];
+}): Metadata {
+  return {
+    // Omit unset keys entirely — Next.js merges layout/page metadata by
+    // spreading, so an explicit `title: undefined` would blank out the
+    // title template inherited from the layout instead of falling back to it.
+    ...(title !== undefined && { title }),
+    ...(description !== undefined && { description }),
+    alternates: localizedAlternates(lang, path),
+  };
 }

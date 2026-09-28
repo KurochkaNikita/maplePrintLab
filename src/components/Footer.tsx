@@ -12,7 +12,7 @@ export default function Footer({ lang, dict }: FooterProps) {
   const year = new Date().getFullYear();
   const nav = [
     { href: localeHref(lang, ""), label: dict.nav.home },
-    { href: localeHref(lang, "products"), label: dict.nav.work },
+    { href: localeHref(lang, "products"), label: dict.nav.products },
     { href: localeHref(lang, "contact"), label: dict.nav.contact },
   ];
 

@@ -5,25 +5,25 @@ import type { Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
 import type { ProductCategory, ProductItem } from "@/data/products/types";
 
-type WorkDetailScreenProps = {
+type ProductDetailScreenProps = {
   lang: Locale;
   dict: Dictionary;
   item: ProductItem;
   category: ProductCategory;
 };
 
-export default function WorkDetailScreen({
+export default function ProductDetailScreen({
   lang,
   dict,
   item,
   category,
-}: WorkDetailScreenProps) {
+}: ProductDetailScreenProps) {
   const t = dict.product;
 
   return (
     <div className="mx-auto max-w-5xl px-5 pb-24 pt-14">
       <Link
-        href={`/${lang}/work/`}
+        href={`/${lang}/products/`}
         className="font-mono text-xs uppercase tracking-wider text-teal hover:text-amber"
       >
         ← {t.backLabel}
@@ -36,7 +36,7 @@ export default function WorkDetailScreen({
             aria-hidden="true"
           >
             <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-filament/80">
-              {dict.workCard.photoSoon}
+              {dict.productCard.photoSoon}
             </span>
           </div>
 

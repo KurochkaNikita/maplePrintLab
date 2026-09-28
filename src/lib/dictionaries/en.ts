@@ -4,7 +4,7 @@ const en = {
 
   nav: {
     home: "Home",
-    work: "Work",
+    products: "Work",
     contact: "Contact",
     primaryAria: "Main navigation",
     footerAria: "Footer navigation",
@@ -18,7 +18,7 @@ const en = {
     alt: "A maple leaf printing layer by layer",
   },
 
-  workCard: {
+  productCard: {
     photoSoon: "Photo soon",
   },
 
@@ -42,7 +42,7 @@ const en = {
       "3D printed home decor",
       "Maple Print Lab",
     ],
-    work: {
+    products: {
       title: "Work",
       description:
         "Examples of Maple Print Lab 3D printing: toys and collectibles, home décor and custom orders in Metro Vancouver.",
@@ -60,7 +60,7 @@ const en = {
       accent:
         "A small Canadian studio that prints things — and doesn't keep a warehouse.",
       body: "Toys, décor and custom models. Send an idea or a file — we pick the material, print it, and hand you the finished piece in Vancouver.",
-      ctaWork: "See the work",
+      ctaProducts: "See the work",
       ctaContact: "Get in touch",
     },
     whatWeDo: {
@@ -91,7 +91,7 @@ const en = {
     },
   },
 
-  work: {
+  products: {
     title: "Our work",
     intro:
       "Below are examples of what we print. Photos of real orders will appear here as we shoot them; for now, categories and materials.",

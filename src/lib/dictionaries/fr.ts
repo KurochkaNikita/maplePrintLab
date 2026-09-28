@@ -6,7 +6,7 @@ const fr: Dictionary = {
 
   nav: {
     home: "Accueil",
-    work: "Réalisations",
+    products: "Réalisations",
     contact: "Contact",
     primaryAria: "Navigation principale",
     footerAria: "Navigation du pied de page",
@@ -20,7 +20,7 @@ const fr: Dictionary = {
     alt: "Une feuille d’érable imprimée couche par couche",
   },
 
-  workCard: {
+  productCard: {
     photoSoon: "Photo à venir",
   },
 
@@ -45,7 +45,7 @@ const fr: Dictionary = {
       "déco imprimée en 3D",
       "Maple Print Lab",
     ],
-    work: {
+    products: {
       title: "Réalisations",
       description:
         "Exemples d’impression 3D de Maple Print Lab : jouets et objets de collection, déco et commandes sur mesure dans le Grand Vancouver.",
@@ -63,7 +63,7 @@ const fr: Dictionary = {
       accent:
         "Un petit studio canadien qui imprime des objets — sans entrepôt.",
       body: "Jouets, déco et modèles sur mesure. Envoyez une idée ou un fichier — on choisit le matériau, on imprime, et on vous remet la pièce finie à Vancouver.",
-      ctaWork: "Voir les réalisations",
+      ctaProducts: "Voir les réalisations",
       ctaContact: "Nous écrire",
     },
     whatWeDo: {
@@ -94,7 +94,7 @@ const fr: Dictionary = {
     },
   },
 
-  work: {
+  products: {
     title: "Nos réalisations",
     intro:
       "Voici des exemples de ce que nous imprimons. Les photos de commandes réelles apparaîtront ici au fur et à mesure ; pour l’instant, les catégories et les matériaux.",
