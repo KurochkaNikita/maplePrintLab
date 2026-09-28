@@ -13,7 +13,7 @@ type HeaderProps = {
 export default function Header({ lang, dict }: HeaderProps) {
   const nav = [
     { href: localeHref(lang, ""), label: dict.nav.home },
-    { href: localeHref(lang, "work"), label: dict.nav.work },
+    { href: localeHref(lang, "products"), label: dict.nav.work },
     { href: localeHref(lang, "contact"), label: dict.nav.contact },
   ];
 

@@ -13,7 +13,7 @@ type LocaleSwitcherProps = {
 
 export default function LocaleSwitcher({ current, label }: LocaleSwitcherProps) {
   const pathname = usePathname() || `/${current}/`;
-  // Path within the current locale, e.g. "/en/work/" -> "/work/", "/en/" -> "/"
+  // Path within the current locale, e.g. "/en/product/" -> "/product/", "/en/" -> "/"
   const rest = pathname.replace(LOCALE_SEGMENT, "") || "/";
   const suffix = rest === "/" ? "/" : rest;
 
