@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import WorkScreen from "@/screens/WorkScreen";
+import ProductScreen from "@/screens/ProductScreen";
 import { getDictionary, locales, pageMetadata, resolveLocale } from "@/lib/i18n";
 import { getProducts } from "@/lib/products";
 
@@ -17,12 +17,12 @@ export async function generateMetadata({
   return pageMetadata({
     lang,
     path: "products",
-    title: dict.meta.work.title,
-    description: dict.meta.work.description,
+    title: dict.meta.products.title,
+    description: dict.meta.products.description,
   });
 }
 
-export default async function WorkPage({
+export default async function ProductsPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
@@ -31,5 +31,5 @@ export default async function WorkPage({
   const dict = await getDictionary(lang);
   const catalog = await getProducts(lang);
 
-  return <WorkScreen lang={lang} dict={dict} catalog={catalog} />;
+  return <ProductScreen lang={lang} dict={dict} catalog={catalog} />;
 }
