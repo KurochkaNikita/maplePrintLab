@@ -1,11 +1,8 @@
-import type { Tone } from "@/lib/tone";
-
 export type ProductItem = {
   slug: string;
   title: string;
   material: string;
   note: string;
-  tone: Tone;
   price: string;
   sizes: string[];
   description: string;
