@@ -1,13 +1,22 @@
-import { redirect } from "next/navigation";
-import { defaultLocale } from "@/lib/i18n";
+import type { Metadata } from "next";
+import LangShell from "@/components/LangShell";
+import { defaultLocale, getDictionary } from "@/lib/i18n";
+import { rootMetadata } from "@/lib/metadata";
+import HomePage from "./[lang]/page";
 
 /**
- * "/" carries no locale — send it to the default (English), no picker.
- *
- * This makes `/` work under `next dev` (server 307). For the static export,
- * scripts/root-redirect.mjs overwrites out/index.html with a plain
- * <meta http-equiv="refresh"> so the redirect also works without JS.
+ * "/" serves the default locale's (English) homepage directly — no redirect.
+ * Its canonical points at "/en/" (see rootMetadata), so it isn't indexed as
+ * duplicate content.
  */
+export async function generateMetadata(): Promise<Metadata> {
+  return rootMetadata(defaultLocale, await getDictionary(defaultLocale));
+}
+
 export default function RootPage() {
-  redirect(`/${defaultLocale}/`);
+  return (
+    <LangShell lang={defaultLocale}>
+      <HomePage params={Promise.resolve({ lang: defaultLocale })} />
+    </LangShell>
+  );
 }

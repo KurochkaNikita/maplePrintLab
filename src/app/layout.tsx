@@ -1,7 +1,7 @@
 /**
- * Pass-through root layout. The real <html>/<body> shell lives in
- * app/[lang]/layout.tsx so <html lang> reflects the locale; app/page.tsx
- * only performs the "/" -> "/en/" redirect and needs no shell.
+ * Pass-through root layout. The <html>/<body> shell lives in
+ * components/LangShell.tsx (used by app/[lang]/layout.tsx and app/page.tsx)
+ * so <html lang> reflects the locale.
  */
 export default function RootLayout({
   children,
