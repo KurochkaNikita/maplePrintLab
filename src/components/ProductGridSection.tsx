@@ -41,7 +41,6 @@ export default function ProductGridSection({
             title={item.title}
             material={item.material}
             note={item.note}
-            tone={item.tone}
             photoSoonLabel={photoSoonLabel}
           />
         ))}

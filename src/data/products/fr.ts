@@ -12,7 +12,6 @@ const products: ProductCatalog = [
         title: "Dragon articulé",
         material: "PLA",
         note: "Segments articulés, imprimé en place, sans support, 14 cm.",
-        tone: "amber",
         price: "65 $ CA",
         sizes: ["14 cm de long", "Impression en une seule pièce, sans assemblage"],
         description:
@@ -24,7 +23,6 @@ const products: ProductCatalog = [
         title: "Jeu d’échecs « Granit »",
         material: "PLA mat",
         note: "Bases lestées, surface mate des couches.",
-        tone: "charcoal",
         price: "180 $ CA",
         sizes: ["Plateau 40 × 40 cm", "Roi de 9,5 cm de haut"],
         description:
@@ -36,7 +34,6 @@ const products: ProductCatalog = [
         title: "Scarabée mécanique",
         material: "PETG",
         note: "Modèle cinétique, engrenages imprimés déjà assemblés.",
-        tone: "teal",
         price: "40 $ CA",
         sizes: ["6 cm de long", "Pattes et engrenages imprimés déjà assemblés"],
         description:
@@ -56,7 +53,6 @@ const products: ProductCatalog = [
         title: "Vase à facettes",
         material: "PETG",
         note: "Insert étanche amovible, 22 cm.",
-        tone: "teal",
         price: "55 $ CA",
         sizes: ["22 cm de haut", "Reçoit un insert standard de 1 L"],
         description:
@@ -68,7 +64,6 @@ const products: ProductCatalog = [
         title: "Cache-pot « Spirale »",
         material: "PLA",
         note: "Soucoupe de drainage incluse, pour plantes grasses.",
-        tone: "amber",
         price: "35 $ CA",
         sizes: ["12 cm de diamètre", "Soucoupe de drainage incluse"],
         description:
@@ -80,7 +75,6 @@ const products: ProductCatalog = [
         title: "Applique murale",
         material: "PLA translucide",
         note: "Diffuseur pour ampoule E14, lumière chaude à travers les couches.",
-        tone: "charcoal",
         price: "85 $ CA",
         sizes: ["18 cm de diamètre", "Reçoit une ampoule E14 standard"],
         description:
@@ -100,7 +94,6 @@ const products: ProductCatalog = [
         title: "Support pour casque",
         material: "PLA",
         note: "Pour un bord de bureau de 18 mm, sans perçage.",
-        tone: "charcoal",
         price: "28 $ CA",
         sizes: ["Pour bureaux jusqu’à 18 mm d’épaisseur", "Serrage, sans perçage"],
         description:
@@ -112,7 +105,6 @@ const products: ProductCatalog = [
         title: "Pièce de moulin à café",
         material: "PETG",
         note: "Rétro-ingénierie à partir d’un original usé.",
-        tone: "amber",
         price: "18 $ CA",
         sizes: ["Ajusté à votre modèle de moulin", "Envoyez l’original comme référence"],
         description:
@@ -124,7 +116,6 @@ const products: ProductCatalog = [
         title: "Boîtier pour circuit imprimé",
         material: "PETG",
         note: "Découpes pour les connecteurs, encliquetage, sans vis.",
-        tone: "teal",
         price: "À partir de 30 $ CA",
         sizes: ["Dimensionné pour votre carte", "Couvercle à encliquetage, sans vis"],
         description:

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
-import { TONE_GRADIENT } from "@/lib/tone";
 import type { Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
 import type { ProductCategory, ProductItem } from "@/data/products/types";
@@ -32,10 +31,10 @@ export default function ProductDetailScreen({
       <div className="mt-6 grid gap-10 md:grid-cols-2">
         <div>
           <div
-            className={`aspect-[4/3] w-full rounded-lg bg-gradient-to-br ${TONE_GRADIENT[item.tone]} relative`}
+            className="relative aspect-[4/3] w-full rounded-lg border border-line bg-white"
             aria-hidden="true"
           >
-            <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-filament/80">
+            <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-ink/50">
               {dict.productCard.photoSoon}
             </span>
           </div>
@@ -45,7 +44,7 @@ export default function ProductDetailScreen({
               {Array.from({ length: item.imageCount - 1 }).map((_, i) => (
                 <div
                   key={i}
-                  className={`aspect-square rounded-md bg-gradient-to-br ${TONE_GRADIENT[item.tone]}`}
+                  className="aspect-square rounded-md border border-line bg-white"
                   aria-hidden="true"
                 />
               ))}

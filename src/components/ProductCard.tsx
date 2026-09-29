@@ -1,6 +1,6 @@
 /**
- * A product card. Until real photos exist, the image slot is a coloured
- * gradient block in brand tones.
+ * A product card. Until real photos exist, the image slot is a plain white
+ * placeholder block.
  *
  * HOW TO SWAP IN A PHOTO once shots are available:
  *   1. Put files in public/product/ (e.g. public/product/dragon.jpg), compressed to
@@ -12,14 +12,12 @@
  *      (images.unoptimized: true is already set in next.config.mjs for export)
  */
 import Link from "next/link";
-import { TONE_GRADIENT, type Tone } from "@/lib/tone";
 
 type ProductCardProps = {
   href: string;
   title: string;
   material: string;
   note: string;
-  tone?: Tone;
   photoSoonLabel: string;
 };
 
@@ -28,7 +26,6 @@ export default function ProductCard({
   title,
   material,
   note,
-  tone = "amber",
   photoSoonLabel,
 }: ProductCardProps) {
   return (
@@ -37,10 +34,10 @@ export default function ProductCard({
       className="group block overflow-hidden rounded-lg border border-line bg-white/40 transition-shadow hover:shadow-md"
     >
       <div
-        className={`aspect-[4/3] w-full bg-gradient-to-br ${TONE_GRADIENT[tone]} relative`}
+        className="relative aspect-[4/3] w-full border-b border-line bg-white"
         aria-hidden="true"
       >
-        <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-filament/80">
+        <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-ink/50">
           {photoSoonLabel}
         </span>
       </div>

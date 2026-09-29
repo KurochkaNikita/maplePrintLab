@@ -36,7 +36,6 @@ export default function ProductScreen({ lang, dict, catalog }: ProductScreenProp
                 title={item.title}
                 material={item.material}
                 note={item.note}
-                tone={item.tone}
                 photoSoonLabel={dict.productCard.photoSoon}
               />
             ))}

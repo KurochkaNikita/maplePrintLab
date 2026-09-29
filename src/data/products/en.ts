@@ -11,7 +11,6 @@ const products: ProductCatalog = [
         title: "Articulated dragon",
         material: "PLA",
         note: "Articulated segments, print-in-place, no supports, 14 cm.",
-        tone: "amber",
         price: "$65 CAD",
         sizes: ["14 cm long", "Single-piece print, no assembly"],
         description:
@@ -23,7 +22,6 @@ const products: ProductCatalog = [
         title: "“Granite” chess set",
         material: "PLA matte",
         note: "Weighted bases, matte layer surface.",
-        tone: "charcoal",
         price: "$180 CAD",
         sizes: ["Board 40 × 40 cm", "King height 9.5 cm"],
         description:
@@ -35,7 +33,6 @@ const products: ProductCatalog = [
         title: "Mechanical beetle",
         material: "PETG",
         note: "Kinetic model, gears print pre-assembled.",
-        tone: "teal",
         price: "$40 CAD",
         sizes: ["6 cm long", "Legs and gears print pre-assembled"],
         description:
@@ -54,7 +51,6 @@ const products: ProductCatalog = [
         title: "Faceted vase",
         material: "PETG",
         note: "Removable waterproof insert, 22 cm.",
-        tone: "teal",
         price: "$55 CAD",
         sizes: ["22 cm tall", "Fits a standard 1 L insert"],
         description:
@@ -66,7 +62,6 @@ const products: ProductCatalog = [
         title: "“Spiral” planter",
         material: "PLA",
         note: "Drainage tray included, for succulents.",
-        tone: "amber",
         price: "$35 CAD",
         sizes: ["12 cm diameter", "Includes drainage tray"],
         description:
@@ -78,7 +73,6 @@ const products: ProductCatalog = [
         title: "Wall lamp",
         material: "PLA translucent",
         note: "Diffuser for an E14 bulb, warm light through the layers.",
-        tone: "charcoal",
         price: "$85 CAD",
         sizes: ["18 cm diameter", "Fits a standard E14 bulb"],
         description:
@@ -97,7 +91,6 @@ const products: ProductCatalog = [
         title: "Headphone stand",
         material: "PLA",
         note: "For an 18 mm desk edge, no drilling.",
-        tone: "charcoal",
         price: "$28 CAD",
         sizes: ["Fits desks up to 18 mm thick", "Clamp, no drilling"],
         description:
@@ -109,7 +102,6 @@ const products: ProductCatalog = [
         title: "Coffee-grinder part",
         material: "PETG",
         note: "Reverse-engineered from a worn original.",
-        tone: "amber",
         price: "$18 CAD",
         sizes: ["Matched to your grinder model", "Send the original for reference"],
         description:
@@ -121,7 +113,6 @@ const products: ProductCatalog = [
         title: "PCB enclosure",
         material: "PETG",
         note: "Cutouts for connectors, snap-fit, no screws.",
-        tone: "teal",
         price: "From $30 CAD",
         sizes: ["Sized to your board", "Snap-fit lid, no screws"],
         description:
