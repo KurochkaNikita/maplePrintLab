@@ -1,23 +1,11 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import {
-  Space_Grotesk,
-  IBM_Plex_Sans,
-  IBM_Plex_Mono,
-  Fraunces,
-} from "next/font/google";
+import {Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono, Fraunces} from "next/font/google";
 import "../globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
-import { siteConfig } from "@/lib/site-config";
-import {
-  getDictionary,
-  isLocale,
-  localeTag,
-  locales,
-  type Locale,
-} from "@/lib/i18n";
+import { getDictionary, localeTag, locales, resolveLocale } from "@/lib/i18n";
+import { rootMetadata } from "@/lib/metadata";
 
 const display = Space_Grotesk({
   subsets: ["latin", "latin-ext"],
@@ -53,54 +41,18 @@ const accent = Fraunces({
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return locales.map((lang) => ({ lang }));
+  return locales.map((lang) => ({ lang: lang ?? 'en' }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
-  if (!isLocale(params.lang)) return {};
-  const lang = params.lang;
+  const lang = await resolveLocale(params);
   const dict = await getDictionary(lang);
 
-  const languages = Object.fromEntries(
-    locales.map((l) => [localeTag[l], `/${l}/`]),
-  );
-
-  return {
-    metadataBase: new URL(siteConfig.url),
-    title: {
-      default: dict.meta.defaultTitle,
-      template: dict.meta.titleTemplate,
-    },
-    description: dict.meta.description,
-    keywords: dict.meta.keywords,
-    applicationName: siteConfig.name,
-    alternates: {
-      canonical: `/${lang}/`,
-      languages: { ...languages, "x-default": "/en/" },
-    },
-    openGraph: {
-      type: "website",
-      siteName: siteConfig.name,
-      title: dict.meta.defaultTitle,
-      description: dict.meta.description,
-      url: `${siteConfig.url}/${lang}/`,
-      locale: localeTag[lang].replace("-", "_"),
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: dict.meta.defaultTitle,
-      description: dict.meta.description,
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: { index: true, follow: true, "max-image-preview": "large" },
-    },
-  };
+  return rootMetadata(lang, dict);
 }
 
 export default async function LangLayout({
@@ -108,10 +60,9 @@ export default async function LangLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }) {
-  if (!isLocale(params.lang)) notFound();
-  const lang: Locale = params.lang;
+  const lang = await resolveLocale(params);
   const dict = await getDictionary(lang);
 
   return (

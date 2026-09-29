@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import HomeScreen from "@/screens/HomeScreen";
-import { getDictionary, locales, pageMetadata, resolveLocale } from "@/lib/i18n";
+import { getDictionary, locales, resolveLocale } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/metadata";
 import { FEATURED_SLUGS, findProduct, getProducts } from "@/lib/products";
 
 export function generateStaticParams() {

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductDetailScreen from "@/screens/ProductDetailScreen";
-import { getDictionary, pageMetadata, resolveLocale } from "@/lib/i18n";
+import { getDictionary, resolveLocale } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/metadata";
 import { findProduct, generateProductStaticParams, getProducts } from "@/lib/products";
 
 export function generateStaticParams() {

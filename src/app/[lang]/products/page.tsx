@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ProductScreen from "@/screens/ProductScreen";
-import { getDictionary, locales, pageMetadata, resolveLocale } from "@/lib/i18n";
+import { getDictionary, locales, resolveLocale } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/metadata";
 import { getProducts } from "@/lib/products";
 
 export function generateStaticParams() {

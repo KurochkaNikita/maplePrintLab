@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ContactScreen from "@/screens/ContactScreen";
-import { getDictionary, locales, pageMetadata, resolveLocale } from "@/lib/i18n";
+import { getDictionary, locales, resolveLocale } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/metadata";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
