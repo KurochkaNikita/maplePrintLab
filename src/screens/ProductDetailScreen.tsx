@@ -1,8 +1,9 @@
-import Link from "next/link";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import { formatPrice } from "@/lib/price";
 import CtaLink from "@/components/CtaLink";
-import type { Locale } from "@/lib/i18n";
+import { categoryHref, localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
-import type { ProductCategory, ProductItem } from "@/data/products/types";
+import type { ProductCategory, ProductItem } from "@/lib/products";
 
 type ProductDetailScreenProps = {
   lang: Locale;
@@ -21,12 +22,15 @@ export default function ProductDetailScreen({
 
   return (
     <div className="mx-auto max-w-5xl px-5 pb-24 pt-14">
-      <Link
-        href={`/${lang}/products/`}
-        className="font-mono text-xs uppercase tracking-wider text-teal hover:text-amber"
-      >
-        ← {t.backLabel}
-      </Link>
+      <Breadcrumbs
+        ariaLabel={dict.category.breadcrumbAria}
+        items={[
+          { label: dict.nav.home, href: localeHref(lang, "") },
+          { label: dict.nav.products, href: localeHref(lang, "products") },
+          { label: category.title, href: categoryHref(lang, category.id) },
+          { label: item.title },
+        ]}
+      />
 
       <div className="mt-6 grid gap-10 md:grid-cols-2">
         <div>
@@ -61,18 +65,12 @@ export default function ProductDetailScreen({
           </h1>
 
           <p className="mt-4 font-display text-2xl text-charcoal">
-            {item.price}
+            {formatPrice(item.price, lang, dict)}
           </p>
 
           <p className="mt-5 max-w-md text-ink/80">{item.description}</p>
 
           <dl className="mt-8 space-y-4 border-t border-line pt-6">
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-wider text-teal">
-                {t.materialLabel}
-              </dt>
-              <dd className="mt-1 text-ink/80">{item.material}</dd>
-            </div>
             <div>
               <dt className="font-mono text-xs uppercase tracking-wider text-teal">
                 {t.sizesLabel}
