@@ -22,11 +22,22 @@ const en = {
     photoSoon: "Photo soon",
   },
 
+  category: {
+    breadcrumbAria: "Breadcrumb",
+    itemsAria: "Products in this category",
+    viewAll: "View category",
+    empty: "Nothing here yet — new pieces are coming soon.",
+  },
+
+  price: {
+    currencySuffix: "CAD",
+    from: "From",
+  },
+
   product: {
     priceLabel: "Price",
     sizesLabel: "Sizes",
     materialLabel: "Material",
-    backLabel: "Back to work",
     ctaLabel: "Ask about this piece",
   },
 
@@ -79,6 +90,12 @@ const en = {
           body: "Got a model or an idea? We print from your file or help get the geometry print-ready.",
         },
       ],
+    },
+    categories: {
+      heading: "Browse by category",
+      prev: "Previous categories",
+      next: "Next categories",
+      items: "pieces",
     },
     latest: {
       heading: "Latest work",

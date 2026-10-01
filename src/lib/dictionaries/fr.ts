@@ -24,11 +24,22 @@ const fr: Dictionary = {
     photoSoon: "Photo à venir",
   },
 
+  category: {
+    breadcrumbAria: "Fil d’Ariane",
+    itemsAria: "Produits de cette catégorie",
+    viewAll: "Voir la catégorie",
+    empty: "Rien ici pour le moment — de nouvelles pièces arrivent bientôt.",
+  },
+
+  price: {
+    currencySuffix: "CA",
+    from: "À partir de",
+  },
+
   product: {
     priceLabel: "Prix",
     sizesLabel: "Dimensions",
     materialLabel: "Matériau",
-    backLabel: "Retour aux réalisations",
     ctaLabel: "Se renseigner sur cette pièce",
   },
 
@@ -82,6 +93,12 @@ const fr: Dictionary = {
           body: "Un modèle ou une idée ? On imprime à partir de votre fichier ou on prépare la géométrie pour l’impression.",
         },
       ],
+    },
+    categories: {
+      heading: "Parcourir par catégorie",
+      prev: "Catégories précédentes",
+      next: "Catégories suivantes",
+      items: "pièces",
     },
     latest: {
       heading: "Réalisations récentes",
