@@ -48,6 +48,16 @@ export function localeHref(locale: Locale, route: (typeof routes)[number]): stri
   return route ? `/${locale}/${route}/` : `/${locale}/`;
 }
 
+/** `/en/category/toys/` */
+export function categoryHref(locale: Locale, id: string): string {
+  return `/${locale}/category/${id}/`;
+}
+
+/** `/en/product/some-slug/` */
+export function productHref(locale: Locale, slug: string): string {
+  return `/${locale}/product/${slug}/`;
+}
+
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
