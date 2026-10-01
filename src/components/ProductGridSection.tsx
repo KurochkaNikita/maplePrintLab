@@ -1,7 +1,7 @@
 import Link from "next/link";
-import ProductCard from "@/components/ProductCard";
+import ProductGrid from "@/components/ProductGrid";
 import type { Locale } from "@/lib/i18n";
-import type { ProductItem } from "@/data/products/types";
+import type { ProductItem } from "@/lib/products";
 
 type ProductGridSectionProps = {
   lang: Locale;
@@ -33,18 +33,12 @@ export default function ProductGridSection({
           </Link>
         )}
       </div>
-      <div className="mt-8 grid gap-6 sm:grid-cols-3">
-        {items.map((item) => (
-          <ProductCard
-            key={item.slug}
-            href={`/${lang}/product/${item.slug}/`}
-            title={item.title}
-            material={item.material}
-            note={item.note}
-            photoSoonLabel={photoSoonLabel}
-          />
-        ))}
-      </div>
+      <ProductGrid
+        lang={lang}
+        items={items}
+        photoSoonLabel={photoSoonLabel}
+        className="mt-8"
+      />
     </section>
   );
 }

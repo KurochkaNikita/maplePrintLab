@@ -1,7 +1,8 @@
-import ProductCard from "@/components/ProductCard";
-import type { Locale } from "@/lib/i18n";
+import Link from "next/link";
+import ProductGrid from "@/components/ProductGrid";
+import { categoryHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
-import type { ProductCatalog } from "@/data/products/types";
+import type { ProductCatalog } from "@/lib/products";
 
 type ProductScreenProps = {
   lang: Locale;
@@ -28,18 +29,18 @@ export default function ProductScreen({ lang, dict, catalog }: ProductScreenProp
             {cat.title}
           </h2>
           <p className="mt-1.5 text-sm text-ink/70">{cat.intro}</p>
-          <div className="mt-6 grid gap-6 sm:grid-cols-3">
-            {cat.items.map((item) => (
-              <ProductCard
-                key={item.slug}
-                href={`/${lang}/product/${item.slug}/`}
-                title={item.title}
-                material={item.material}
-                note={item.note}
-                photoSoonLabel={dict.productCard.photoSoon}
-              />
-            ))}
-          </div>
+          <ProductGrid
+            lang={lang}
+            items={cat.items}
+            photoSoonLabel={dict.productCard.photoSoon}
+            className="mt-6"
+          />
+          <Link
+            href={categoryHref(lang, cat.id)}
+            className="mt-5 inline-block font-mono text-xs uppercase tracking-wider text-amber hover:text-amber-deep"
+          >
+            {dict.category.viewAll} →
+          </Link>
         </section>
       ))}
     </div>
