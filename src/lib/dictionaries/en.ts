@@ -37,7 +37,6 @@ const en = {
   product: {
     priceLabel: "Price",
     sizesLabel: "Sizes",
-    materialLabel: "Material",
     ctaLabel: "Ask about this piece",
   },
 

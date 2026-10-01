@@ -39,7 +39,6 @@ const fr: Dictionary = {
   product: {
     priceLabel: "Prix",
     sizesLabel: "Dimensions",
-    materialLabel: "Matériau",
     ctaLabel: "Se renseigner sur cette pièce",
   },
 
