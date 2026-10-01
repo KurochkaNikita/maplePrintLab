@@ -16,7 +16,6 @@ import Link from "next/link";
 type ProductCardProps = {
   href: string;
   title: string;
-  material: string;
   note: string;
   photoSoonLabel: string;
 };
@@ -24,7 +23,6 @@ type ProductCardProps = {
 export default function ProductCard({
   href,
   title,
-  material,
   note,
   photoSoonLabel,
 }: ProductCardProps) {
@@ -43,14 +41,9 @@ export default function ProductCard({
       </div>
 
       <div className="p-4">
-        <div className="flex items-baseline justify-between gap-3">
-          <h3 className="font-display text-base font-medium text-charcoal group-hover:text-amber">
-            {title}
-          </h3>
-          <span className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-teal">
-            {material}
-          </span>
-        </div>
+        <h3 className="font-display text-base font-medium text-charcoal group-hover:text-amber">
+          {title}
+        </h3>
         <p className="mt-1.5 text-sm text-ink/80">{note}</p>
       </div>
     </Link>
