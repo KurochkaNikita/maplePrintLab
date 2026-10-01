@@ -7,7 +7,9 @@ export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const slugs = allProductSlugs(await getProducts(locales[0]));
+  const catalog = await getProducts(locales[0]);
+  const slugs = allProductSlugs(catalog);
+  const categoryIds = catalog.map((c) => c.id);
 
   const pages = locales.flatMap((lang) =>
     routes.map((route) => ({
@@ -43,5 +45,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  return [...pages, ...products];
+  const categories = locales.flatMap((lang) =>
+    categoryIds.map((id) => ({
+      url: new URL(`/${lang}/category/${id}/`, siteConfig.url).toString(),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [
+            localeTag[l],
+            new URL(`/${l}/category/${id}/`, siteConfig.url).toString(),
+          ]),
+        ),
+      },
+    })),
+  );
+
+  return [...pages, ...categories, ...products];
 }

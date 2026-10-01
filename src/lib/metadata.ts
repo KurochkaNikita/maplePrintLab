@@ -36,11 +36,13 @@ export function pageMetadata({
   path,
   title,
   description,
+  keywords,
 }: {
   lang: Locale;
   path: string;
   title?: Metadata["title"];
   description?: Metadata["description"];
+  keywords?: string[];
 }): Metadata {
   const ogTitle = typeof title === "string" ? title : undefined;
   const ogDescription = typeof description === "string" ? description : undefined;
@@ -51,6 +53,7 @@ export function pageMetadata({
     // title template inherited from the layout instead of falling back to it.
     ...(title !== undefined && { title }),
     ...(description !== undefined && { description }),
+    ...(keywords !== undefined && { keywords }),
     alternates: localizedAlternates(lang, path),
     ...(ogTitle !== undefined &&
       ogDescription !== undefined && {
