@@ -23,8 +23,9 @@ export async function generateMetadata({
   return pageMetadata({
     lang,
     path: `product/${slug}`,
-    title: found.item.title,
-    description: found.item.description,
+    title: found.item.seo.title,
+    description: found.item.seo.description,
+    keywords: found.item.seo.keywords,
   });
 }
 
