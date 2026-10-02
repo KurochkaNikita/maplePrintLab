@@ -6,7 +6,7 @@ const fr: Dictionary = {
 
   nav: {
     home: "Accueil",
-    products: "Réalisations",
+    products: "Produits",
     contact: "Contact",
     primaryAria: "Navigation principale",
     footerAria: "Navigation du pied de page",
@@ -39,8 +39,14 @@ const fr: Dictionary = {
 
   product: {
     priceLabel: "Prix",
-    sizesLabel: "Dimensions",
+    sizeLabel: "Dimensions",
+    materialLabel: "Matériau",
     ctaLabel: "Se renseigner sur cette pièce",
+  },
+
+  units: {
+    cm: "cm",
+    in: "po",
   },
 
   meta: {
@@ -57,7 +63,7 @@ const fr: Dictionary = {
       "Maple Print Lab",
     ],
     products: {
-      title: "Réalisations",
+      title: "Produits",
       description:
         "Exemples d’impression 3D de Maple Print Lab : jouets et objets de collection, déco et commandes sur mesure dans le Grand Vancouver.",
     },
@@ -112,7 +118,7 @@ const fr: Dictionary = {
   },
 
   products: {
-    title: "Nos réalisations",
+    title: "Nos produits",
     intro:
       "Voici des exemples de ce que nous imprimons. Les photos de commandes réelles apparaîtront ici au fur et à mesure ; pour l’instant, les catégories et les matériaux.",
   },

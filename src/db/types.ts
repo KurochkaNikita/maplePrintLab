@@ -31,6 +31,20 @@ export type CategoryRecord = {
   }>;
 };
 
+/** A product photo in `public/product/<slug>/<file>`; the first one is the main image. */
+export type ProductImage = {
+  file: string;
+  width: number;
+  height: number;
+  alt: Translations<string>;
+};
+
+/** Width × height × depth, written out in both units so the copy can show round numbers (25 cm = 10 in). */
+export type Dimensions = {
+  cm: [width: number, height: number, depth: number];
+  in: [width: number, height: number, depth: number];
+};
+
 export type ProductRecord = {
   /** URL slug: /<lang>/product/<slug>/ */
   slug: string;
@@ -39,12 +53,15 @@ export type ProductRecord = {
   /** Shown in the homepage "latest work" section, in file order. */
   featured?: boolean;
   price: { amount: number; currency: "CAD"; from?: boolean };
-  imageCount: number;
+  /** Every product states its size. */
+  dimensions: Dimensions;
+  images: ProductImage[];
   translations: Translations<{
     title: string;
     note: string;
     description: string;
-    sizes: string[];
+    /** Every product states its material, e.g. "PLA". */
+    material: string;
     seo: Seo;
   }>;
 };

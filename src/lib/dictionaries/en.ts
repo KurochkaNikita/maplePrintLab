@@ -4,7 +4,7 @@ const en = {
 
   nav: {
     home: "Home",
-    products: "Work",
+    products: "Products",
     contact: "Contact",
     primaryAria: "Main navigation",
     footerAria: "Footer navigation",
@@ -37,8 +37,14 @@ const en = {
 
   product: {
     priceLabel: "Price",
-    sizesLabel: "Sizes",
+    sizeLabel: "Size",
+    materialLabel: "Material",
     ctaLabel: "Ask about this piece",
+  },
+
+  units: {
+    cm: "cm",
+    in: "in",
   },
 
   meta: {
@@ -54,7 +60,7 @@ const en = {
       "Maple Print Lab",
     ],
     products: {
-      title: "Work",
+      title: "Products",
       description:
         "Examples of Maple Print Lab 3D printing: toys and collectibles, home décor and custom orders in Metro Vancouver.",
     },
@@ -109,7 +115,7 @@ const en = {
   },
 
   products: {
-    title: "Our work",
+    title: "Our products",
     intro:
       "Below are examples of what we print. Photos of real orders will appear here as we shoot them; for now, categories and materials.",
   },

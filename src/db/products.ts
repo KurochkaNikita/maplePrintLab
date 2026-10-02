@@ -7,65 +7,63 @@ import type { ProductRecord } from "./types";
  */
 export const products: ProductRecord[] = [
   {
-    slug: "layered-mountains",
+    slug: "wide-eyed-cat",
     categoryId: "layered-art",
-    price: { amount: 85, currency: "CAD" },
-    imageCount: 3,
+    featured: true,
+    price: { amount: 20, currency: "CAD" },
+    dimensions: { cm: [25, 25, 1.5], in: [10, 10, 0.6] },
+    images: [
+      {
+        file: "wide-eyed-cat-front.webp",
+        width: 1920,
+        height: 1440,
+        alt: {
+          en: "Wide-Eyed Cat layered art: colourful cats in a round window inside a black frame, standing on a small stand",
+          fr: "Chat aux grands yeux, tableau en couches : chats colorés dans une fenêtre ronde, cadre noir, sur un petit support",
+        },
+      },
+      {
+        file: "wide-eyed-cat-layers.webp",
+        width: 1918,
+        height: 1684,
+        alt: {
+          en: "Exploded view of the Wide-Eyed Cat showing its stacked coloured layers",
+          fr: "Vue éclatée du Chat aux grands yeux montrant ses couches colorées superposées",
+        },
+      },
+      {
+        file: "wide-eyed-cat-studio.webp",
+        width: 2000,
+        height: 1500,
+        alt: {
+          en: "Wide-Eyed Cat on its stand on a workshop desk, with figures on the shelves behind",
+          fr: "Chat aux grands yeux sur son support, posé sur un bureau d’atelier avec des figurines en arrière-plan",
+        },
+      },
+    ],
     translations: {
       en: {
-        title: "Layered mountains",
-        note: "Five stacked layers, wall mount included.",
+        title: "Wide-Eyed Cat",
+        note: "Layered cats in a black frame, with a stand.",
         description:
-          "A mountain range built from five stacked layers. Each layer casts a soft shadow on the next, so the piece changes with the light.",
-        sizes: ["30 × 40 cm", "5 layers, 3 cm deep"],
+          "A crowd of colourful cats in a round window, each one on its own layer. Look closely: the eyes are set back, so they seem to follow you as you move left, right, up or down. The piece is 25 × 25 × 1.5 cm in a black frame, printed in PLA, and comes with a small stand for a desk or shelf. It also looks good in a children’s room or beside a figure collection, and makes a cheerful gift for cat lovers.",
+        material: "PLA",
         seo: {
-          title: "Layered mountains",
-          description: "A mountain range built from five stacked layers. Each layer casts a soft shadow on the next, so the piece changes with the light.",
-          keywords: ["layered mountains", "3D printing Vancouver", "custom 3D prints Canada"],
+          title: "Wide-Eyed Cat – Mini Layered Art 25×25 cm",
+          description: "Colourful layered cat art, 25×25×1.5 cm, in a black frame with a stand. The wide eyes seem to follow you. Printed in PLA.",
+          keywords: ["wide-eyed cat", "layered cat art", "cat wall art Canada", "mini layered art"],
         },
       },
       fr: {
-        title: "Montagnes en couches",
-        note: "Cinq couches superposées, fixation incluse.",
+        title: "Chat aux grands yeux",
+        note: "Chats en couches dans un cadre noir, avec support.",
         description:
-          "Une chaîne de montagnes composée de cinq couches superposées. Chaque couche projette une ombre douce sur la suivante : la pièce change avec la lumière.",
-        sizes: ["30 × 40 cm", "5 couches, 3 cm de profondeur"],
+          "Une joyeuse bande de chats colorés dans une fenêtre ronde, chacun sur sa propre couche. Regardez bien : les yeux sont en retrait, si bien qu’ils semblent vous suivre quand vous vous déplacez à gauche, à droite, en haut ou en bas. La pièce mesure 25 × 25 × 1,5 cm, dans un cadre noir, est imprimée en PLA et vient avec un petit support pour un bureau ou une étagère. Elle trouve aussi sa place dans une chambre d’enfant ou près d’une collection de figurines, et fait un cadeau plein de bonne humeur pour les amoureux des chats.",
+        material: "PLA",
         seo: {
-          title: "Montagnes en couches",
-          description: "Une chaîne de montagnes composée de cinq couches superposées. Chaque couche projette une ombre douce sur la suivante : la pièce change avec la lumière.",
-          keywords: ["montagnes en couches", "impression 3D Vancouver", "impression 3D sur mesure Canada"],
-        },
-      },
-    },
-  },
-  {
-    slug: "layered-maple-leaf",
-    categoryId: "layered-art",
-    price: { amount: 95, currency: "CAD" },
-    imageCount: 3,
-    translations: {
-      en: {
-        title: "Layered maple leaf",
-        note: "Seven layers in autumn colours.",
-        description:
-          "A maple leaf in seven graduated autumn tones, ready to hang with a keyhole mount on the back.",
-        sizes: ["35 × 35 cm", "7 layers, 3.5 cm deep"],
-        seo: {
-          title: "Layered maple leaf",
-          description: "A maple leaf in seven graduated autumn tones, ready to hang with a keyhole mount on the back.",
-          keywords: ["layered maple leaf", "3D printing Vancouver", "custom 3D prints Canada"],
-        },
-      },
-      fr: {
-        title: "Feuille d’érable en couches",
-        note: "Sept couches aux couleurs d’automne.",
-        description:
-          "Une feuille d’érable en sept teintes d’automne dégradées, prête à accrocher grâce à la fixation au dos.",
-        sizes: ["35 × 35 cm", "7 couches, 3,5 cm de profondeur"],
-        seo: {
-          title: "Feuille d’érable en couches",
-          description: "Une feuille d’érable en sept teintes d’automne dégradées, prête à accrocher grâce à la fixation au dos.",
-          keywords: ["feuille d’érable en couches", "impression 3D Vancouver", "impression 3D sur mesure Canada"],
+          title: "Chat aux grands yeux – Mini tableau 25×25",
+          description: "Tableau en couches de chats colorés, 25×25×1,5 cm, cadre noir et support. Les grands yeux semblent vous suivre. Imprimé en PLA.",
+          keywords: ["chat aux grands yeux", "tableau chat en couches", "décoration murale chat Canada", "mini tableau en couches"],
         },
       },
     },

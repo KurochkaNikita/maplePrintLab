@@ -1,5 +1,7 @@
 import { locales, type Locale } from "@/lib/i18n";
-import { categories, products, type Seo, type SeoBlock } from "@/db";
+import { categories, products, type Dimensions, type Seo, type SeoBlock } from "@/db";
+
+export type ResolvedImage = { src: string; width: number; height: number; alt: string };
 
 /** Resolved, single-language shapes the pages render (joined from `@/db`). */
 export type ProductItem = {
@@ -8,9 +10,10 @@ export type ProductItem = {
   title: string;
   note: string;
   price: { amount: number; currency: "CAD"; from?: boolean };
-  sizes: string[];
+  dimensions: Dimensions;
+  material: string;
   description: string;
-  imageCount: number;
+  images: ResolvedImage[];
   seo: Seo;
 };
 
@@ -39,9 +42,15 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             title: t.title,
             note: t.note,
             price: p.price,
-            sizes: t.sizes,
+            dimensions: p.dimensions,
+            material: t.material,
             description: t.description,
-            imageCount: p.imageCount,
+            images: p.images.map((img) => ({
+              src: `/product/${p.slug}/${img.file}`,
+              width: img.width,
+              height: img.height,
+              alt: img.alt[locale],
+            })),
             seo: t.seo,
           };
         });

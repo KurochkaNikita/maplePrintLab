@@ -57,6 +57,10 @@ export const categories: CategoryRecord[] = [
               q: "Where does the 3D effect show best?",
               a: "In a place with soft light from the side. The layers cast subtle shading on each other, and the look changes a little as you move around the piece.",
             },
+            {
+              q: "What is PLA, and what does it mean for me?",
+              a: "PLA (polylactic acid) is a plastic made from plant-based sources such as corn starch or sugar cane, not from petroleum. It is lightweight, holds bright colours well and has a smooth, matte look. One thing to know: it softens in high heat, so keep it away from radiators and out of a hot car.",
+            },
           ],
         },
       },
@@ -108,6 +112,10 @@ export const categories: CategoryRecord[] = [
             {
               q: "Où l’effet 3D ressort-il le mieux ?",
               a: "Dans un endroit avec une lumière douce venant du côté. Les couches projettent de subtiles ombres les unes sur les autres, et le rendu change un peu quand on se déplace autour de la pièce.",
+            },
+            {
+              q: "Qu’est-ce que le PLA, et qu’est-ce que cela change pour moi ?",
+              a: "Le PLA (acide polylactique) est un plastique fabriqué à partir de sources végétales comme l’amidon de maïs ou la canne à sucre, et non à partir de pétrole. Il est léger, garde bien les couleurs vives et offre un fini lisse et mat. Une précaution : il ramollit à la chaleur, alors gardez-le loin des radiateurs et ne le laissez pas dans une voiture chaude.",
             },
           ],
         },

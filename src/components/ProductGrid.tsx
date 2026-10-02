@@ -24,6 +24,7 @@ export default function ProductGrid({
           href={productHref(lang, item.slug)}
           title={item.title}
           note={item.note}
+          image={item.images[0]}
           photoSoonLabel={photoSoonLabel}
         />
       ))}

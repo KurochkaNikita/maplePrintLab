@@ -37,12 +37,15 @@ export function pageMetadata({
   title,
   description,
   keywords,
+  image,
 }: {
   lang: Locale;
   path: string;
   title?: Metadata["title"];
   description?: Metadata["description"];
   keywords?: string[];
+  /** Site-relative path, e.g. "/product/x/x-front.webp" — used for og:image. */
+  image?: string;
 }): Metadata {
   const ogTitle = typeof title === "string" ? title : undefined;
   const ogDescription = typeof description === "string" ? description : undefined;
@@ -64,11 +67,13 @@ export function pageMetadata({
           description: ogDescription,
           url: `${siteConfig.url}${localizedPath(lang, path)}`,
           locale: localeTag[lang].replace("-", "_"),
+          ...(image && { images: [image] }),
         },
         twitter: {
           card: "summary_large_image",
           title: ogTitle,
           description: ogDescription,
+          ...(image && { images: [image] }),
         },
       }),
   };
