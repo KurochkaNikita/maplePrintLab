@@ -43,13 +43,13 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             note: t.note,
             price: p.price,
             dimensions: p.dimensions,
-            material: t.material,
+            material: p.material[locale],
             description: t.description,
-            images: p.images.map((img) => ({
+            images: p.images.map((img, i) => ({
               src: `/product/${p.slug}/${img.file}`,
               width: img.width,
               height: img.height,
-              alt: img.alt[locale],
+              alt: t.imageAlts[i] ?? "",
             })),
             seo: t.seo,
           };

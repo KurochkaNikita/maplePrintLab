@@ -36,13 +36,22 @@ export type ProductImage = {
   file: string;
   width: number;
   height: number;
-  alt: Translations<string>;
 };
 
 /** Width × height × depth, written out in both units so the copy can show round numbers (25 cm = 10 in). */
 export type Dimensions = {
   cm: [width: number, height: number, depth: number];
   in: [width: number, height: number, depth: number];
+};
+
+/** One language's text for a product — lives in `products/<slug>/<lang>.ts`. */
+export type ProductTranslation = {
+  title: string;
+  note: string;
+  description: string;
+  /** Alt text per photo, in the same order as `ProductRecord.images`. */
+  imageAlts: string[];
+  seo: Seo;
 };
 
 export type ProductRecord = {
@@ -56,12 +65,7 @@ export type ProductRecord = {
   /** Every product states its size. */
   dimensions: Dimensions;
   images: ProductImage[];
-  translations: Translations<{
-    title: string;
-    note: string;
-    description: string;
-    /** Every product states its material, e.g. "PLA". */
-    material: string;
-    seo: Seo;
-  }>;
+  /** Every product states its material; reuse the constants in products/materials.ts. */
+  material: Translations<string>;
+  translations: Translations<ProductTranslation>;
 };

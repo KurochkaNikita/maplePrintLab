@@ -1,4 +1,4 @@
-import type { CategoryRecord } from "./types";
+import type { CategoryRecord } from "@/db/types";
 
 /**
  * Categories. Products point here via `categoryId`; a category's product list
