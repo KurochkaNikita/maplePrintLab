@@ -12,6 +12,14 @@ export type Seo = {
   keywords: string[];
 };
 
+/** Long-form copy under a category's product grid, plus its FAQ (also emitted as FAQPage JSON-LD). */
+export type SeoBlock = {
+  /** 2–3 sections, ~250–400 words in total; each heading renders as an <h2>. */
+  sections: { heading: string; paragraphs: string[] }[];
+  /** 4–5 questions; answers must be plain text (they go into JSON-LD verbatim). */
+  faq: { q: string; a: string }[];
+};
+
 export type CategoryRecord = {
   /** URL slug: /<lang>/category/<id>/ */
   id: string;
@@ -19,6 +27,7 @@ export type CategoryRecord = {
     title: string;
     intro: string;
     seo: Seo;
+    seoBlock?: SeoBlock;
   }>;
 };
 

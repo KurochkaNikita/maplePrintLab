@@ -27,6 +27,7 @@ const en = {
     itemsAria: "Products in this category",
     viewAll: "View category",
     empty: "Nothing here yet — new pieces are coming soon.",
+    faqHeading: "Frequently asked questions",
   },
 
   price: {

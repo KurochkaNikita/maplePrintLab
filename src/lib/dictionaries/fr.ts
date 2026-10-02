@@ -29,6 +29,7 @@ const fr: Dictionary = {
     itemsAria: "Produits de cette catégorie",
     viewAll: "Voir la catégorie",
     empty: "Rien ici pour le moment — de nouvelles pièces arrivent bientôt.",
+    faqHeading: "Questions fréquentes",
   },
 
   price: {

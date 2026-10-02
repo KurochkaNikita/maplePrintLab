@@ -16,6 +16,49 @@ export const categories: CategoryRecord[] = [
           description: "Small layered wall art, 25×25×5 cm (10×10×2 in). Stacked layers create real depth and a 3D effect. Discover the collection.",
           keywords: ["mini layered paintings", "layered wall art", "3D layered art Canada"],
         },
+        seoBlock: {
+          sections: [
+            {
+              heading: "What is a mini layered painting?",
+              paragraphs: [
+                "A layered painting is built from several layers stacked one in front of the other, instead of being painted on a single flat surface. Because every layer sits a little closer to you than the one behind it, the picture has real depth. Your eye reads it as three-dimensional, and it looks slightly different as you walk past it or as the light in the room changes.",
+                "Our mini pieces are 25 × 25 × 5 cm (10 × 10 × 2 in). That is small enough for a shelf, a desk or a narrow stretch of wall, and the 5 cm of depth is where the 3D effect comes from.",
+              ],
+            },
+            {
+              heading: "Where to put it",
+              paragraphs: [
+                "Each piece comes with a stand, so you can set it on a shelf, a desk or a windowsill without drilling anything. If you would rather see it on the wall, it can be hung there too.",
+                "Since the effect depends on depth, a spot with soft light from the side usually shows it best. Because all the minis share the same square size, two or three of them also line up neatly side by side.",
+              ],
+            },
+            {
+              heading: "Choosing your piece",
+              paragraphs: [
+                "Start with the scene you would enjoy seeing every day, then think about the room it will live in. A calm landscape suits a bedroom or a reading corner; something bolder can wake up a plain hallway wall.",
+                "Take a look at the photos of each piece, including the close-ups of the layers and the shots with a hand for scale, to get a feel for how big it really is. If you have a question about a particular piece, just write to us.",
+              ],
+            },
+          ],
+          faq: [
+            {
+              q: "What size are the mini layered paintings?",
+              a: "Each piece is square: 25 × 25 cm (10 × 10 in) and 5 cm (2 in) deep.",
+            },
+            {
+              q: "What is a layered painting?",
+              a: "It is a picture made of several layers stacked in front of one another. The layers give it real depth, so it looks three-dimensional instead of flat.",
+            },
+            {
+              q: "Can I stand it on a shelf or hang it on the wall?",
+              a: "Both. Each piece has a stand so it can sit on a shelf or desk, and it can also be hung on a wall.",
+            },
+            {
+              q: "Where does the 3D effect show best?",
+              a: "In a place with soft light from the side. The layers cast subtle shading on each other, and the look changes a little as you move around the piece.",
+            },
+          ],
+        },
       },
       fr: {
         title: "Tableaux multicouches",
@@ -24,6 +67,49 @@ export const categories: CategoryRecord[] = [
           title: "Mini tableaux en couches, 25×25 cm",
           description: "Petits tableaux en couches superposées, 25×25×5 cm (10×10×2 po). Une vraie profondeur et un effet 3D. Découvrez la collection.",
           keywords: ["mini tableaux en couches", "tableau multicouche", "décoration murale 3D Canada"],
+        },
+        seoBlock: {
+          sections: [
+            {
+              heading: "Qu’est-ce qu’un mini tableau en couches ?",
+              paragraphs: [
+                "Un tableau multicouche est construit à partir de plusieurs couches placées les unes devant les autres, plutôt que peint sur une seule surface plane. Comme chaque couche est un peu plus proche de vous que celle qui se trouve derrière, l’image a une vraie profondeur. L’œil la perçoit en trois dimensions, et elle change légèrement quand vous passez devant ou quand la lumière de la pièce varie.",
+                "Nos mini tableaux mesurent 25 × 25 × 5 cm (10 × 10 × 2 po). C’est assez petit pour une étagère, un bureau ou un petit pan de mur, et c’est ces 5 cm de profondeur qui créent l’effet 3D.",
+              ],
+            },
+            {
+              heading: "Où l’installer",
+              paragraphs: [
+                "Chaque pièce est livrée avec un support : vous pouvez la poser sur une étagère, un bureau ou le rebord d’une fenêtre sans rien percer. Si vous préférez la voir au mur, elle peut aussi être accrochée.",
+                "Comme l’effet repose sur la profondeur, un endroit éclairé par une lumière douce venant du côté la met généralement le mieux en valeur. Tous les minis ayant le même format carré, il est aussi facile d’en aligner deux ou trois côte à côte.",
+              ],
+            },
+            {
+              heading: "Choisir votre pièce",
+              paragraphs: [
+                "Commencez par la scène que vous aimeriez voir chaque jour, puis pensez à la pièce où elle ira. Un paysage paisible convient bien à une chambre ou à un coin lecture ; un motif plus audacieux peut animer un mur d’entrée un peu nu.",
+                "Regardez les photos de chaque pièce, y compris les gros plans sur les couches et les images avec une main pour l’échelle, afin de bien saisir sa taille réelle. Pour toute question sur une pièce en particulier, écrivez-nous.",
+              ],
+            },
+          ],
+          faq: [
+            {
+              q: "Quelle est la taille des mini tableaux en couches ?",
+              a: "Chaque pièce est carrée : 25 × 25 cm (10 × 10 po) et 5 cm (2 po) de profondeur.",
+            },
+            {
+              q: "Qu’est-ce qu’un tableau en couches ?",
+              a: "C’est une image composée de plusieurs couches placées les unes devant les autres. Elles lui donnent une vraie profondeur : elle paraît en trois dimensions plutôt que plate.",
+            },
+            {
+              q: "Puis-je la poser sur une étagère ou l’accrocher au mur ?",
+              a: "Les deux. Chaque pièce a un support pour se poser sur une étagère ou un bureau, et elle peut aussi être accrochée au mur.",
+            },
+            {
+              q: "Où l’effet 3D ressort-il le mieux ?",
+              a: "Dans un endroit avec une lumière douce venant du côté. Les couches projettent de subtiles ombres les unes sur les autres, et le rendu change un peu quand on se déplace autour de la pièce.",
+            },
+          ],
         },
       },
     },

@@ -1,5 +1,5 @@
 import { locales, type Locale } from "@/lib/i18n";
-import { categories, products, type Seo } from "@/db";
+import { categories, products, type Seo, type SeoBlock } from "@/db";
 
 /** Resolved, single-language shapes the pages render (joined from `@/db`). */
 export type ProductItem = {
@@ -20,6 +20,7 @@ export type ProductCategory = {
   intro: string;
   items: ProductItem[];
   seo: Seo;
+  seoBlock?: SeoBlock;
 };
 
 export type ProductCatalog = ProductCategory[];
@@ -27,7 +28,7 @@ export type ProductCatalog = ProductCategory[];
 export function getProducts(locale: Locale): Promise<ProductCatalog> {
   return Promise.resolve(
     categories.map((category) => {
-      const { title, intro, seo } = category.translations[locale];
+      const { title, intro, seo, seoBlock } = category.translations[locale];
       const items = products
         .filter((p) => p.categoryId === category.id)
         .map((p): ProductItem => {
@@ -44,7 +45,7 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             seo: t.seo,
           };
         });
-      return { id: category.id, title, intro, seo, items };
+      return { id: category.id, title, intro, seo, seoBlock, items };
     }),
   );
 }
