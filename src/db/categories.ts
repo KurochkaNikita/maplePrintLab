@@ -10,10 +10,10 @@ export const categories: CategoryRecord[] = [
     translations: {
       en: {
         title: "Layered paintings",
-        intro: "Mini wall art made of stacked layers, 25 × 25 × 5 cm (10 × 10 × 2 in). The layers add real depth and a 3D effect.",
+        intro: "Mini wall art made of stacked layers, 25 × 25 × 1.5 cm (10 × 10 × 0.6 in). The layers add real depth and a 3D effect.",
         seo: {
           title: "Mini layered paintings, 25×25 cm",
-          description: "Small layered wall art, 25×25×5 cm (10×10×2 in). Stacked layers create real depth and a 3D effect. Discover the collection.",
+          description: "Small layered wall art, 25×25×1.5 cm (10×10×0.6 in). Stacked layers create real depth and a 3D effect. Discover the collection.",
           keywords: ["mini layered paintings", "layered wall art", "3D layered art Canada"],
         },
         seoBlock: {
@@ -22,7 +22,7 @@ export const categories: CategoryRecord[] = [
               heading: "What is a mini layered painting?",
               paragraphs: [
                 "A layered painting is built from several layers stacked one in front of the other, instead of being painted on a single flat surface. Because every layer sits a little closer to you than the one behind it, the picture has real depth. Your eye reads it as three-dimensional, and it looks slightly different as you walk past it or as the light in the room changes.",
-                "Our mini pieces are 25 × 25 × 5 cm (10 × 10 × 2 in). That is small enough for a shelf, a desk or a narrow stretch of wall, and the 5 cm of depth is where the 3D effect comes from.",
+                "Our mini pieces are 25 × 25 × 1.5 cm (10 × 10 × 0.6 in). That is small enough for a shelf, a desk or a narrow stretch of wall, and the stacked layers are where the 3D effect comes from.",
               ],
             },
             {
@@ -43,7 +43,7 @@ export const categories: CategoryRecord[] = [
           faq: [
             {
               q: "What size are the mini layered paintings?",
-              a: "Each piece is square: 25 × 25 cm (10 × 10 in) and 5 cm (2 in) deep.",
+              a: "Each piece is square: 25 × 25 cm (10 × 10 in) and 1.5 cm (0.6 in) deep.",
             },
             {
               q: "What is a layered painting?",
@@ -62,10 +62,10 @@ export const categories: CategoryRecord[] = [
       },
       fr: {
         title: "Tableaux multicouches",
-        intro: "Mini décor mural en couches superposées, 25 × 25 × 5 cm (10 × 10 × 2 po). Les couches créent une vraie profondeur et un effet 3D.",
+        intro: "Mini décor mural en couches superposées, 25 × 25 × 1,5 cm (10 × 10 × 0,6 po). Les couches créent une vraie profondeur et un effet 3D.",
         seo: {
           title: "Mini tableaux en couches, 25×25 cm",
-          description: "Petits tableaux en couches superposées, 25×25×5 cm (10×10×2 po). Une vraie profondeur et un effet 3D. Découvrez la collection.",
+          description: "Petits tableaux en couches superposées, 25×25×1,5 cm (10×10×0,6 po). Une vraie profondeur et un effet 3D. Découvrez la collection.",
           keywords: ["mini tableaux en couches", "tableau multicouche", "décoration murale 3D Canada"],
         },
         seoBlock: {
@@ -74,7 +74,7 @@ export const categories: CategoryRecord[] = [
               heading: "Qu’est-ce qu’un mini tableau en couches ?",
               paragraphs: [
                 "Un tableau multicouche est construit à partir de plusieurs couches placées les unes devant les autres, plutôt que peint sur une seule surface plane. Comme chaque couche est un peu plus proche de vous que celle qui se trouve derrière, l’image a une vraie profondeur. L’œil la perçoit en trois dimensions, et elle change légèrement quand vous passez devant ou quand la lumière de la pièce varie.",
-                "Nos mini tableaux mesurent 25 × 25 × 5 cm (10 × 10 × 2 po). C’est assez petit pour une étagère, un bureau ou un petit pan de mur, et c’est ces 5 cm de profondeur qui créent l’effet 3D.",
+                "Nos mini tableaux mesurent 25 × 25 × 1,5 cm (10 × 10 × 0,6 po). C’est assez petit pour une étagère, un bureau ou un petit pan de mur, et ce sont les couches superposées qui créent l’effet 3D.",
               ],
             },
             {
@@ -95,7 +95,7 @@ export const categories: CategoryRecord[] = [
           faq: [
             {
               q: "Quelle est la taille des mini tableaux en couches ?",
-              a: "Chaque pièce est carrée : 25 × 25 cm (10 × 10 po) et 5 cm (2 po) de profondeur.",
+              a: "Chaque pièce est carrée : 25 × 25 cm (10 × 10 po) et 1,5 cm (0,6 po) de profondeur.",
             },
             {
               q: "Qu’est-ce qu’un tableau en couches ?",
