@@ -23,6 +23,8 @@ export type SeoBlock = {
 export type CategoryRecord = {
   /** URL slug: /<lang>/category/<id>/ */
   id: string;
+  /** Every product in the category can be made in colours the customer picks; shown in each product's spec list. */
+  customColours?: boolean;
   translations: Translations<{
     title: string;
     intro: string;

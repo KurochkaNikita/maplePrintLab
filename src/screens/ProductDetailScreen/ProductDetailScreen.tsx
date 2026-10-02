@@ -95,6 +95,14 @@ export default function ProductDetailScreen({
               {t.materialLabel}
             </dt>
             <dd className="text-charcoal">{item.material}</dd>
+            {category.customColours && (
+              <>
+                <dt className="font-mono text-xs uppercase tracking-wider text-teal">
+                  {t.coloursLabel}
+                </dt>
+                <dd className="text-charcoal">{t.coloursValue}</dd>
+              </>
+            )}
           </dl>
 
           <p className="mt-6 max-w-md text-ink/80">{item.description}</p>

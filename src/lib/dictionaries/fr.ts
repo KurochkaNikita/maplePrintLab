@@ -40,6 +40,8 @@ const fr: Dictionary = {
   product: {
     priceLabel: "Prix",
     sizeLabel: "Dimensions",
+    coloursLabel: "Couleurs",
+    coloursValue: "Réalisable dans vos couleurs — demandez-nous",
     materialLabel: "Matériau",
     ctaLabel: "Se renseigner sur cette pièce",
   },

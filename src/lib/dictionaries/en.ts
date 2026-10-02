@@ -38,6 +38,8 @@ const en = {
   product: {
     priceLabel: "Price",
     sizeLabel: "Size",
+    coloursLabel: "Colours",
+    coloursValue: "Made to order in your colours — just ask",
     materialLabel: "Material",
     ctaLabel: "Ask about this piece",
   },

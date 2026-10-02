@@ -7,6 +7,7 @@ import type { CategoryRecord } from "@/db/types";
 export const categories: CategoryRecord[] = [
   {
     id: "layered-art",
+    customColours: true,
     translations: {
       en: {
         title: "Layered paintings",

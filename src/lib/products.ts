@@ -24,6 +24,7 @@ export type ProductCategory = {
   items: ProductItem[];
   seo: Seo;
   seoBlock?: SeoBlock;
+  customColours: boolean;
 };
 
 export type ProductCatalog = ProductCategory[];
@@ -54,7 +55,7 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             seo: t.seo,
           };
         });
-      return { id: category.id, title, intro, seo, seoBlock, items };
+      return { id: category.id, title, intro, seo, seoBlock, customColours: category.customColours ?? false, items };
     }),
   );
 }
