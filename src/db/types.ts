@@ -20,14 +20,21 @@ export type SeoBlock = {
   faq: { q: string; a: string }[];
 };
 
+/** Volume price: `amount` CAD per piece for orders of `from`..`to` pieces (no `to` = open-ended). */
+export type PriceTier = { from: number; to?: number; amount: number };
+
 export type CategoryRecord = {
   /** URL slug: /<lang>/category/<id>/ */
   id: string;
   /** Every product in the category can be made in colours the customer picks; shown in each product's spec list. */
   customColours?: boolean;
+  /** Volume pricing shared by every product in the category; shown as a table on the category and product pages. */
+  priceTiers?: PriceTier[];
   translations: Translations<{
     title: string;
     intro: string;
+    /** Short key condition (e.g. a minimum order), shown as a badge under the intro. */
+    highlight?: string;
     seo: Seo;
     seoBlock?: SeoBlock;
   }>;
@@ -63,7 +70,8 @@ export type ProductRecord = {
   categoryId: string;
   /** Shown in the homepage "latest work" section, in file order. */
   featured?: boolean;
-  price: { amount: number; currency: "CAD"; from?: boolean };
+  /** Omit when the category has `priceTiers` — the first tier is used. */
+  price?: { amount: number; currency: "CAD"; from?: boolean };
   /** Every product states its size. */
   dimensions: Dimensions;
   images: ProductImage[];

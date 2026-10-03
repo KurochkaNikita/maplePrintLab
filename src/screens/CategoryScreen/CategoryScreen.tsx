@@ -2,6 +2,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import CategoryHeader from "@/components/CategoryHeader";
 import ContentSections from "@/components/ContentSections";
 import FaqList from "@/components/FaqList";
+import PriceTiers from "@/components/PriceTiers";
 import ProductGrid from "@/components/ProductGrid";
 import { categoryHref, localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
@@ -32,8 +33,13 @@ export default function CategoryScreen({ lang, dict, category }: CategoryScreenP
       <CategoryHeader
         title={category.title}
         intro={category.intro}
+        highlight={category.highlight}
         coverLabel={dict.productCard.photoSoon}
       />
+
+      {category.priceTiers && (
+        <PriceTiers lang={lang} dict={dict} tiers={category.priceTiers} className="mt-10" />
+      )}
 
       <section className="mt-14" aria-label={t.itemsAria}>
         {category.items.length > 0 ? (

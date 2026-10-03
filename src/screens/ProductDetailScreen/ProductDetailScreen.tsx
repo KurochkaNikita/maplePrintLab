@@ -2,6 +2,7 @@ import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { formatDimensions } from "@/lib/dimensions";
 import { formatPrice } from "@/lib/price";
+import PriceTiers from "@/components/PriceTiers";
 import CtaLink from "@/components/CtaLink";
 import { categoryHref, localeHref, productHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
@@ -82,9 +83,13 @@ export default function ProductDetailScreen({
             {item.title}
           </h1>
 
-          <p className="mt-4 font-display text-2xl text-charcoal">
-            {formatPrice(item.price, lang, dict)}
-          </p>
+          {category.priceTiers ? (
+            <PriceTiers lang={lang} dict={dict} tiers={category.priceTiers} className="mt-5" />
+          ) : (
+            <p className="mt-4 font-display text-2xl text-charcoal">
+              {formatPrice(item.price, lang, dict)}
+            </p>
+          )}
 
           <dl className="mt-5 grid max-w-md grid-cols-[6rem_1fr] items-baseline gap-x-4 gap-y-3 border-y border-line py-4">
             <dt className="font-mono text-xs uppercase tracking-wider text-teal">
@@ -112,7 +117,7 @@ export default function ProductDetailScreen({
           </div>
         </div>
       </div>
-      <ProductJsonLd lang={lang} item={item} crumbs={crumbs} />
+      <ProductJsonLd lang={lang} item={item} priceTiers={category.priceTiers} crumbs={crumbs} />
     </div>
   );
 }

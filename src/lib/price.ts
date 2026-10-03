@@ -8,12 +8,18 @@ export function formatPrice(
   lang: Locale,
   dict: Dictionary,
 ): string {
-  const amount = new Intl.NumberFormat(localeTag[lang], {
-    style: "currency",
-    currency: price.currency,
-    currencyDisplay: "narrowSymbol",
-    maximumFractionDigits: 0,
-  }).format(price.amount);
-  const text = `${amount} ${dict.price.currencySuffix}`;
+  const text = `${formatAmount(price.amount, price.currency, lang)} ${dict.price.currencySuffix}`;
   return price.from ? `${dict.price.from} ${text}` : text;
+}
+
+/** Whole dollars stay "$65"; fractional prices keep cents ("$1.25"); `forceCents` keeps a column aligned ("$1.00"). */
+export function formatAmount(amount: number, currency: ProductItem["price"]["currency"], lang: Locale, forceCents = false): string {
+  const digits = forceCents || !Number.isInteger(amount) ? 2 : 0;
+  return new Intl.NumberFormat(localeTag[lang], {
+    style: "currency",
+    currency,
+    currencyDisplay: "narrowSymbol",
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  }).format(amount);
 }

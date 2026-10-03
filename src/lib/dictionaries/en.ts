@@ -35,6 +35,14 @@ const en = {
     from: "From",
   },
 
+  priceTiers: {
+    heading: "Price per piece",
+    quantityHeader: "Order size",
+    priceHeader: "Price per piece",
+    quantityUnit: "pcs",
+    moreNote: "Need more than {max} pieces? Get in touch for a quote.",
+  },
+
   product: {
     priceLabel: "Price",
     sizeLabel: "Size",

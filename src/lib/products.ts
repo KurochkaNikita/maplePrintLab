@@ -1,5 +1,5 @@
 import { locales, type Locale } from "@/lib/i18n";
-import { categories, products, type Dimensions, type Seo, type SeoBlock } from "@/db";
+import { categories, products, type Dimensions, type PriceTier, type Seo, type SeoBlock } from "@/db";
 
 export type ResolvedImage = { src: string; width: number; height: number; alt: string };
 
@@ -21,6 +21,8 @@ export type ProductCategory = {
   id: string;
   title: string;
   intro: string;
+  highlight?: string;
+  priceTiers?: PriceTier[];
   items: ProductItem[];
   seo: Seo;
   seoBlock?: SeoBlock;
@@ -29,10 +31,21 @@ export type ProductCategory = {
 
 export type ProductCatalog = ProductCategory[];
 
+function resolvePrice(
+  product: { slug: string; price?: ProductItem["price"] },
+  categoryId: string,
+  priceTiers?: PriceTier[],
+): ProductItem["price"] {
+  if (product.price) return product.price;
+  if (priceTiers?.length) return { amount: priceTiers[0].amount, currency: "CAD" };
+  throw new Error(`Product "${product.slug}" has no price and category "${categoryId}" has no priceTiers`);
+}
+
 export function getProducts(locale: Locale): Promise<ProductCatalog> {
   return Promise.resolve(
     categories.map((category) => {
-      const { title, intro, seo, seoBlock } = category.translations[locale];
+      const { title, intro, highlight, seo, seoBlock } = category.translations[locale];
+      const { priceTiers } = category;
       const items = products
         .filter((p) => p.categoryId === category.id)
         .map((p): ProductItem => {
@@ -42,7 +55,7 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             categoryId: p.categoryId,
             title: t.title,
             note: t.note,
-            price: p.price,
+            price: resolvePrice(p, category.id, priceTiers),
             dimensions: p.dimensions,
             material: p.material[locale],
             description: t.description,
@@ -55,7 +68,7 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             seo: t.seo,
           };
         });
-      return { id: category.id, title, intro, seo, seoBlock, customColours: category.customColours ?? false, items };
+      return { id: category.id, title, intro, highlight, seo, seoBlock, customColours: category.customColours ?? false, priceTiers, items };
     }),
   );
 }

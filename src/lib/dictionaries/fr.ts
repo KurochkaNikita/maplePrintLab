@@ -37,6 +37,14 @@ const fr: Dictionary = {
     from: "À partir de",
   },
 
+  priceTiers: {
+    heading: "Prix à la pièce",
+    quantityHeader: "Quantité commandée",
+    priceHeader: "Prix à la pièce",
+    quantityUnit: "pièces",
+    moreNote: "Plus de {max} pièces ? Contactez-nous pour une soumission.",
+  },
+
   product: {
     priceLabel: "Prix",
     sizeLabel: "Dimensions",

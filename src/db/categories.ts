@@ -123,4 +123,34 @@ export const categories: CategoryRecord[] = [
       },
     },
   },
+  {
+    id: "coffee-cup-toys",
+    priceTiers: [
+      { from: 50, to: 249, amount: 1.25 },
+      { from: 250, to: 499, amount: 1.1 },
+      { from: 500, to: 749, amount: 1.0 },
+    ],
+    translations: {
+      en: {
+        title: "Coffee cup toys",
+        intro: "Small themed 3D-printed toys that attach to coffee cups with a mini double-sided sticker. A fun giveaway for cafés, events and brands, or a little surprise with an order.",
+        highlight: "Minimum order: 50 pieces",
+        seo: {
+          title: "Coffee cup toys with sticker backing, 3D-printed",
+          description: "Small themed 3D-printed toys that attach to coffee cups with a mini double-sided sticker. Ideal as a giveaway or a marketing touch for cafés and events. Minimum order 50 pcs.",
+          keywords: ["coffee cup toys", "promotional giveaways", "cafe marketing gifts", "3D printed cup toys Canada"],
+        },
+      },
+      fr: {
+        title: "Jouets pour gobelets de café",
+        intro: "Petits jouets thématiques imprimés en 3D qui se fixent sur les gobelets de café avec un mini autocollant double face. Un cadeau amusant pour les cafés, les événements et les marques, ou une petite surprise avec une commande.",
+        highlight: "Commande minimum : 50 pièces",
+        seo: {
+          title: "Jouets pour gobelets de café avec autocollant, imprimés en 3D",
+          description: "Petits jouets thématiques imprimés en 3D à fixer sur les gobelets de café avec un mini autocollant double face. Idéals comme cadeau ou geste marketing pour cafés et événements. Minimum 50 pièces.",
+          keywords: ["jouets pour gobelet de café", "cadeaux promotionnels", "cadeaux marketing café", "jouets de gobelet imprimés en 3D Canada"],
+        },
+      },
+    },
+  },
 ];
