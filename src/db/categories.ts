@@ -11,7 +11,7 @@ export const categories: CategoryRecord[] = [
     translations: {
       en: {
         title: "Layered paintings",
-        intro: "Mini wall art made of stacked layers, 25 × 25 × 1.5 cm (10 × 10 × 0.6 in). The layers add real depth and a 3D effect.",
+        intro: "Mini wall art made of stacked layers, 25 × 25 × 1.5 cm (10 × 10 × 0.6 in). The layers add real depth and a 3D effect. Made to order in the colours of your choice.",
         seo: {
           title: "Mini layered paintings, 25×25 cm",
           description: "Small layered wall art, 25×25×1.5 cm (10×10×0.6 in). Stacked layers create real depth and a 3D effect. Discover the collection.",
@@ -67,7 +67,7 @@ export const categories: CategoryRecord[] = [
       },
       fr: {
         title: "Tableaux multicouches",
-        intro: "Mini décor mural en couches superposées, 25 × 25 × 1,5 cm (10 × 10 × 0,6 po). Les couches créent une vraie profondeur et un effet 3D.",
+        intro: "Mini décor mural en couches superposées, 25 × 25 × 1,5 cm (10 × 10 × 0,6 po). Les couches créent une vraie profondeur et un effet 3D. Réalisé sur commande dans les couleurs de votre choix.",
         seo: {
           title: "Mini tableaux en couches, 25×25 cm",
           description: "Petits tableaux en couches superposées, 25×25×1,5 cm (10×10×0,6 po). Une vraie profondeur et un effet 3D. Découvrez la collection.",
