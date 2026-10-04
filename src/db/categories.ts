@@ -126,9 +126,10 @@ export const categories: CategoryRecord[] = [
   {
     id: "coffee-cup-toys",
     priceTiers: [
-      { from: 50, to: 249, amount: 1.25 },
-      { from: 250, to: 499, amount: 1.1 },
-      { from: 500, to: 749, amount: 1.0 },
+      { from: 50, to: 149, amount: 1.2 },
+      { from: 150, to: 349, amount: 1.1 },
+      { from: 350, to: 499, amount: 1.0 },
+      { from: 500, amount: 0.9 },
     ],
     translations: {
       en: {
