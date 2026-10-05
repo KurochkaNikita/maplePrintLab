@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 import {Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono, Fraunces} from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
@@ -61,6 +62,7 @@ export default async function LangShell({
         <main className="flex-1">{children}</main>
         <Footer lang={lang} dict={dict} />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
