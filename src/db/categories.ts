@@ -10,11 +10,11 @@ export const categories: CategoryRecord[] = [
     customColours: true,
     translations: {
       en: {
-        title: "Layered paintings",
-        intro: "Mini wall art made of stacked layers, 25 × 25 × 1.5 cm (10 × 10 × 0.6 in). The layers add real depth and a 3D effect. Made to order in the colours of your choice.",
+        title: "Mini Layered Wall Art – 25×25 cm",
+        intro: "Mini wall art made of stacked layers, 25 × 25 × 1.5 cm (10 × 10 × 0.6 in). Each piece is 3D-printed to order in Canada, with real depth and the colours of your choice.",
         seo: {
-          title: "Mini layered paintings, 25×25 cm",
-          description: "Small layered wall art, 25×25×1.5 cm (10×10×0.6 in). Stacked layers create real depth and a 3D effect. Discover the collection.",
+          title: "Mini Layered Wall Art 25×25 cm, 3D-Printed",
+          description: "Mini layered wall art, 25×25×1.5 cm, 3D-printed to order in Canada. Real depth, colours of your choice. Great for shelves and gifts.",
           keywords: ["mini layered paintings", "layered wall art", "3D layered art Canada"],
         },
         seoBlock: {
@@ -66,11 +66,11 @@ export const categories: CategoryRecord[] = [
         },
       },
       fr: {
-        title: "Tableaux multicouches",
-        intro: "Mini décor mural en couches superposées, 25 × 25 × 1,5 cm (10 × 10 × 0,6 po). Les couches créent une vraie profondeur et un effet 3D. Réalisé sur commande dans les couleurs de votre choix.",
+        title: "Mini tableaux multicouches – 25×25 cm",
+        intro: "Mini décor mural en couches superposées, 25 × 25 × 1,5 cm (10 × 10 × 0,6 po). Les couches créent une vraie profondeur et un effet 3D. Chaque pièce est imprimée en 3D sur commande au Canada, dans les couleurs de votre choix.",
         seo: {
-          title: "Mini tableaux en couches, 25×25 cm",
-          description: "Petits tableaux en couches superposées, 25×25×1,5 cm (10×10×0,6 po). Une vraie profondeur et un effet 3D. Découvrez la collection.",
+          title: "Mini tableaux multicouches imprimés en 3D",
+          description: "Mini tableaux multicouches 25×25×1,5 cm, imprimés en 3D sur commande au Canada. Vrai relief, couleurs au choix. Idéal en cadeau.",
           keywords: ["mini tableaux en couches", "tableau multicouche", "décoration murale 3D Canada"],
         },
         seoBlock: {

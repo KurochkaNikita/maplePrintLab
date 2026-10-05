@@ -5,8 +5,10 @@
  */
 export const siteConfig = {
   name: "Maple Print Lab",
-  // TODO: register the domain and update (https, no trailing slash)
-  url: "https://mapleprintlab.ca",
+  // Single source of truth for the canonical origin (metadataBase, canonical,
+  // hreflang, og:url, sitemap, robots, JSON-LD). Set NEXT_PUBLIC_SITE_URL on
+  // the host; the fallback is the production domain. No trailing slash.
+  url: process.env.NEXT_PUBLIC_SITE_URL,
   // TODO: real inbox
   email: "hello@mapleprintlab.ca",
   // TODO: real account
