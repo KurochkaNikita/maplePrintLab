@@ -39,7 +39,7 @@ export default function PriceTiers({ lang, dict, tiers, className = "" }: PriceT
         </tbody>
       </table>
       {last.to && (
-        <p className="mt-2 max-w-md text-sm text-ink/70">
+        <p className="mt-2 max-w-md text-sm text-ink/80">
           {t.moreNote.replace("{max}", String(last.to))}
         </p>
       )}

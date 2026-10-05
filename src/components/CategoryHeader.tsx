@@ -25,7 +25,7 @@ export default function CategoryHeader({ title, intro, highlight, coverLabel }: 
         className="relative aspect-[16/9] w-full rounded-lg border border-line bg-white"
         aria-hidden="true"
       >
-        <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-ink/70">
+        <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-ink/80">
           {coverLabel}
         </span>
       </div>

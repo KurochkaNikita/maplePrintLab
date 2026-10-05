@@ -56,7 +56,7 @@ export default function ContactScreen({ dict }: ContactScreenProps) {
         </div>
       </dl>
 
-      <p className="mt-10 text-sm text-ink/60">{t.note}</p>
+      <p className="mt-10 text-sm text-ink/80">{t.note}</p>
     </div>
   );
 }

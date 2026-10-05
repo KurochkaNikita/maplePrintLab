@@ -50,7 +50,7 @@ export default function CategoryScreen({ lang, dict, category }: CategoryScreenP
             className="lg:grid-cols-4"
           />
         ) : (
-          <p className="text-ink/70">{t.empty}</p>
+          <p className="text-ink/80">{t.empty}</p>
         )}
       </section>
 

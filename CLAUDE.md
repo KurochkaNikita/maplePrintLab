@@ -17,7 +17,7 @@ Because it is a static export, `next.config` redirects and `middleware.ts` do NO
 
 ## Always follow: web accessibility (WCAG 2.2 AA)
 
-- **Contrast ≥ 4.5:1** for text (3:1 for large text and UI borders). Don't use `text-ink/50` or `text-amber` / light text on `bg-amber` for small text; use `ink/70`+, `amber-deep`, `charcoal`.
+- **Contrast ≥ 4.5:1** for text (3:1 for large text and UI borders). Never use `text-ink/70` or lower, or `text-amber` / light text on `bg-amber`, for small text (`ink/70` is only 4.1:1); use `ink/80`+, `amber-deep`, `charcoal`.
 - **Touch targets ≥ 24×24 px** (aim for 44 px) with spacing; give inline links vertical padding (`inline-block py-2`).
 - Meaningful `alt` on images (empty `alt=""` + `aria-hidden` for decoration); `<html lang>` matches the page language; `hrefLang` on language links.
 - Use semantic HTML and landmarks, logical heading order, visible focus states, keyboard-reachable controls, descriptive link text.

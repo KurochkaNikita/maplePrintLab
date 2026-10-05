@@ -38,7 +38,7 @@ export default function LocaleSwitcher({ current, label }: LocaleSwitcherProps) 
             <Link
               href={`/${locale}${suffix}`}
               hrefLang={localeTag[locale]}
-              className="inline-block px-1 py-2 text-ink/70 transition-colors hover:text-amber-deep"
+              className="inline-block px-1 py-2 text-ink/80 transition-colors hover:text-amber-deep"
             >
               {localeLabel[locale]}
             </Link>

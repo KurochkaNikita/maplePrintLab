@@ -28,7 +28,7 @@ export default function ProductScreen({ lang, dict, catalog }: ProductScreenProp
           >
             {cat.title}
           </h2>
-          <p className="mt-1.5 text-sm text-ink/70">{cat.intro}</p>
+          <p className="mt-1.5 text-sm text-ink/80">{cat.intro}</p>
           <ProductGrid
             lang={lang}
             items={cat.items}
