@@ -8,7 +8,7 @@ export const siteConfig = {
   // Single source of truth for the canonical origin (metadataBase, canonical,
   // hreflang, og:url, sitemap, robots, JSON-LD). Set NEXT_PUBLIC_SITE_URL on
   // the host; the fallback is the production domain. No trailing slash.
-  url: process.env.NEXT_PUBLIC_SITE_URL,
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://mapleprintlab.store").replace(/\/+$/, ""),
   // TODO: real inbox
   email: "hello@mapleprintlab.ca",
   // TODO: real account
