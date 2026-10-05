@@ -26,16 +26,16 @@ export default function Footer({ lang, dict }: FooterProps) {
 
         <div className="font-mono text-xs uppercase tracking-wider text-filament/70">
           <p className="mb-2 text-filament">{dict.footer.contactHeading}</p>
-          <ul className="space-y-1.5 normal-case tracking-normal">
+          <ul className="space-y-0 normal-case tracking-normal">
             <li>
-              <a href={`mailto:${siteConfig.email}`} className="hover:text-amber">
+              <a href={`mailto:${siteConfig.email}`} className="inline-block py-1.5 hover:text-amber">
                 {siteConfig.email}
               </a>
             </li>
             <li>
               <a
                 href={siteConfig.instagram}
-                className="hover:text-amber"
+                className="inline-block py-1.5 hover:text-amber"
                 rel="me noopener"
                 target="_blank"
               >
@@ -50,10 +50,10 @@ export default function Footer({ lang, dict }: FooterProps) {
           className="font-mono text-xs uppercase tracking-wider text-filament/70"
         >
           <p className="mb-2 text-filament">{dict.footer.sectionsHeading}</p>
-          <ul className="space-y-1.5">
+          <ul className="space-y-0">
             {nav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:text-amber">
+                <Link href={item.href} className="inline-block py-1.5 hover:text-amber">
                   {item.label}
                 </Link>
               </li>

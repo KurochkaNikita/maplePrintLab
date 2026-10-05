@@ -15,7 +15,7 @@ export default function CtaLink({
     "inline-flex items-center justify-center rounded-md px-5 py-2.5 font-mono text-xs uppercase tracking-wider transition-colors";
   const styles =
     variant === "solid"
-      ? "bg-amber text-filament hover:bg-amber-deep"
+      ? "bg-amber-deep text-filament hover:bg-charcoal"
       : "border border-charcoal text-charcoal hover:bg-charcoal hover:text-filament";
 
   return (

@@ -35,7 +35,7 @@ export default function ProductCard({
           className="relative aspect-[4/3] w-full border-b border-line bg-white"
           aria-hidden="true"
         >
-          <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-ink/50">
+          <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-ink/70">
             {photoSoonLabel}
           </span>
         </div>

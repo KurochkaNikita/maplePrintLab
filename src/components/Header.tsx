@@ -35,7 +35,7 @@ export default function Header({ lang, dict }: HeaderProps) {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-ink transition-colors hover:text-amber"
+                    className="inline-block py-2 text-ink transition-colors hover:text-amber-deep"
                   >
                     {item.label}
                   </Link>

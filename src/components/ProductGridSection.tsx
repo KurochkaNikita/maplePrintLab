@@ -27,7 +27,7 @@ export default function ProductGridSection({
         {seeAllHref && seeAllLabel && (
           <Link
             href={seeAllHref}
-            className="font-mono text-xs uppercase tracking-wider text-amber hover:text-amber-deep"
+            className="font-mono text-xs uppercase tracking-wider text-amber-deep hover:text-charcoal"
           >
             {seeAllLabel} →
           </Link>

@@ -37,7 +37,7 @@ export default function ProductScreen({ lang, dict, catalog }: ProductScreenProp
           />
           <Link
             href={categoryHref(lang, cat.id)}
-            className="mt-5 inline-block font-mono text-xs uppercase tracking-wider text-amber hover:text-amber-deep"
+            className="mt-5 inline-block font-mono text-xs uppercase tracking-wider text-amber-deep hover:text-charcoal"
           >
             {dict.category.viewAll} →
           </Link>
