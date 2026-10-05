@@ -13,7 +13,7 @@ export const siteConfig = {
   email: "hello@mapleprintlab.ca",
   // TODO: real account
   instagram: "https://instagram.com/maple_print_lab",
-  instagramHandle: "@mapleprintlab",
+  instagramHandle: "@maple_print_lab",
   // Structured-data address (used by JsonLd)
   address: {
     locality: "Vancouver",
