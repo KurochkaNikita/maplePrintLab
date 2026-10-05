@@ -20,7 +20,7 @@ export default function ProductScreen({ lang, dict, catalog }: ProductScreenProp
       </h1>
       <p className="mt-3 max-w-2xl text-ink/80">{t.intro}</p>
 
-      {catalog.map((cat) => (
+      {catalog.map((cat, i) => (
         <section key={cat.id} className="mt-14" aria-labelledby={`cat-${cat.id}`}>
           <h2
             id={`cat-${cat.id}`}
@@ -33,6 +33,7 @@ export default function ProductScreen({ lang, dict, catalog }: ProductScreenProp
             lang={lang}
             items={cat.items}
             photoSoonLabel={dict.productCard.photoSoon}
+            preloadFirst={i === 0}
             className="mt-6"
           />
           <Link

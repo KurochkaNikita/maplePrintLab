@@ -6,6 +6,8 @@ type ProductGridProps = {
   lang: Locale;
   items: ProductItem[];
   photoSoonLabel: string;
+  /** Preload the first card's image when the grid sits above the fold. */
+  preloadFirst?: boolean;
   className?: string;
 };
 
@@ -14,11 +16,12 @@ export default function ProductGrid({
   lang,
   items,
   photoSoonLabel,
+  preloadFirst = false,
   className = "",
 }: ProductGridProps) {
   return (
     <div className={`grid gap-6 sm:grid-cols-3 ${className}`.trim()}>
-      {items.map((item) => (
+      {items.map((item, i) => (
         <ProductCard
           key={item.slug}
           href={productHref(lang, item.slug)}
@@ -26,6 +29,7 @@ export default function ProductGrid({
           note={item.note}
           image={item.images[0]}
           photoSoonLabel={photoSoonLabel}
+          preload={preloadFirst && i === 0}
         />
       ))}
     </div>

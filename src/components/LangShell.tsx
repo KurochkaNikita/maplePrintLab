@@ -8,21 +8,21 @@ import JsonLd from "@/components/JsonLd";
 import { getDictionary, localeTag, type Locale } from "@/lib/i18n";
 
 const display = Space_Grotesk({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   weight: ["500", "600"],
   variable: "--font-display",
   display: "swap",
 });
 
 const body = IBM_Plex_Sans({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-body",
   display: "swap",
 });
 
 const mono = IBM_Plex_Mono({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
@@ -30,7 +30,7 @@ const mono = IBM_Plex_Mono({
 });
 
 const accent = Fraunces({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   weight: ["500"],
   style: ["italic"],
   variable: "--font-accent",

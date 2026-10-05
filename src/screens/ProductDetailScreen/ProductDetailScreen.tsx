@@ -43,7 +43,7 @@ export default function ProductDetailScreen({
               alt={mainImage.alt}
               width={mainImage.width}
               height={mainImage.height}
-              priority
+              preload
               sizes="(min-width: 768px) 50vw, 100vw"
               className="aspect-[4/3] w-full rounded-lg border border-line object-cover"
             />

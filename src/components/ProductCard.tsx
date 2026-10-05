@@ -7,6 +7,8 @@ type ProductCardProps = {
   note: string;
   image?: { src: string; width: number; height: number; alt: string };
   photoSoonLabel: string;
+  /** Above-the-fold image: preload it instead of lazy-loading (LCP). */
+  preload?: boolean;
 };
 
 export default function ProductCard({
@@ -15,6 +17,7 @@ export default function ProductCard({
   note,
   image,
   photoSoonLabel,
+  preload = false,
 }: ProductCardProps) {
   return (
     <Link
@@ -27,6 +30,7 @@ export default function ProductCard({
           alt={image.alt}
           width={image.width}
           height={image.height}
+          preload={preload}
           sizes="(min-width: 640px) 33vw, 100vw"
           className="aspect-[4/3] w-full border-b border-line object-cover"
         />
