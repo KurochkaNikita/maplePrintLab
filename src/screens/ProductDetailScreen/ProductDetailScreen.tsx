@@ -67,6 +67,7 @@ export default function ProductDetailScreen({
                   alt={img.alt}
                   width={img.width}
                   height={img.height}
+                  unoptimized
                   sizes="(min-width: 768px) 17vw, 33vw"
                   className="aspect-square w-full rounded-md border border-line object-cover"
                 />

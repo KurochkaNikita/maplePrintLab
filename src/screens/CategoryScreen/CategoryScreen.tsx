@@ -47,6 +47,7 @@ export default function CategoryScreen({ lang, dict, category }: CategoryScreenP
             lang={lang}
             items={category.items}
             dict={dict}
+            preloadFirst
             className="lg:grid-cols-4"
           />
         ) : (

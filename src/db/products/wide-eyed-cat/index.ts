@@ -13,8 +13,8 @@ export const wideEyedCat: ProductRecord = {
   material: pla,
   images: [
     { file: "wide-eyed-cat-front.webp", width: 1920, height: 1440 },
-    { file: "wide-eyed-cat-layers.webp", width: 1918, height: 1684 },
-    { file: "wide-eyed-cat-studio.webp", width: 2000, height: 1500 },
+    { file: "wide-eyed-cat-layers.webp", width: 320, height: 320 },
+    { file: "wide-eyed-cat-studio.webp", width: 320, height: 320 },
   ],
   translations: { en, fr },
 };

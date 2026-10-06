@@ -13,7 +13,7 @@ export const coolCatGlasses: ProductRecord = {
   material: pla,
   images: [
     { file: "cool-cat-glasses-front.webp", width: 2000, height: 1500 },
-    { file: "cool-cat-glasses-layers.webp", width: 1728, height: 1564 },
+    { file: "cool-cat-glasses-layers.webp", width: 320, height: 320 },
   ],
   translations: { en, fr },
 };

@@ -13,7 +13,7 @@ export const halloweenPumpkinGhostCat: ProductRecord = {
   material: pla,
   images: [
     { file: "halloween-pumpkin-ghost-cat-front.webp", width: 1920, height: 1440 },
-    { file: "halloween-pumpkin-ghost-cat-layers.webp", width: 1404, height: 1326 },
+    { file: "halloween-pumpkin-ghost-cat-layers.webp", width: 320, height: 320 },
   ],
   translations: { en, fr },
 };
