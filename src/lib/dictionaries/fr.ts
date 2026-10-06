@@ -60,6 +60,7 @@ const fr: Dictionary = {
   },
 
   meta: {
+    serviceName: "Impression 3D sur commande",
     defaultTitle:
       "Maple Print Lab — impression 3D sur commande dans le Grand Vancouver",
     titleTemplate: "%s — Maple Print Lab",

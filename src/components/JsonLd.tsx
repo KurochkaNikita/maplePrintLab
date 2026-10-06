@@ -37,7 +37,9 @@ export default function JsonLd({ lang, dict }: JsonLdProps) {
       "@type": "Offer",
       itemOffered: {
         "@type": "Service",
-        name: dict.home.hero.title,
+        serviceType: "3D printing",
+        name: dict.meta.serviceName,
+        areaServed: { "@type": "AdministrativeArea", name: dict.region },
       },
     },
   };

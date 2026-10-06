@@ -58,6 +58,7 @@ const en = {
   },
 
   meta: {
+    serviceName: "On-demand 3D printing",
     defaultTitle: "Maple Print Lab — 3D printing on demand in Metro Vancouver",
     titleTemplate: "%s — Maple Print Lab",
     description:
