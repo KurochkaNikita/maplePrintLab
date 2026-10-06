@@ -138,6 +138,53 @@ export const categories: CategoryRecord[] = [
           title: "Coffee Cup Toys, 3D-Printed with Sticker",
           description: "Small themed 3D-printed toys for coffee cups, attached with a mini double-sided sticker. A giveaway for cafés and events. Minimum order 50 pcs.",
         },
+        seoBlock: {
+          sections: [
+            {
+              heading: "What are coffee cup toys?",
+              paragraphs: [
+                "Coffee cup toys are small themed figures that sit on the rim or side of a takeaway cup. Ours are 3D-printed in PLA and fixed to the cup with a mini double-sided sticker, so there is nothing to clip, tie or assemble. Pick the character you like, stick it on and the cup becomes a little surprise.",
+                "The collection is themed, with pumpkins, a ghost, a skull, coffins, a chick and more, so you can match a season or an event.",
+              ],
+            },
+            {
+              heading: "Who they are for",
+              paragraphs: [
+                "Cafés use them as a cheerful extra with a drink, events hand them out as a giveaway, and brands add them to cups as a small marketing touch that people actually keep. They also work as a little surprise tucked in with a larger order.",
+                "Because every toy is printed to order, you can mix several characters in one batch.",
+              ],
+            },
+            {
+              heading: "Minimum order and pricing",
+              paragraphs: [
+                "The minimum order is 50 pieces. The price per piece goes down as the order grows: from $1.20 CAD each for 50 to 149 pieces, down to $0.90 CAD each from 500 pieces. The full table is shown above the products.",
+                "Open any toy to see its photos and details, or write to us if you want a specific mix of characters.",
+              ],
+            },
+          ],
+          faq: [
+            {
+              q: "What is the minimum order?",
+              a: "The minimum order is 50 pieces. You can mix different characters in one order.",
+            },
+            {
+              q: "How much does each toy cost?",
+              a: "The price per piece depends on the order size: $1.20 CAD for 50 to 149 pieces, $1.10 for 150 to 349, $1.00 for 350 to 499 and $0.90 from 500 pieces.",
+            },
+            {
+              q: "How do the toys attach to a cup?",
+              a: "With a mini double-sided sticker. Peel, press onto the cup and it is done; no clips or assembly needed.",
+            },
+            {
+              q: "What are they made of?",
+              a: "PLA (polylactic acid), a plastic made from plant-based sources such as corn starch or sugar cane. It is lightweight and holds bright colours well. It softens in high heat, so keep the toys away from radiators and hot cars.",
+            },
+            {
+              q: "Are they made to order?",
+              a: "Yes. Every toy is 3D-printed to order, so there is no warehouse stock and you can choose your mix of characters.",
+            },
+          ],
+        },
       },
       fr: {
         title: "Jouets pour gobelets de café",
@@ -146,6 +193,53 @@ export const categories: CategoryRecord[] = [
         seo: {
           title: "Jouets pour gobelets de café imprimés 3D",
           description: "Jouets imprimés en 3D à fixer sur les gobelets de café avec un mini autocollant. Cadeau idéal pour cafés et événements. Minimum 50 pièces.",
+        },
+        seoBlock: {
+          sections: [
+            {
+              heading: "Que sont les jouets pour gobelets de café ?",
+              paragraphs: [
+                "Les jouets pour gobelets de café sont de petites figurines thématiques qui se posent sur le rebord ou le côté d’un gobelet à emporter. Les nôtres sont imprimés en 3D en PLA et se fixent au gobelet avec un mini autocollant double face : rien à clipser, à nouer ou à assembler. Choisissez le personnage que vous aimez, collez-le, et le gobelet devient une petite surprise.",
+                "La collection est thématique, avec des citrouilles, un fantôme, un crâne, des cercueils, un poussin et plus encore, pour suivre une saison ou un événement.",
+              ],
+            },
+            {
+              heading: "Pour qui ?",
+              paragraphs: [
+                "Les cafés s’en servent comme petit plus avec une boisson, les événements les distribuent en cadeau, et les marques les ajoutent aux gobelets comme un petit geste marketing que les gens gardent vraiment. Ils font aussi une petite surprise glissée dans une commande plus grande.",
+                "Comme chaque jouet est imprimé sur commande, vous pouvez mélanger plusieurs personnages dans un même lot.",
+              ],
+            },
+            {
+              heading: "Commande minimum et prix",
+              paragraphs: [
+                "La commande minimum est de 50 pièces. Le prix à la pièce baisse à mesure que la commande grandit : de 1,20 $ CAD l’unité pour 50 à 149 pièces, jusqu’à 0,90 $ CAD l’unité à partir de 500 pièces. Le tableau complet se trouve au-dessus des produits.",
+                "Ouvrez un jouet pour voir ses photos et ses détails, ou écrivez-nous si vous voulez un mélange précis de personnages.",
+              ],
+            },
+          ],
+          faq: [
+            {
+              q: "Quelle est la commande minimum ?",
+              a: "La commande minimum est de 50 pièces. Vous pouvez mélanger différents personnages dans une même commande.",
+            },
+            {
+              q: "Combien coûte chaque jouet ?",
+              a: "Le prix à la pièce dépend de la taille de la commande : 1,20 $ CAD pour 50 à 149 pièces, 1,10 $ pour 150 à 349, 1,00 $ pour 350 à 499 et 0,90 $ à partir de 500 pièces.",
+            },
+            {
+              q: "Comment les jouets se fixent-ils sur un gobelet ?",
+              a: "Avec un mini autocollant double face. On retire le papier, on appuie sur le gobelet et c’est terminé : ni clip ni assemblage.",
+            },
+            {
+              q: "En quoi sont-ils faits ?",
+              a: "En PLA (acide polylactique), un plastique fabriqué à partir de sources végétales comme l’amidon de maïs ou la canne à sucre. Il est léger et garde bien les couleurs vives. Il ramollit à la chaleur : gardez les jouets loin des radiateurs et des voitures chaudes.",
+            },
+            {
+              q: "Sont-ils faits sur commande ?",
+              a: "Oui. Chaque jouet est imprimé en 3D sur commande : pas de stock en entrepôt, et vous choisissez votre mélange de personnages.",
+            },
+          ],
         },
       },
     },
