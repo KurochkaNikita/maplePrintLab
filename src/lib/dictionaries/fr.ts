@@ -65,7 +65,7 @@ const fr: Dictionary = {
   meta: {
     serviceName: "Impression 3D sur commande",
     defaultTitle:
-      "Maple Print Lab — impression 3D sur commande dans le Grand Vancouver",
+      "Maple Print Lab — impression 3D sur commande à Vancouver",
     titleTemplate: "%s — Maple Print Lab",
     description:
       "Studio local d’impression 3D dans le Grand Vancouver. Jouets, déco et modèles sur mesure — imprimés sur commande, sans entrepôt.",

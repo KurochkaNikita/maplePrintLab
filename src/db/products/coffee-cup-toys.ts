@@ -29,8 +29,8 @@ function coffeeCupToy(slug: string, name: Names, images: ProductRecord["images"]
         note: "Jouet thématique imprimé en 3D pour gobelets de café.",
         description: `Un petit jouet « ${name.fr} » imprimé en 3D en PLA. Il se fixe sur un gobelet de café avec un mini autocollant double face : facile à ajouter à n’importe quelle commande. Il fait partie de notre collection thématique de jouets pour gobelets : un cadeau amusant pour les cafés, les événements et les marques, ou une petite surprise pour vos clients. La commande minimum est de 50 pièces, et le prix à la pièce baisse à mesure que la commande grandit.`,
         seo: {
-          title: `${name.fr} – Jouet pour gobelet de café`,
-          description: `Jouet « ${name.fr} » pour gobelet de café, imprimé en 3D en PLA, avec mini autocollant double face. Cadeau pour cafés et événements. Minimum 50 pièces.`,
+          title: `${name.fr} – Jouet gobelet de café`,
+          description: `Jouet « ${name.fr} » pour gobelet de café, imprimé en 3D en PLA, avec mini autocollant. Cadeau pour cafés et événements. Minimum 50 pièces.`,
         },
         imageAlts: images.map(() => `Jouet « ${name.fr} » pour gobelet de café`),
       },

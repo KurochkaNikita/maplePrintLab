@@ -135,8 +135,8 @@ export const categories: CategoryRecord[] = [
         intro: "Small themed 3D-printed toys that attach to coffee cups with a mini double-sided sticker. A fun giveaway for cafés, events and brands, or a little surprise with an order.",
         highlight: "Minimum order: 50 pieces",
         seo: {
-          title: "Coffee cup toys with sticker backing, 3D-printed",
-          description: "Small themed 3D-printed toys that attach to coffee cups with a mini double-sided sticker. Ideal as a giveaway or a marketing touch for cafés and events. Minimum order 50 pcs.",
+          title: "Coffee Cup Toys, 3D-Printed with Sticker",
+          description: "Small themed 3D-printed toys for coffee cups, attached with a mini double-sided sticker. A giveaway for cafés and events. Minimum order 50 pcs.",
         },
       },
       fr: {
@@ -144,8 +144,8 @@ export const categories: CategoryRecord[] = [
         intro: "Petits jouets thématiques imprimés en 3D qui se fixent sur les gobelets de café avec un mini autocollant double face. Un cadeau amusant pour les cafés, les événements et les marques, ou une petite surprise avec une commande.",
         highlight: "Commande minimum : 50 pièces",
         seo: {
-          title: "Jouets pour gobelets de café avec autocollant, imprimés en 3D",
-          description: "Petits jouets thématiques imprimés en 3D à fixer sur les gobelets de café avec un mini autocollant double face. Idéals comme cadeau ou geste marketing pour cafés et événements. Minimum 50 pièces.",
+          title: "Jouets pour gobelets de café imprimés 3D",
+          description: "Jouets imprimés en 3D à fixer sur les gobelets de café avec un mini autocollant. Cadeau idéal pour cafés et événements. Minimum 50 pièces.",
         },
       },
     },
