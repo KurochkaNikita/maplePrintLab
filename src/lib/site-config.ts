@@ -9,6 +9,8 @@ export const siteConfig = {
   // hreflang, og:url, sitemap, robots, JSON-LD). Set NEXT_PUBLIC_SITE_URL on
   // the host; the fallback is the production domain. No trailing slash.
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://mapleprintlab.store").replace(/\/+$/, ""),
+  // Fallback og:image / twitter:image / JSON-LD image for pages without their own photo.
+  defaultOgImage: "/product/cool-cat-glasses/cool-cat-glasses-front.webp",
   // TODO: real inbox
   email: "hello@mapleprintlab.ca",
   // TODO: real account

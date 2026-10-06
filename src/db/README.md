@@ -8,7 +8,7 @@ Typed tables for everything the site sells. Nothing outside `src/lib/products.ts
 | `products/`     | products   | `categoryId` → categories |
 
 - **Shared once:** category, price, size (`dimensions`), material, photo files, featured flag. A category's product list is derived from `categoryId`, so there is nothing to keep in sync.
-- **Per language:** text plus `seo` (`title`, `description`, `keywords`) and photo alt texts. A missing language fails `yarn typecheck`.
+- **Per language:** text plus `seo` (`title`, `description`) and photo alt texts. A missing language fails `yarn typecheck`.
 - **Order** of records in a file is the display order.
 - **Product folder:** `products/<slug>/index.ts` holds the shared facts, `en.ts` and `fr.ts` the text (`imageAlts` follow the order of `images`). Reusable values such as materials live in `products/materials.ts`.
 - **Add a product:** copy a product folder, then add it to the array in `products/index.ts`. **Add a category:** append to `categories.ts`, then point products at its `id`. Pages, sitemap and carousel pick them up automatically.

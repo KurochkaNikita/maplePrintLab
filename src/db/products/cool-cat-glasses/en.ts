@@ -8,7 +8,6 @@ const en: ProductTranslation = {
   seo: {
     title: "Cool Cat in Glasses Layered Art 25×25 cm",
     description: "Geometric layered cat art with round yellow glasses, 25×25×1.5 cm, in a black frame with a stand. Printed in PLA, colours to order.",
-    keywords: ["cat with glasses art", "geometric cat wall art", "modern layered cat art", "custom colour layered art"],
   },
   imageAlts: [
     "Geometric layered art of a cat in round yellow glasses, with orange, yellow, grey, black and white shapes, in a black frame on a stand",

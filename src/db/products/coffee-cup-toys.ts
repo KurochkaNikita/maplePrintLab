@@ -21,7 +21,6 @@ function coffeeCupToy(slug: string, name: Names, images: ProductRecord["images"]
         seo: {
           title: `${name.en} – Coffee Cup Toy`,
           description: `${name.en} coffee cup toy, 3D-printed in PLA, with a mini double-sided sticker. A giveaway for cafés and events. Minimum order 50 pcs.`,
-          keywords: [`${name.en.toLowerCase()} cup toy`, "coffee cup toys", "cafe giveaways", "3D printed cup toys Canada"],
         },
         imageAlts: images.map(() => `${name.en} coffee cup toy`),
       },
@@ -32,7 +31,6 @@ function coffeeCupToy(slug: string, name: Names, images: ProductRecord["images"]
         seo: {
           title: `${name.fr} – Jouet pour gobelet de café`,
           description: `Jouet « ${name.fr} » pour gobelet de café, imprimé en 3D en PLA, avec mini autocollant double face. Cadeau pour cafés et événements. Minimum 50 pièces.`,
-          keywords: [`jouet ${name.fr.toLowerCase()}`, "jouets pour gobelet de café", "cadeaux pour cafés", "jouets de gobelet imprimés en 3D Canada"],
         },
         imageAlts: images.map(() => `Jouet « ${name.fr} » pour gobelet de café`),
       },

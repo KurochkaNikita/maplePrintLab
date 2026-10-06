@@ -63,13 +63,6 @@ const en = {
     titleTemplate: "%s — Maple Print Lab",
     description:
       "A local 3D-printing studio in Metro Vancouver. Toys, home décor and custom models — printed on demand, no warehouse.",
-    keywords: [
-      "3D printing Vancouver",
-      "custom 3D prints Canada",
-      "3D printed toys",
-      "3D printed home decor",
-      "Maple Print Lab",
-    ],
     products: {
       title: "Products",
       description:

@@ -20,7 +20,7 @@ export default function JsonLd({ lang, dict }: JsonLdProps) {
     inLanguage: localeTag[lang],
     url: `${siteConfig.url}/${lang}/`,
     email: siteConfig.email,
-    image: `${siteConfig.url}/og-image.jpg`,
+    image: `${siteConfig.url}${siteConfig.defaultOgImage}`,
     priceRange: "$$",
     sameAs: [siteConfig.instagram],
     areaServed: {

@@ -8,7 +8,6 @@ const fr: ProductTranslation = {
   seo: {
     title: "Tableau Halloween en couches 25×25",
     description: "Tableau en couches d’Halloween avec citrouilles, fantômes et chats noirs, 25×25×1,5 cm, avec support. Imprimé en PLA, couleurs sur demande.",
-    keywords: ["tableau halloween en couches", "décoration murale halloween", "citrouille fantôme chat", "tableau en couches couleurs sur mesure"],
   },
   imageAlts: [
     "Tableau d’Halloween en couches : citrouilles, fantômes et chats noirs dans une fenêtre ronde, bordure blanche et panneau noir aux étoiles découpées, sur un support",

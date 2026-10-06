@@ -28,7 +28,7 @@ export async function generateMetadata({
     path: `category/${id}`,
     title: category.seo.title,
     description: category.seo.description,
-    keywords: category.seo.keywords,
+    image: category.items[0]?.images[0]?.src,
   });
 }
 

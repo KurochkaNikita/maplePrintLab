@@ -15,7 +15,6 @@ export const categories: CategoryRecord[] = [
         seo: {
           title: "Mini Layered Wall Art 25×25 cm, 3D-Printed",
           description: "Mini layered wall art, 25×25×1.5 cm, 3D-printed to order in Canada. Real depth, colours of your choice. Great for shelves and gifts.",
-          keywords: ["mini layered paintings", "layered wall art", "3D layered art Canada"],
         },
         seoBlock: {
           sections: [
@@ -71,7 +70,6 @@ export const categories: CategoryRecord[] = [
         seo: {
           title: "Mini tableaux multicouches imprimés en 3D",
           description: "Mini tableaux multicouches 25×25×1,5 cm, imprimés en 3D sur commande au Canada. Vrai relief, couleurs au choix. Idéal en cadeau.",
-          keywords: ["mini tableaux en couches", "tableau multicouche", "décoration murale 3D Canada"],
         },
         seoBlock: {
           sections: [
@@ -139,7 +137,6 @@ export const categories: CategoryRecord[] = [
         seo: {
           title: "Coffee cup toys with sticker backing, 3D-printed",
           description: "Small themed 3D-printed toys that attach to coffee cups with a mini double-sided sticker. Ideal as a giveaway or a marketing touch for cafés and events. Minimum order 50 pcs.",
-          keywords: ["coffee cup toys", "promotional giveaways", "cafe marketing gifts", "3D printed cup toys Canada"],
         },
       },
       fr: {
@@ -149,7 +146,6 @@ export const categories: CategoryRecord[] = [
         seo: {
           title: "Jouets pour gobelets de café avec autocollant, imprimés en 3D",
           description: "Petits jouets thématiques imprimés en 3D à fixer sur les gobelets de café avec un mini autocollant double face. Idéals comme cadeau ou geste marketing pour cafés et événements. Minimum 50 pièces.",
-          keywords: ["jouets pour gobelet de café", "cadeaux promotionnels", "cadeaux marketing café", "jouets de gobelet imprimés en 3D Canada"],
         },
       },
     },

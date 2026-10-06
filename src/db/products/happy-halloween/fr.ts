@@ -8,7 +8,6 @@ const fr: ProductTranslation = {
   seo: {
     title: "Tableau Joyeuse Halloween en couches",
     description: "Tableau d’Halloween en couches avec citrouilles, fantôme et chat noir, 25×25×1,5 cm, avec support. Imprimé en PLA, couleurs sur demande.",
-    keywords: ["tableau halloween", "décoration halloween", "tableau halloween en couches", "tableau en couches couleurs sur mesure"],
   },
   imageAlts: [
     "Tableau Joyeuse Halloween en couches : lettrage coloré avec fantôme, chat noir, citrouilles, chapeau de sorcière et os sur un panneau jaune dans un cadre blanc, sur un support",

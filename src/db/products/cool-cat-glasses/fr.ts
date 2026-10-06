@@ -8,7 +8,6 @@ const fr: ProductTranslation = {
   seo: {
     title: "Tableau Chat à lunettes en couches 25×25",
     description: "Tableau géométrique en couches d’un chat à lunettes rondes jaunes, 25×25×1,5 cm, cadre noir et support. Imprimé en PLA, couleurs sur demande.",
-    keywords: ["tableau chat à lunettes", "décoration murale chat géométrique", "tableau chat moderne en couches", "tableau en couches couleurs sur mesure"],
   },
   imageAlts: [
     "Tableau géométrique en couches d’un chat aux lunettes rondes jaunes, avec des formes orange, jaunes, grises, noires et blanches, dans un cadre noir sur un support",

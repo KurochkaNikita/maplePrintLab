@@ -66,13 +66,6 @@ const fr: Dictionary = {
     titleTemplate: "%s — Maple Print Lab",
     description:
       "Studio local d’impression 3D dans le Grand Vancouver. Jouets, déco et modèles sur mesure — imprimés sur commande, sans entrepôt.",
-    keywords: [
-      "impression 3D Vancouver",
-      "impression 3D sur mesure Canada",
-      "jouets imprimés en 3D",
-      "déco imprimée en 3D",
-      "Maple Print Lab",
-    ],
     products: {
       title: "Produits",
       description:

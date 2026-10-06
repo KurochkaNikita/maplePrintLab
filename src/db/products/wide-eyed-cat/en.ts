@@ -8,7 +8,6 @@ const en: ProductTranslation = {
   seo: {
     title: "Wide-Eyed Cat – Mini Layered Art 25×25 cm",
     description: "Colourful layered cat art, 25×25×1.5 cm, in a black frame with a stand. The wide eyes seem to follow you. Printed in PLA.",
-    keywords: ["wide-eyed cat", "layered cat art", "cat wall art Canada", "mini layered art"],
   },
   imageAlts: [
     "Wide-Eyed Cat layered art: colourful cats in a round window inside a black frame, standing on a small stand",

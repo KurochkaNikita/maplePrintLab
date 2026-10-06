@@ -8,7 +8,6 @@ const fr: ProductTranslation = {
   seo: {
     title: "Chat aux grands yeux – Mini tableau 25×25",
     description: "Tableau en couches de chats colorés, 25×25×1,5 cm, cadre noir et support. Les grands yeux semblent vous suivre. Imprimé en PLA.",
-    keywords: ["chat aux grands yeux", "tableau chat en couches", "décoration murale chat Canada", "mini tableau en couches"],
   },
   imageAlts: [
     "Chat aux grands yeux, tableau en couches : chats colorés dans une fenêtre ronde, cadre noir, sur un petit support",

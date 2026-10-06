@@ -25,7 +25,6 @@ export async function generateMetadata({
     path: `product/${slug}`,
     title: found.item.seo.title,
     description: found.item.seo.description,
-    keywords: found.item.seo.keywords,
     image: found.item.images[0]?.src,
   });
 }

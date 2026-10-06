@@ -8,7 +8,6 @@ const en: ProductTranslation = {
   seo: {
     title: "Halloween Pumpkin Ghost Cat Layered Art",
     description: "Halloween layered art with pumpkins, ghosts and black cats, 25×25×1.5 cm, with a stand. Printed in PLA, colours to order.",
-    keywords: ["halloween layered art", "halloween wall art", "pumpkin ghost cat art", "custom colour layered art"],
   },
   imageAlts: [
     "Halloween layered art: pumpkins, ghosts and black cats in a round window, with a white border and a black panel with cut-out stars, on a stand",

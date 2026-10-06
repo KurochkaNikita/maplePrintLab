@@ -36,17 +36,16 @@ export function pageMetadata({
   path,
   title,
   description,
-  keywords,
   image,
 }: {
   lang: Locale;
   path: string;
   title?: Metadata["title"];
   description?: Metadata["description"];
-  keywords?: string[];
   /** Site-relative path, e.g. "/product/x/x-front.webp" — used for og:image. */
   image?: string;
 }): Metadata {
+  const ogImage = image ?? siteConfig.defaultOgImage;
   const ogTitle = typeof title === "string" ? title : undefined;
   const ogDescription = typeof description === "string" ? description : undefined;
 
@@ -56,7 +55,6 @@ export function pageMetadata({
     // title template inherited from the layout instead of falling back to it.
     ...(title !== undefined && { title }),
     ...(description !== undefined && { description }),
-    ...(keywords !== undefined && { keywords }),
     alternates: localizedAlternates(lang, path),
     ...(ogTitle !== undefined &&
       ogDescription !== undefined && {
@@ -67,13 +65,13 @@ export function pageMetadata({
           description: ogDescription,
           url: `${siteConfig.url}${localizedPath(lang, path)}`,
           locale: localeTag[lang].replace("-", "_"),
-          ...(image && { images: [image] }),
+          images: [ogImage],
         },
         twitter: {
           card: "summary_large_image",
           title: ogTitle,
           description: ogDescription,
-          ...(image && { images: [image] }),
+          images: [ogImage],
         },
       }),
   };
@@ -81,7 +79,7 @@ export function pageMetadata({
 
 /**
  * Full metadata for the root `[lang]` layout: the site-wide fields
- * (`metadataBase`, `keywords`, `applicationName`, `robots`) that never vary
+ * (`metadataBase`, `applicationName`, `robots`) that never vary
  * per page, plus the homepage's own `title`/`description`/`alternates`/
  * `openGraph`/`twitter` (via `pageMetadata`). Every other page only needs
  * `pageMetadata` — these fields are inherited from here automatically.
@@ -98,7 +96,6 @@ export function rootMetadata(lang: Locale, dict: Dictionary): Metadata {
       description: dict.meta.description,
     }),
     metadataBase: new URL(siteConfig.url),
-    keywords: dict.meta.keywords,
     applicationName: siteConfig.name,
     openGraph: {
       type: "website",
@@ -107,11 +104,13 @@ export function rootMetadata(lang: Locale, dict: Dictionary): Metadata {
       description: dict.meta.description,
       url: `${siteConfig.url}/${lang}/`,
       locale: localeTag[lang].replace("-", "_"),
+      images: [siteConfig.defaultOgImage],
     },
     twitter: {
       card: "summary_large_image",
       title: dict.meta.defaultTitle,
       description: dict.meta.description,
+      images: [siteConfig.defaultOgImage],
     },
     robots: {
       index: true,

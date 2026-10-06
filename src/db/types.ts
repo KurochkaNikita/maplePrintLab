@@ -9,7 +9,6 @@ export type Seo = {
   title: string;
   /** Meta description, aim for ≤ 155 characters. */
   description: string;
-  keywords: string[];
 };
 
 /** Long-form copy under a category's product grid, plus its FAQ (also emitted as FAQPage JSON-LD). */

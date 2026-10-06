@@ -8,7 +8,6 @@ const en: ProductTranslation = {
   seo: {
     title: "Happy Halloween Layered Art 25×25 cm",
     description: "Colourful Happy Halloween layered art with pumpkins, a ghost and a black cat, 25×25×1.5 cm, with a stand. Printed in PLA, colours to order.",
-    keywords: ["happy halloween sign", "halloween layered art", "halloween decor", "custom colour layered art"],
   },
   imageAlts: [
     "Happy Halloween layered art: colourful lettering with a ghost, a black cat, pumpkins, a witch hat and bones on a yellow panel in a white frame, on a stand",
