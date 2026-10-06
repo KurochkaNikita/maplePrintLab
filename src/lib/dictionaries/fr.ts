@@ -14,6 +14,9 @@ const fr: Dictionary = {
 
   localeSwitcher: {
     label: "Langue",
+    suggestion: "Ce site est aussi offert en français.",
+    suggestionCta: "Passer au français",
+    dismiss: "Plus tard",
   },
 
   leaf: {

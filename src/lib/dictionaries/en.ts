@@ -12,6 +12,9 @@ const en = {
 
   localeSwitcher: {
     label: "Language",
+    suggestion: "This site is also available in English.",
+    suggestionCta: "Switch to English",
+    dismiss: "Not now",
   },
 
   leaf: {
