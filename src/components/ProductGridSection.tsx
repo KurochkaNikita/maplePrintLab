@@ -1,13 +1,14 @@
 import Link from "next/link";
 import ProductGrid from "@/components/ProductGrid";
 import type { Locale } from "@/lib/i18n";
+import type { Dictionary } from "@/lib/dictionaries/en";
 import type { ProductItem } from "@/lib/products";
 
 type ProductGridSectionProps = {
   lang: Locale;
   heading: string;
   items: ProductItem[];
-  photoSoonLabel: string;
+  dict: Dictionary;
   seeAllHref?: string;
   seeAllLabel?: string;
 };
@@ -16,7 +17,7 @@ export default function ProductGridSection({
   lang,
   heading,
   items,
-  photoSoonLabel,
+  dict,
   seeAllHref,
   seeAllLabel,
 }: ProductGridSectionProps) {
@@ -36,7 +37,7 @@ export default function ProductGridSection({
       <ProductGrid
         lang={lang}
         items={items}
-        photoSoonLabel={photoSoonLabel}
+        dict={dict}
         className="mt-8"
       />
     </section>

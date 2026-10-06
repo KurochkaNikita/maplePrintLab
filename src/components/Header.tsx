@@ -8,12 +8,16 @@ import type { Dictionary } from "@/lib/dictionaries/en";
 type HeaderProps = {
   lang: Locale;
   dict: Dictionary;
+  /** The 404 page: the other language's version of an unknown URL is a 404 too. */
+  hideLocaleSwitcher?: boolean;
 };
 
-export default function Header({ lang, dict }: HeaderProps) {
+export default function Header({ lang, dict, hideLocaleSwitcher = false }: HeaderProps) {
   const nav = [
     { href: localeHref(lang, ""), label: dict.nav.home },
     { href: localeHref(lang, "products"), label: dict.nav.products },
+    { href: localeHref(lang, "how-to-order"), label: dict.nav.howToOrder },
+    { href: localeHref(lang, "about"), label: dict.nav.about },
     { href: localeHref(lang, "contact"), label: dict.nav.contact },
   ];
 
@@ -44,7 +48,7 @@ export default function Header({ lang, dict }: HeaderProps) {
             </ul>
           </nav>
 
-          <LocaleSwitcher current={lang} label={dict.localeSwitcher.label} />
+          {!hideLocaleSwitcher && <LocaleSwitcher current={lang} label={dict.localeSwitcher.label} />}
         </div>
       </div>
     </header>

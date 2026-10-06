@@ -10,6 +10,8 @@ export type ProductItem = {
   title: string;
   note: string;
   price: { amount: number; currency: "CAD"; from?: boolean };
+  /** Price falls with order size (category `priceTiers`); `price` is then the lowest tier, shown as "From …/pc". */
+  volumePricing: boolean;
   dimensions: Dimensions;
   material: string;
   description: string;
@@ -37,7 +39,7 @@ function resolvePrice(
   priceTiers?: PriceTier[],
 ): ProductItem["price"] {
   if (product.price) return product.price;
-  if (priceTiers?.length) return { amount: priceTiers[0].amount, currency: "CAD" };
+  if (priceTiers?.length) return { amount: Math.min(...priceTiers.map((t) => t.amount)), currency: "CAD", from: true };
   throw new Error(`Product "${product.slug}" has no price and category "${categoryId}" has no priceTiers`);
 }
 
@@ -56,6 +58,7 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             title: t.title,
             note: t.note,
             price: resolvePrice(p, category.id, priceTiers),
+            volumePricing: Boolean(priceTiers?.length),
             dimensions: p.dimensions,
             material: p.material[locale],
             description: t.description,

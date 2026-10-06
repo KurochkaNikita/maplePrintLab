@@ -1,7 +1,6 @@
 /**
  * Language-independent facts about the studio.
  * Translatable copy lives in lib/dictionaries/*.
- * TODO: replace every value marked TODO before going live.
  */
 export const siteConfig = {
   name: "Maple Print Lab",
@@ -11,14 +10,12 @@ export const siteConfig = {
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://mapleprintlab.store").replace(/\/+$/, ""),
   // Fallback og:image / twitter:image / JSON-LD image for pages without their own photo.
   defaultOgImage: "/product/cool-cat-glasses/cool-cat-glasses-front.webp",
-  // TODO: real inbox
-  email: "hello@mapleprintlab.ca",
-  // TODO: real account
+  email: "hello@mapleprintlab.store",
   instagram: "https://instagram.com/maple_print_lab",
   instagramHandle: "@maple_print_lab",
   // Structured-data address (used by JsonLd)
   address: {
-    locality: "Vancouver",
+    locality: "Coquitlam",
     region: "BC",
     country: "CA",
   },

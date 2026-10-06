@@ -5,6 +5,8 @@ type ProductCardProps = {
   href: string;
   title: string;
   note: string;
+  /** Formatted price, e.g. "$20 CAD" or "From $0.90 CAD / pc". */
+  price?: string;
   image?: { src: string; width: number; height: number; alt: string };
   photoSoonLabel: string;
   /** Above-the-fold image: preload it instead of lazy-loading (LCP). */
@@ -15,6 +17,7 @@ export default function ProductCard({
   href,
   title,
   note,
+  price,
   image,
   photoSoonLabel,
   preload = false,
@@ -50,6 +53,7 @@ export default function ProductCard({
           {title}
         </h3>
         <p className="mt-1.5 text-sm text-ink/80">{note}</p>
+        {price && <p className="mt-2 font-display text-sm font-medium text-charcoal">{price}</p>}
       </div>
     </Link>
   );

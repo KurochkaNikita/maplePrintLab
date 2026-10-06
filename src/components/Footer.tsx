@@ -13,6 +13,8 @@ export default function Footer({ lang, dict }: FooterProps) {
   const nav = [
     { href: localeHref(lang, ""), label: dict.nav.home },
     { href: localeHref(lang, "products"), label: dict.nav.products },
+    { href: localeHref(lang, "how-to-order"), label: dict.nav.howToOrder },
+    { href: localeHref(lang, "about"), label: dict.nav.about },
     { href: localeHref(lang, "contact"), label: dict.nav.contact },
   ];
 

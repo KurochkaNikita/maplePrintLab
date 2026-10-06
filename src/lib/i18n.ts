@@ -41,7 +41,7 @@ export function getDictionary(locale: Locale): Promise<Dictionary> {
 }
 
 /** Page paths without the locale prefix — shared by nav and sitemap. */
-export const routes = ["", "products", "contact"] as const;
+export const routes = ["", "products", "how-to-order", "about", "contact"] as const;
 
 /** Absolute path for a locale: localeHref("en", "products") -> "/en/products/" */
 export function localeHref(locale: Locale, route: (typeof routes)[number]): string {

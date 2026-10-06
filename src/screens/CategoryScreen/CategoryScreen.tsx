@@ -46,7 +46,7 @@ export default function CategoryScreen({ lang, dict, category }: CategoryScreenP
           <ProductGrid
             lang={lang}
             items={category.items}
-            photoSoonLabel={dict.productCard.photoSoon}
+            dict={dict}
             className="lg:grid-cols-4"
           />
         ) : (

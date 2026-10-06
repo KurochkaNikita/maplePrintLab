@@ -1,11 +1,13 @@
 import ProductCard from "@/components/ProductCard";
 import { productHref, type Locale } from "@/lib/i18n";
+import { formatPrice } from "@/lib/price";
+import type { Dictionary } from "@/lib/dictionaries/en";
 import type { ProductItem } from "@/lib/products";
 
 type ProductGridProps = {
   lang: Locale;
   items: ProductItem[];
-  photoSoonLabel: string;
+  dict: Dictionary;
   /** Preload the first card's image when the grid sits above the fold. */
   preloadFirst?: boolean;
   className?: string;
@@ -15,7 +17,7 @@ type ProductGridProps = {
 export default function ProductGrid({
   lang,
   items,
-  photoSoonLabel,
+  dict,
   preloadFirst = false,
   className = "",
 }: ProductGridProps) {
@@ -28,7 +30,8 @@ export default function ProductGrid({
           title={item.title}
           note={item.note}
           image={item.images[0]}
-          photoSoonLabel={photoSoonLabel}
+          price={`${formatPrice(item.price, lang, dict)}${item.volumePricing ? ` ${dict.price.perPiece}` : ""}`}
+          photoSoonLabel={dict.productCard.photoSoon}
           preload={preloadFirst && i === 0}
         />
       ))}

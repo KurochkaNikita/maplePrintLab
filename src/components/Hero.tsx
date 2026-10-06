@@ -23,7 +23,7 @@ export default function Hero({ eyebrow, title, accent, body, actions, media }: H
             {title}
           </h1>
           {accent && (
-            <p className="mt-4 max-w-xl font-accent text-lg italic text-amber-deep">
+            <p className="mt-4 max-w-xl font-accent text-lg text-amber-deep">
               {accent}
             </p>
           )}

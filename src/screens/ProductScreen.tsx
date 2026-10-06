@@ -32,7 +32,7 @@ export default function ProductScreen({ lang, dict, catalog }: ProductScreenProp
           <ProductGrid
             lang={lang}
             items={cat.items}
-            photoSoonLabel={dict.productCard.photoSoon}
+            dict={dict}
             preloadFirst={i === 0}
             className="mt-6"
           />

@@ -32,6 +32,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routeDate = {
     "": latest(allProducts, categoriesFile, dictionaries, lastModified("src/screens/HomeScreen.tsx")),
     products: latest(allProducts, categoriesFile, dictionaries, lastModified("src/screens/ProductScreen.tsx")),
+    "how-to-order": latest(dictionaries, lastModified("src/screens/HowToOrderScreen.tsx")),
+    about: latest(dictionaries, lastModified("src/screens/AboutScreen.tsx")),
     contact: latest(dictionaries, lastModified("src/screens/ContactScreen.tsx", "src/lib/site-config.ts")),
   } satisfies Record<(typeof routes)[number], Date | undefined>;
 

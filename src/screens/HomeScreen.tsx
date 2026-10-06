@@ -29,8 +29,8 @@ export default function HomeScreen({ lang, dict, categories, latestItems }: Home
         actions={
           <>
             <CtaLink href={localeHref(lang, "products")}>{t.hero.ctaProducts}</CtaLink>
-            <CtaLink href={localeHref(lang, "contact")} variant="outline">
-              {t.hero.ctaContact}
+            <CtaLink href={localeHref(lang, "how-to-order")} variant="outline">
+              {t.hero.ctaHowToOrder}
             </CtaLink>
           </>
         }
@@ -53,7 +53,7 @@ export default function HomeScreen({ lang, dict, categories, latestItems }: Home
         lang={lang}
         heading={t.latest.heading}
         items={latestItems}
-        photoSoonLabel={dict.productCard.photoSoon}
+        dict={dict}
         seeAllHref={localeHref(lang, "products")}
         seeAllLabel={t.latest.seeAll}
       />
@@ -62,7 +62,7 @@ export default function HomeScreen({ lang, dict, categories, latestItems }: Home
         heading={t.trust.heading}
         body={t.trust.body}
         ctaLabel={t.trust.cta}
-        ctaHref={localeHref(lang, "contact")}
+        ctaHref={localeHref(lang, "how-to-order")}
       />
     </>
   );

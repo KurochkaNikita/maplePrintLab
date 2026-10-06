@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import {Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono, Fraunces} from "next/font/google";
+import { Space_Grotesk, IBM_Plex_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Header from "@/components/Header";
@@ -22,32 +22,18 @@ const body = IBM_Plex_Sans({
   display: "swap",
 });
 
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
-  display: "swap",
-  preload: false,
-});
-
-const accent = Fraunces({
-  subsets: ["latin"],
-  weight: ["500"],
-  style: ["italic"],
-  variable: "--font-accent",
-  display: "swap",
-  preload: false,
-});
-
 /**
  * The <html>/<body> shell shared by the localized layout and the root "/"
  * page (which serves the default locale's content without redirecting).
  */
 export default async function LangShell({
   lang,
+  bare = false,
   children,
 }: {
   lang: Locale;
+  /** Only <html>/<body> (+ analytics): the child renders its own header, main and footer. */
+  bare?: boolean;
   children: React.ReactNode;
 }) {
   const dict = await getDictionary(lang);
@@ -57,22 +43,28 @@ export default async function LangShell({
   return (
     <html
       lang={localeTag[lang]}
-      className={`${display.variable} ${body.variable} ${mono.variable} ${accent.variable}`}
+      className={`${display.variable} ${body.variable}`}
     >
       <body className="flex min-h-screen flex-col">
-        <JsonLd lang={lang} dict={dict} />
-        <Header lang={lang} dict={dict} />
-        <main className="flex-1">{children}</main>
-        <Footer lang={lang} dict={dict} />
-        <LanguageSuggestion
-          current={lang}
-          suggested={{
-            locale: other,
-            message: otherDict.localeSwitcher.suggestion,
-            cta: otherDict.localeSwitcher.suggestionCta,
-            dismiss: otherDict.localeSwitcher.dismiss,
-          }}
-        />
+        {bare ? (
+          children
+        ) : (
+          <>
+            <JsonLd lang={lang} dict={dict} />
+            <Header lang={lang} dict={dict} />
+            <main className="flex-1">{children}</main>
+            <Footer lang={lang} dict={dict} />
+            <LanguageSuggestion
+              current={lang}
+              suggested={{
+                locale: other,
+                message: otherDict.localeSwitcher.suggestion,
+                cta: otherDict.localeSwitcher.suggestionCta,
+                dismiss: otherDict.localeSwitcher.dismiss,
+              }}
+            />
+          </>
+        )}
         <Analytics />
         <SpeedInsights />
       </body>
