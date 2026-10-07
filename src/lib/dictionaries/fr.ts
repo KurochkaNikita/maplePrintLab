@@ -37,6 +37,14 @@ const fr: Dictionary = {
     faqHeading: "Questions fréquentes",
   },
 
+  collection: {
+    itemsAria: "Produits de cette collection",
+    viewAll: "Voir la collection",
+    heading: "Collections",
+    productHeading: "Collections",
+    empty: "Rien ici pour le moment — de nouvelles pièces arrivent bientôt.",
+  },
+
   price: {
     currencySuffix: "CA",
     from: "À partir de",
@@ -58,6 +66,8 @@ const fr: Dictionary = {
     coloursValue: "Réalisable dans vos couleurs — demandez-nous",
     materialLabel: "Matériau",
     ctaLabel: "Se renseigner sur cette pièce",
+    highlightsHeading: "Pourquoi vous l’aimerez",
+    exploreMore: "Découvrez plus de décorations 3D originales et d’accessoires de bureau sur Maple Print Lab !",
   },
 
   units: {

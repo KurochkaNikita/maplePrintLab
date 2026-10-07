@@ -1,5 +1,5 @@
 import { locales, type Locale } from "@/lib/i18n";
-import { categories, products, type Dimensions, type PriceTier, type Seo, type SeoBlock } from "@/db";
+import { categories, collections, products, type Dimensions, type PriceTier, type Seo, type SeoBlock } from "@/db";
 
 export type ResolvedImage = { src: string; width: number; height: number; alt: string };
 
@@ -7,6 +7,8 @@ export type ResolvedImage = { src: string; width: number; height: number; alt: s
 export type ProductItem = {
   slug: string;
   categoryId: string;
+  /** Ids of the collections this product belongs to. */
+  collectionIds: string[];
   title: string;
   note: string;
   price: { amount: number; currency: "CAD"; from?: boolean };
@@ -15,7 +17,16 @@ export type ProductItem = {
   dimensions: Dimensions;
   material: string;
   description: string;
+  highlights: { title: string; text: string }[];
   images: ResolvedImage[];
+  seo: Seo;
+};
+
+export type ProductCollection = {
+  id: string;
+  title: string;
+  intro: string;
+  items: ProductItem[];
   seo: Seo;
 };
 
@@ -55,6 +66,7 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
           return {
             slug: p.slug,
             categoryId: p.categoryId,
+            collectionIds: p.collectionIds ?? [],
             title: t.title,
             note: t.note,
             price: resolvePrice(p, category.id, priceTiers),
@@ -62,6 +74,7 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             dimensions: p.dimensions,
             material: p.material[locale],
             description: t.description,
+            highlights: t.highlights ?? [],
             images: p.images.map((img, i) => ({
               src: `/product/${p.slug}/${img.file}`,
               width: img.width,
@@ -76,10 +89,10 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
   );
 }
 
-/** Featured products for the homepage, in table order. */
-export function getFeaturedItems(catalog: ProductCatalog): ProductItem[] {
+/** Products flagged `isNew`, for the homepage "Latest work" section, in table order. */
+export function getNewItems(catalog: ProductCatalog): ProductItem[] {
   return products
-    .filter((p) => p.featured)
+    .filter((p) => p.isNew)
     .map((p) => findProduct(catalog, p.slug)?.item)
     .filter((item): item is ProductItem => item !== undefined);
 }
@@ -116,4 +129,30 @@ export async function generateProductStaticParams() {
 export async function generateCategoryStaticParams() {
   const catalog = await getProducts(locales[0]);
   return locales.flatMap((lang) => catalog.map((c) => ({ lang, id: c.id })));
+}
+
+/** Collections with their products resolved from the catalog, in `collections.ts` order. */
+export function getCollections(catalog: ProductCatalog, locale: Locale): ProductCollection[] {
+  const items = catalog.flatMap((c) => c.items);
+  return collections.map((c) => {
+    const { title, intro, seo } = c.translations[locale];
+    return {
+      id: c.id,
+      title,
+      intro,
+      seo,
+      items: products
+        .filter((p) => p.collectionIds?.includes(c.id))
+        .map((p) => items.find((i) => i.slug === p.slug))
+        .filter((i): i is ProductItem => i !== undefined),
+    };
+  });
+}
+
+export function findCollection(collections: ProductCollection[], id: string): ProductCollection | undefined {
+  return collections.find((c) => c.id === id);
+}
+
+export async function generateCollectionStaticParams() {
+  return locales.flatMap((lang) => collections.map((c) => ({ lang, id: c.id })));
 }

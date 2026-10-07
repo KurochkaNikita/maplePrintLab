@@ -7,7 +7,7 @@ import fr from "./fr";
 export const wideEyedCat: ProductRecord = {
   slug: "wide-eyed-cat",
   categoryId: "layered-art",
-  featured: true,
+  isNew: true,
   price: { amount: 20, currency: "CAD" },
   dimensions: { cm: [25, 25, 1.5], in: [10, 10, 0.6] },
   material: pla,

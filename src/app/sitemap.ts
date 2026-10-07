@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
 import { locales, localeTag, defaultLocale, routes, localeHref } from "@/lib/i18n";
-import { allProductSlugs, getProducts } from "@/lib/products";
+import { allProductSlugs, getCollections, getProducts } from "@/lib/products";
 import { lastModified, latest } from "@/lib/lastmod";
 
 export const dynamic = "force-static";
@@ -27,6 +27,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const dictionaries = lastModified("src/lib/dictionaries");
   const productDate = (slug: string) => lastModified(`src/db/products/${slug}`);
   const categoriesFile = lastModified("src/db/categories.ts");
+  const collectionsFile = lastModified("src/db/collections.ts");
+  const collections = getCollections(catalog, locales[0]);
   const allProducts = lastModified("src/db/products");
 
   const routeDate = {
@@ -67,5 +69,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  return [...pages, ...categories, ...products];
+  const collectionPages = locales.flatMap((lang) =>
+    collections.map((col) => ({
+      url: abs(`/${lang}/collection/${col.id}/`),
+      lastModified: latest(collectionsFile, ...col.items.map((i) => productDate(i.slug))),
+      changeFrequency: "yearly" as const,
+      priority: 0.7,
+      alternates: { languages: languages((l) => `/${l}/collection/${col.id}/`) },
+    })),
+  );
+
+  return [...pages, ...categories, ...collectionPages, ...products];
 }

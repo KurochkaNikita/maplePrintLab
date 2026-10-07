@@ -1,10 +1,16 @@
 import type { ProductTranslation } from "@/db/types";
 
 const fr: ProductTranslation = {
-  title: "Citrouille, fantôme et chat d’Halloween",
+  title: "Cadre Halloween Citrouille, Fantôme et Chat",
   note: "Citrouilles, fantômes et chats noirs. Couleurs sur demande.",
   description:
-    "Une joyeuse bande d’Halloween dans une fenêtre ronde : citrouilles grimaçantes, fantômes timides (certains coiffés d’un chapeau de sorcière) et chats noirs aux yeux orange vif, chacun sur sa propre couche. Les couches noires, blanches et orange, avec de petites étoiles découpées dans le cadre, donnent une vraie profondeur à la scène. La pièce mesure 25 × 25 × 1,5 cm, est imprimée en PLA et vient avec un petit support pour une étagère ou un bureau. Envie d’une autre palette ? Dites-nous les couleurs que vous aimez et nous la réaliserons dans ces teintes.",
+    "Plongez dans l’ambiance d’Halloween avec ce cadre en relief ! Mettant en scène de curieux chats noirs se glissant parmi des citrouilles et de petits fantômes, cette pièce capture toute la magie de la saison. Couleurs personnalisables sur demande pour s’adapter parfaitement à votre intérieur !",
+  highlights: [
+    { title: "Incontournable d’Halloween :", text: "La décoration de saison idéale pour votre bureau, cheminée ou étagère." },
+    { title: "Profondeur et Relief 3D :", text: "La superposition de couches crée un superbe effet d’ombre et de lumière." },
+    { title: "Couleurs Personnalisables :", text: "Choisissez vos nuances préférées lors de la commande." },
+    { title: "Cadeau Festif :", text: "Une attention originale pour les fans d’Halloween et les amoureux des chats." },
+  ],
   seo: {
     title: "Tableau Halloween en couches 25×25",
     description: "Tableau en couches d’Halloween avec citrouilles, fantômes et chats noirs, 25×25×1,5 cm, avec support. Imprimé en PLA, couleurs sur demande.",

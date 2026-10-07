@@ -5,18 +5,20 @@ import FeatureGrid from "@/components/FeatureGrid";
 import CategoryCarouselSection from "@/components/CategoryCarouselSection";
 import ProductGridSection from "@/components/ProductGridSection";
 import CtaBanner from "@/components/CtaBanner";
-import { localeHref, type Locale } from "@/lib/i18n";
+import { collectionHref, localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
-import type { ProductCategory, ProductItem } from "@/lib/products";
+import type { ProductCategory, ProductCollection, ProductItem } from "@/lib/products";
 
 type HomeScreenProps = {
   lang: Locale;
   dict: Dictionary;
   categories: ProductCategory[];
   latestItems: ProductItem[];
+  /** Seasonal collection promoted above the category carousel (Halloween). */
+  seasonal?: ProductCollection;
 };
 
-export default function HomeScreen({ lang, dict, categories, latestItems }: HomeScreenProps) {
+export default function HomeScreen({ lang, dict, categories, latestItems, seasonal }: HomeScreenProps) {
   const t = dict.home;
 
   return (
@@ -38,6 +40,18 @@ export default function HomeScreen({ lang, dict, categories, latestItems }: Home
       />
 
       <FeatureGrid heading={t.whatWeDo.heading} items={t.whatWeDo.items} />
+
+      {seasonal && seasonal.items.length > 0 && (
+        <ProductGridSection
+          lang={lang}
+          heading={seasonal.title}
+          intro={seasonal.intro}
+          items={seasonal.items}
+          dict={dict}
+          seeAllHref={collectionHref(lang, seasonal.id)}
+          seeAllLabel={dict.collection.viewAll}
+        />
+      )}
 
       <CategoryCarouselSection
         lang={lang}

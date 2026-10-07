@@ -35,6 +35,14 @@ const en = {
     faqHeading: "Frequently asked questions",
   },
 
+  collection: {
+    itemsAria: "Products in this collection",
+    viewAll: "View collection",
+    heading: "Collections",
+    productHeading: "Collections",
+    empty: "Nothing here yet — new pieces are coming soon.",
+  },
+
   price: {
     currencySuffix: "CAD",
     from: "From",
@@ -56,6 +64,8 @@ const en = {
     coloursValue: "Made to order in your colours — just ask",
     materialLabel: "Material",
     ctaLabel: "Ask about this piece",
+    highlightsHeading: "Why you’ll love it",
+    exploreMore: "Explore more unique 3D-printed decor, desk accessories, and gifts at Maple Print Lab!",
   },
 
   units: {

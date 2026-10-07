@@ -10,7 +10,7 @@ export const categories: CategoryRecord[] = [
     customColours: true,
     translations: {
       en: {
-        title: "Mini Layered Wall Art – 25×25 cm",
+        title: "Mini Layered Wall Art",
         intro: "Mini wall art made of stacked layers, 25 × 25 × 1.5 cm (10 × 10 × 0.6 in). Each piece is 3D-printed to order in Canada, with real depth and the colours of your choice.",
         seo: {
           title: "Mini Layered Wall Art 25×25 cm, 3D-Printed",
@@ -65,7 +65,7 @@ export const categories: CategoryRecord[] = [
         },
       },
       fr: {
-        title: "Mini tableaux multicouches – 25×25 cm",
+        title: "Mini tableaux multicouches",
         intro: "Mini décor mural en couches superposées, 25 × 25 × 1,5 cm (10 × 10 × 0,6 po). Les couches créent une vraie profondeur et un effet 3D. Chaque pièce est imprimée en 3D sur commande au Canada, dans les couleurs de votre choix.",
         seo: {
           title: "Mini tableaux multicouches imprimés en 3D",

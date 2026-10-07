@@ -1,10 +1,16 @@
 import type { ProductTranslation } from "@/db/types";
 
 const fr: ProductTranslation = {
-  title: "Chat à lunettes",
+  title: "Tableau Chat Géométrique avec Lunettes",
   note: "Un chat géométrique aux lunettes rondes jaunes, cadre noir. Couleurs sur demande.",
   description:
-    "Un chat de type calico, avec de grosses lunettes rondes jaunes, sur un fond de formes géométriques audacieuses. Les couches orange, jaunes, grises, noires et blanches se chevauchent en angles vifs et en cercles, et les lunettes ont leur propre couche devant le visage. Le style est moderne et graphique, et convient aussi bien à une étagère, à un bureau qu’à un mur. La pièce mesure 25 × 25 × 1,5 cm, dans un cadre noir, est imprimée en PLA et vient avec un petit support. Envie d’une autre palette ? Dites-nous les couleurs et nous la réaliserons dans ces teintes.",
+    "Donnez un style affirmé à votre espace avec cette création Chat en relief ! Arborant un motif calico moderne aux découpes géométriques, ce chat porte de grandes lunettes rondes jaunes pour un look résolument cool. La décoration de bureau idéale pour les fans de chats.",
+  highlights: [
+    { title: "Élégant et Tendance :", text: "Une palette inspirée des chats calico associée à des lunettes rondes stylées." },
+    { title: "Art Géométrique 3D :", text: "La superposition de couches offre un vrai relief et de superbes effets d’ombre." },
+    { title: "Prêt à Exposer :", text: "Trouvez-lui une place de choix sur votre bureau, étagère gaming ou mur déco." },
+    { title: "Incontournable pour les Amoureux des Chats :", text: "Un cadeau original pour les télétravailleurs, gamers et amateurs de design." },
+  ],
   seo: {
     title: "Tableau Chat à lunettes en couches 25×25",
     description: "Tableau géométrique en couches d’un chat à lunettes rondes jaunes, 25×25×1,5 cm, cadre noir et support. Imprimé en PLA, couleurs sur demande.",

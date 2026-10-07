@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ProductDetailScreen from "@/screens/ProductDetailScreen";
 import { getDictionary, resolveLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
-import { findProduct, generateProductStaticParams, getProducts } from "@/lib/products";
+import { findProduct, generateProductStaticParams, getCollections, getProducts } from "@/lib/products";
 
 export function generateStaticParams() {
   return generateProductStaticParams();
@@ -47,6 +47,7 @@ export default async function ProductPage({
       dict={dict}
       item={found.item}
       category={found.category}
+      collections={getCollections(catalog, lang).filter((c) => found.item.collectionIds.includes(c.id))}
     />
   );
 }

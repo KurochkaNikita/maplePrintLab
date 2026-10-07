@@ -7,6 +7,8 @@ import type { ProductItem } from "@/lib/products";
 type ProductGridSectionProps = {
   lang: Locale;
   heading: string;
+  /** Short line under the heading. */
+  intro?: string;
   items: ProductItem[];
   dict: Dictionary;
   seeAllHref?: string;
@@ -16,6 +18,7 @@ type ProductGridSectionProps = {
 export default function ProductGridSection({
   lang,
   heading,
+  intro,
   items,
   dict,
   seeAllHref,
@@ -34,6 +37,7 @@ export default function ProductGridSection({
           </Link>
         )}
       </div>
+      {intro && <p className="mt-2 max-w-2xl text-ink/80">{intro}</p>}
       <ProductGrid
         lang={lang}
         items={items}

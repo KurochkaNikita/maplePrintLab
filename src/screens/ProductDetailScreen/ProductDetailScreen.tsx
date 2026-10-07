@@ -1,12 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { formatDimensions } from "@/lib/dimensions";
 import { formatPrice } from "@/lib/price";
 import PriceTiers from "@/components/PriceTiers";
 import CtaLink from "@/components/CtaLink";
-import { categoryHref, localeHref, productHref, type Locale } from "@/lib/i18n";
+import { categoryHref, collectionHref, localeHref, productHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
-import type { ProductCategory, ProductItem } from "@/lib/products";
+import type { ProductCategory, ProductCollection, ProductItem } from "@/lib/products";
 import ProductJsonLd from "./ProductJsonLd";
 
 type ProductDetailScreenProps = {
@@ -14,6 +15,7 @@ type ProductDetailScreenProps = {
   dict: Dictionary;
   item: ProductItem;
   category: ProductCategory;
+  collections: ProductCollection[];
 };
 
 export default function ProductDetailScreen({
@@ -21,6 +23,7 @@ export default function ProductDetailScreen({
   dict,
   item,
   category,
+  collections,
 }: ProductDetailScreenProps) {
   const t = dict.product;
   const crumbs = [
@@ -112,6 +115,40 @@ export default function ProductDetailScreen({
           </dl>
 
           <p className="mt-6 max-w-md text-ink/80">{item.description}</p>
+
+          {item.highlights.length > 0 && (
+            <>
+              <h2 className="mt-6 font-display text-xl font-semibold text-charcoal">
+                {t.highlightsHeading}
+              </h2>
+              <ul className="mt-3 max-w-md list-disc space-y-2 pl-5 text-ink/80">
+                {item.highlights.map((h) => (
+                  <li key={h.title}>
+                    <strong className="font-semibold text-charcoal">{h.title}</strong> {h.text}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 max-w-md text-ink/80">{t.exploreMore}</p>
+            </>
+          )}
+
+          {collections.length > 0 && (
+            <nav className="mt-6" aria-label={dict.collection.productHeading}>
+              <ul className="flex flex-wrap items-center gap-2">
+                <li className="text-sm text-ink/80">{dict.collection.productHeading}:</li>
+                {collections.map((col) => (
+                  <li key={col.id}>
+                    <Link
+                      href={collectionHref(lang, col.id)}
+                      className="inline-block rounded-full border border-line px-3 py-2 text-sm font-medium text-charcoal hover:border-amber-deep hover:text-amber-deep"
+                    >
+                      {col.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
 
           <div className="mt-8">
             <CtaLink href={`/${lang}/contact/`}>{t.ctaLabel}</CtaLink>

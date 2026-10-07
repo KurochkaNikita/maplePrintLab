@@ -1,10 +1,16 @@
 import type { ProductTranslation } from "@/db/types";
 
 const en: ProductTranslation = {
-  title: "Cool Cat in Glasses",
+  title: "Cool Cat with Glasses Geometric Art",
   note: "A geometric cat in round yellow glasses, in a black frame. Colours to order.",
   description:
-    "A calico-style cat in big round yellow glasses, set against bold geometric shapes. Orange, yellow, grey, black and white layers overlap in sharp angles and circles, and the glasses sit on their own layer in front of the face. It has a modern, graphic look that suits a shelf, a desk or a wall. The piece is 25 × 25 × 1.5 cm in a black frame, printed in PLA, and comes with a small stand. Want a different palette? Tell us the colours and we will make it in those.",
+    "Inject clean style and personality into your setup with this Cool Cat 3D Art! Designed with a calico pattern and geometric layered panels, this sleek cat wears round yellow glasses that exude effortless style. It’s a great statement desk decor piece for cat lovers.",
+  highlights: [
+    { title: "Sleek & Modern:", text: "Calico-inspired colour palette paired with trendy round glasses." },
+    { title: "Geometric 3D Craftsmanship:", text: "Precision layered construction gives real physical depth and shadow effects." },
+    { title: "Desk & Wall Ready:", text: "Display it proudly on your work desk, gaming shelf, or wall background." },
+    { title: "Must-Have for Cat Owners:", text: "A standout gift for remote workers, gamers, and modern decor fans." },
+  ],
   seo: {
     title: "Cool Cat in Glasses Layered Art 25×25 cm",
     description: "Geometric layered cat art with round yellow glasses, 25×25×1.5 cm, in a black frame with a stand. Printed in PLA, colours to order.",

@@ -1,10 +1,16 @@
 import type { ProductTranslation } from "@/db/types";
 
 const en: ProductTranslation = {
-  title: "Happy Halloween",
+  title: "Happy Halloween Witch & Pumpkin Sign",
   note: "Playful lettering with pumpkins, a ghost and a black cat. Colours to order.",
   description:
-    "Bright, playful Halloween lettering on a sunny yellow panel. “Happy Halloween” is spelled out with a ghost, a black cat, a skull and devil horns worked into the letters, and around them you will find a witch hat, green eyes, bat wings, bones and three grinning pumpkins. Purple, orange, green, black and white layers sit one on top of the other for real depth. The piece is 25 × 25 × 1.5 cm, printed in PLA, and comes with a small stand for a shelf or desk. Want a different palette? Tell us the colours and we will make it in those.",
+    "Level up your seasonal decor with this colourful Happy Halloween Sign! Packed with festive details — including a witch hat, smiling pumpkins, and eerie bones — this layered 3D piece creates an instant festive atmosphere wherever you place it.",
+  highlights: [
+    { title: "Playful Halloween Style:", text: "Bright colours and 3D layering bring fun seasonal vibes without being scary." },
+    { title: "Classic Festive Icons:", text: "Features popular Halloween symbols like witch hats, bones, and jack-o’-lanterns." },
+    { title: "Layered Depth:", text: "Multi-dimensional design that adds depth and texture to your holiday display." },
+    { title: "Perfect Seasonal Decor:", text: "Excellent for office desks, mantle displays, entryways, or candy tables." },
+  ],
   seo: {
     title: "Happy Halloween Layered Art 25×25 cm",
     description: "Colourful Happy Halloween layered art with pumpkins, a ghost and a black cat, 25×25×1.5 cm, with a stand. Printed in PLA, colours to order.",

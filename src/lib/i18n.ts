@@ -53,6 +53,11 @@ export function categoryHref(locale: Locale, id: string): string {
   return `/${locale}/category/${id}/`;
 }
 
+/** `/en/collection/halloween/` */
+export function collectionHref(locale: Locale, id: string): string {
+  return `/${locale}/collection/${id}/`;
+}
+
 /** `/en/product/some-slug/` */
 export function productHref(locale: Locale, slug: string): string {
   return `/${locale}/product/${slug}/`;

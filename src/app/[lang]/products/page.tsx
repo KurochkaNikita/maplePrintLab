@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ProductScreen from "@/screens/ProductScreen";
 import { getDictionary, locales, resolveLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
-import { getProducts } from "@/lib/products";
+import { getCollections, getProducts } from "@/lib/products";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -32,5 +32,5 @@ export default async function ProductsPage({
   const dict = await getDictionary(lang);
   const catalog = await getProducts(lang);
 
-  return <ProductScreen lang={lang} dict={dict} catalog={catalog} />;
+  return <ProductScreen lang={lang} dict={dict} catalog={catalog} collections={getCollections(catalog, lang)} />;
 }

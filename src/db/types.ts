@@ -39,6 +39,20 @@ export type CategoryRecord = {
   }>;
 };
 
+/**
+ * A hand-picked group of products that cuts across categories (a season, a theme, a gift idea).
+ * A product can belong to several. Page: /<lang>/collection/<id>/
+ */
+export type CollectionRecord = {
+  /** URL slug: /<lang>/collection/<id>/ */
+  id: string;
+  translations: Translations<{
+    title: string;
+    intro: string;
+    seo: Seo;
+  }>;
+};
+
 /** A product photo in `public/product/<slug>/<file>`; the first one is the main image. */
 export type ProductImage = {
   file: string;
@@ -56,7 +70,10 @@ export type Dimensions = {
 export type ProductTranslation = {
   title: string;
   note: string;
+  /** Intro paragraph; also used as the JSON-LD description, so keep it plain text. */
   description: string;
+  /** "Why you'll love it" bullets under the description; `title` is the bold lead-in and includes its colon. */
+  highlights?: { title: string; text: string }[];
   /** Alt text per photo, in the same order as `ProductRecord.images`. */
   imageAlts: string[];
   seo: Seo;
@@ -67,8 +84,10 @@ export type ProductRecord = {
   slug: string;
   /** -> categories.ts */
   categoryId: string;
-  /** Shown in the homepage "latest work" section, in file order. */
-  featured?: boolean;
+  /** -> collections.ts; a product may sit in any number of collections (e.g. `["halloween"]`). */
+  collectionIds?: string[];
+  /** Set `true` to show the product in the homepage "Latest work" section (in file order); omit or `false` to hide it. */
+  isNew?: boolean;
   /** Omit when the category has `priceTiers` — the first tier is used. */
   price?: { amount: number; currency: "CAD"; from?: boolean };
   /** Every product states its size. */

@@ -4,5 +4,6 @@
  * See README.md in this folder.
  */
 export { categories } from "./categories";
+export { collections } from "./collections";
 export { products } from "./products";
 export type * from "./types";

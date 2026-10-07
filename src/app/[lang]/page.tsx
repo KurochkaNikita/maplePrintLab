@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import HomeScreen from "@/screens/HomeScreen";
 import { getDictionary, locales, resolveLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
-import { getFeaturedItems, getProducts } from "@/lib/products";
+import { findCollection, getCollections, getNewItems, getProducts } from "@/lib/products";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -26,7 +26,9 @@ export default async function HomePage({
   const dict = await getDictionary(lang);
   const catalog = await getProducts(lang);
 
-  const latestItems = getFeaturedItems(catalog);
+  const latestItems = getNewItems(catalog);
 
-  return <HomeScreen lang={lang} dict={dict} categories={catalog} latestItems={latestItems} />;
+  const seasonal = findCollection(getCollections(catalog, lang), "halloween");
+
+  return <HomeScreen lang={lang} dict={dict} categories={catalog} latestItems={latestItems} seasonal={seasonal} />;
 }
