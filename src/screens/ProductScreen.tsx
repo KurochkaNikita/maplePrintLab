@@ -56,9 +56,9 @@ export default function ProductScreen({ lang, dict, catalog, collections }: Prod
           />
           <Link
             href={categoryHref(lang, cat.id)}
-            className="mt-5 inline-block font-mono text-xs uppercase tracking-wider text-amber-deep hover:text-charcoal"
+            className="mt-5 inline-block whitespace-nowrap py-2 font-mono text-xs uppercase tracking-wider text-amber-deep hover:text-charcoal"
           >
-            {dict.category.viewAll} →
+            {dict.category.viewAll}&nbsp;→
           </Link>
         </section>
       ))}

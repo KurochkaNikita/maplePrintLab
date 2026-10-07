@@ -9,6 +9,7 @@ const en = {
     howToOrder: "How to order",
     contact: "Contact",
     primaryAria: "Main navigation",
+    menu: "Menu",
     footerAria: "Footer navigation",
   },
 
@@ -37,7 +38,7 @@ const en = {
 
   collection: {
     itemsAria: "Products in this collection",
-    viewAll: "View collection",
+    viewAll: "View all",
     heading: "Collections",
     productHeading: "Collections",
     empty: "Nothing here yet — new pieces are coming soon.",

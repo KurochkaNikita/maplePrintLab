@@ -1,6 +1,6 @@
 import Link from "next/link";
 import LayerLeaf from "@/components/LayerLeaf";
-import LocaleSwitcher from "@/components/LocaleSwitcher";
+import HeaderNav from "@/components/HeaderNav";
 import { siteConfig } from "@/lib/site-config";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
@@ -32,24 +32,14 @@ export default function Header({ lang, dict, hideLocaleSwitcher = false }: Heade
           <span>{siteConfig.name}</span>
         </Link>
 
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <nav aria-label={dict.nav.primaryAria}>
-            <ul className="flex flex-wrap items-center gap-x-5 gap-y-1 font-mono text-xs uppercase tracking-wider">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="inline-block py-2 text-ink transition-colors hover:text-amber-deep"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {!hideLocaleSwitcher && <LocaleSwitcher current={lang} label={dict.localeSwitcher.label} />}
-        </div>
+        <HeaderNav
+          lang={lang}
+          items={nav}
+          navAria={dict.nav.primaryAria}
+          menuLabel={dict.nav.menu}
+          localeLabel={dict.localeSwitcher.label}
+          hideLocaleSwitcher={hideLocaleSwitcher}
+        />
       </div>
     </header>
   );

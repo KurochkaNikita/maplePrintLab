@@ -11,6 +11,7 @@ const fr: Dictionary = {
     howToOrder: "Comment commander",
     contact: "Contact",
     primaryAria: "Navigation principale",
+    menu: "Menu",
     footerAria: "Navigation du pied de page",
   },
 
@@ -39,7 +40,7 @@ const fr: Dictionary = {
 
   collection: {
     itemsAria: "Produits de cette collection",
-    viewAll: "Voir la collection",
+    viewAll: "Voir tout",
     heading: "Collections",
     productHeading: "Collections",
     empty: "Rien ici pour le moment — de nouvelles pièces arrivent bientôt.",

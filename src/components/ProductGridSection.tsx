@@ -31,9 +31,9 @@ export default function ProductGridSection({
         {seeAllHref && seeAllLabel && (
           <Link
             href={seeAllHref}
-            className="font-mono text-xs uppercase tracking-wider text-amber-deep hover:text-charcoal"
+            className="inline-block shrink-0 whitespace-nowrap py-2 font-mono text-xs uppercase tracking-wider text-amber-deep hover:text-charcoal"
           >
-            {seeAllLabel} →
+            {seeAllLabel}&nbsp;→
           </Link>
         )}
       </div>
