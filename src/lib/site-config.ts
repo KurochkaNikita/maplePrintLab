@@ -9,7 +9,9 @@ export const siteConfig = {
   // the host; the fallback is the production domain. No trailing slash.
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://mapleprintlab.store").replace(/\/+$/, ""),
   // Fallback og:image / twitter:image / JSON-LD image for pages without their own photo.
-  defaultOgImage: "/product/cool-cat-glasses/cool-cat-glasses-front.webp",
+  defaultOgImage: "/og-image.png",
+  // Square brand logo (PNG, 512×512) for structured data.
+  logo: "/brand/logo-512.png",
   email: "hello@mapleprintlab.store",
   instagram: "https://instagram.com/maple_print_lab",
   instagramHandle: "@maple_print_lab",

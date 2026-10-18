@@ -21,6 +21,7 @@ export default function JsonLd({ lang, dict }: JsonLdProps) {
     url: `${siteConfig.url}/${lang}/`,
     email: siteConfig.email,
     image: `${siteConfig.url}${siteConfig.defaultOgImage}`,
+    logo: `${siteConfig.url}${siteConfig.logo}`,
     priceRange: "$$",
     sameAs: [siteConfig.instagram],
     areaServed: {

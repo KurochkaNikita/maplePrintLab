@@ -22,6 +22,14 @@ export default function Footer({ lang, dict }: FooterProps) {
     <footer className="border-t border-line bg-charcoal text-filament">
       <div className="mx-auto grid max-w-5xl gap-8 px-5 py-12 sm:grid-cols-3">
         <div>
+          <img
+            src="/brand/logo-on-dark.svg"
+            alt=""
+            aria-hidden="true"
+            width={40}
+            height={45}
+            className="mb-3 h-11 w-10"
+          />
           <p className="font-display text-base font-semibold">{siteConfig.name}</p>
           <p className="mt-2 text-sm text-filament/70">{dict.region}</p>
         </div>

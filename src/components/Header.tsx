@@ -1,5 +1,4 @@
 import Link from "next/link";
-import LayerLeaf from "@/components/LayerLeaf";
 import HeaderNav from "@/components/HeaderNav";
 import { siteConfig } from "@/lib/site-config";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -28,7 +27,14 @@ export default function Header({ lang, dict, hideLocaleSwitcher = false }: Heade
           href={localeHref(lang, "")}
           className="flex items-center gap-2.5 font-display text-lg font-semibold text-charcoal"
         >
-          <LayerLeaf className="h-7 w-7" />
+          <img
+            src="/brand/logo-on-light.svg"
+            alt=""
+            aria-hidden="true"
+            width={32}
+            height={36}
+            className="h-9 w-8"
+          />
           <span>{siteConfig.name}</span>
         </Link>
 
