@@ -25,7 +25,7 @@ export default function ProductCard({
   return (
     <Link
       href={href}
-      className="group block overflow-hidden rounded-lg border border-line bg-white/40 transition-shadow hover:shadow-md"
+      className="group block overflow-hidden rounded-2xl border border-line bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber/50 hover:shadow-xl hover:shadow-charcoal/10"
     >
       {image ? (
         <Image
@@ -35,7 +35,7 @@ export default function ProductCard({
           height={image.height}
           preload={preload}
           sizes="(min-width: 640px) 33vw, 100vw"
-          className="aspect-[4/3] w-full border-b border-line object-cover"
+          className="aspect-[4/3] w-full border-b border-line object-cover transition-transform duration-500 group-hover:scale-105"
         />
       ) : (
         <div
@@ -48,12 +48,16 @@ export default function ProductCard({
         </div>
       )}
 
-      <div className="p-4">
-        <h3 className="font-display text-base font-medium text-charcoal group-hover:text-amber">
+      <div className="p-5">
+        <h3 className="font-display text-base font-medium text-charcoal group-hover:text-amber-deep">
           {title}
         </h3>
         <p className="mt-1.5 text-sm text-ink/80">{note}</p>
-        {price && <p className="mt-2 font-display text-sm font-medium text-charcoal">{price}</p>}
+        {price && (
+          <p className="mt-3 inline-block rounded-full bg-filament px-3 py-1 font-display text-sm font-medium text-charcoal">
+            {price}
+          </p>
+        )}
       </div>
     </Link>
   );

@@ -19,7 +19,7 @@ export default function CategoryCard({
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col overflow-hidden rounded-lg border border-line bg-white/40 transition-shadow hover:shadow-md"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber/50 hover:shadow-xl hover:shadow-charcoal/10"
     >
       <div
         className="relative aspect-[4/3] w-full border-b border-line bg-white"
@@ -29,9 +29,9 @@ export default function CategoryCard({
           {coverLabel}
         </span>
       </div>
-      <div className="flex-1 p-4">
+      <div className="flex-1 p-5">
         <div className="flex items-baseline justify-between gap-3">
-          <h3 className="font-display text-base font-medium text-charcoal group-hover:text-amber">
+          <h3 className="font-display text-base font-medium text-charcoal group-hover:text-amber-deep">
             {title}
           </h3>
           <span className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-teal">

@@ -11,27 +11,35 @@ type HeroProps = {
 
 export default function Hero({ eyebrow, title, accent, body, actions, media }: HeroProps) {
   return (
-    <section className="mx-auto max-w-5xl px-5 pb-16 pt-14 sm:pt-20">
-      <div className="grid items-center gap-10 sm:grid-cols-[1.4fr_1fr]">
+    <section className="relative overflow-hidden">
+      <div className="build-plate pointer-events-none absolute inset-0" aria-hidden="true" />
+      <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-14 sm:pt-24">
+      <div className="grid items-center gap-12 sm:grid-cols-[1.4fr_1fr]">
         <div>
           {eyebrow && (
-            <p className="font-mono text-xs uppercase tracking-widest text-teal">
+            <p className="inline-flex items-center gap-2 rounded-full border border-teal/30 bg-white/60 px-3 py-1.5 font-mono text-xs uppercase tracking-widest text-teal">
+              <span className="h-1.5 w-1.5 rounded-full bg-teal" aria-hidden="true" />
               {eyebrow}
             </p>
           )}
-          <h1 className="mt-3 font-display text-4xl font-semibold leading-tight text-charcoal sm:text-5xl">
+          <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-charcoal sm:text-6xl">
             {title}
           </h1>
           {accent && (
-            <p className="mt-4 max-w-xl font-accent text-lg text-amber-deep">
+            <p className="mt-5 max-w-xl font-accent text-xl text-amber-deep">
               {accent}
             </p>
           )}
-          <p className="mt-4 max-w-xl text-ink/80">{body}</p>
-          {actions && <div className="mt-7 flex flex-wrap gap-3">{actions}</div>}
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-ink/80 sm:text-lg">{body}</p>
+          {actions && <div className="mt-8 flex flex-wrap gap-3">{actions}</div>}
         </div>
 
-        {media && <div className="justify-self-center sm:justify-self-end">{media}</div>}
+        {media && (
+          <div className="justify-self-center rounded-[2rem] border border-line bg-white/60 p-8 shadow-xl shadow-charcoal/5 sm:justify-self-end">
+            {media}
+          </div>
+        )}
+      </div>
       </div>
     </section>
   );

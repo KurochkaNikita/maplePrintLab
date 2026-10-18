@@ -34,6 +34,30 @@
   }
 }
 
+@layer components {
+  /* "Build plate": faint printer-bed grid used behind hero areas */
+  .build-plate {
+    background-image:
+      linear-gradient(to right, rgb(34 32 29 / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(34 32 29 / 0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  }
+
+  /* Thin striped bar echoing printed layers */
+  .layer-bar {
+    height: 6px;
+    background: repeating-linear-gradient(
+      90deg,
+      #b9722e 0 24px,
+      #2f6e64 24px 48px,
+      #8f551f 48px 72px,
+      #22201d 72px 96px
+    );
+  }
+}
+
 /* Анимация "допечатывания" слоёв кленового листа (Этап 2) */
 @keyframes layer-rise {
   from {

@@ -35,7 +35,7 @@ export default function ProductDetailScreen({
   const [mainImage, ...otherImages] = item.images;
 
   return (
-    <div className="mx-auto max-w-5xl px-5 pb-24 pt-14">
+    <div className="mx-auto max-w-6xl px-5 pb-24 pt-14">
       <Breadcrumbs ariaLabel={dict.category.breadcrumbAria} items={crumbs} />
 
       <div className="mt-6 grid gap-10 md:grid-cols-2">

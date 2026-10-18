@@ -21,11 +21,11 @@ export default function Header({ lang, dict, hideLocaleSwitcher = false }: Heade
   ];
 
   return (
-    <header className="border-b border-line">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-5 py-4">
+    <header className="sticky top-0 z-40 border-b border-line bg-filament/90 backdrop-blur supports-[backdrop-filter]:bg-filament/75">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-5 py-4">
         <Link
           href={localeHref(lang, "")}
-          className="flex items-center gap-2.5 font-display text-lg font-semibold text-charcoal"
+          className="flex items-center gap-2.5 py-1 font-display text-lg font-semibold tracking-tight text-charcoal"
         >
           <img
             src="/brand/logo-on-light.svg"

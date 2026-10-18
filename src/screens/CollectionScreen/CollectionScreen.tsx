@@ -56,7 +56,7 @@ export default function CollectionScreen({ lang, dict, collection }: CollectionS
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-5 pb-24 pt-14">
+    <div className="mx-auto max-w-6xl px-5 pb-24 pt-14">
       <Breadcrumbs ariaLabel={dict.category.breadcrumbAria} items={crumbs} />
 
       <header className="mt-6">

@@ -19,8 +19,9 @@ export default function Footer({ lang, dict }: FooterProps) {
   ];
 
   return (
-    <footer className="border-t border-line bg-charcoal text-filament">
-      <div className="mx-auto grid max-w-5xl gap-8 px-5 py-12 sm:grid-cols-3">
+    <footer className="bg-charcoal text-filament">
+      <div className="layer-bar" aria-hidden="true" />
+      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 sm:grid-cols-3">
         <div>
           <img
             src="/brand/logo-on-dark.svg"
@@ -73,7 +74,7 @@ export default function Footer({ lang, dict }: FooterProps) {
       </div>
 
       <div className="border-t border-filament/10">
-        <p className="mx-auto max-w-5xl px-5 py-5 text-xs text-filament/50">
+        <p className="mx-auto max-w-6xl px-5 py-5 text-xs text-filament/50">
           © {year} {siteConfig.name}. {dict.footer.rights}
         </p>
       </div>

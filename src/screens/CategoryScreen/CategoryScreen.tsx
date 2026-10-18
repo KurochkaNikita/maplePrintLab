@@ -24,7 +24,7 @@ export default function CategoryScreen({ lang, dict, category }: CategoryScreenP
   ];
 
   return (
-    <div className="mx-auto max-w-5xl px-5 pb-24 pt-14">
+    <div className="mx-auto max-w-6xl px-5 pb-24 pt-14">
       <Breadcrumbs
         ariaLabel={t.breadcrumbAria}
         items={crumbs}

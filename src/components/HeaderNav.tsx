@@ -70,7 +70,7 @@ export default function HeaderNav({
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block py-3 text-ink transition-colors hover:text-amber-deep md:inline-block md:py-2"
+                  className="block py-3 text-charcoal transition-colors hover:text-amber-deep md:inline-block md:rounded-full md:px-3 md:py-2 md:hover:bg-charcoal/5"
                 >
                   {item.label}
                 </Link>

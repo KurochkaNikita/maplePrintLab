@@ -15,7 +15,7 @@ export default function ProductScreen({ lang, dict, catalog, collections }: Prod
   const t = dict.products;
 
   return (
-    <div className="mx-auto max-w-5xl px-5 pb-24 pt-14">
+    <div className="mx-auto max-w-6xl px-5 pb-24 pt-14">
       <h1 className="font-display text-4xl font-semibold text-charcoal">
         {t.title}
       </h1>

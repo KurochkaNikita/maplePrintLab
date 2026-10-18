@@ -45,7 +45,7 @@ export default function LanguageSuggestion({ current, suggested }: LanguageSugge
       lang={localeTag[suggested.locale]}
       className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-white px-5 py-2 shadow-lg"
     >
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-1 text-sm text-charcoal">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-1 text-sm text-charcoal">
         <p>
           {suggested.message}{" "}
           <Link

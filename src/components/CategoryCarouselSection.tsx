@@ -23,9 +23,12 @@ export default function CategoryCarouselSection({
   nextLabel,
 }: CategoryCarouselSectionProps) {
   return (
-    <section className="mx-auto max-w-5xl px-5 py-14">
+    <section className="mx-auto max-w-6xl px-5 py-16">
       <Carousel
-        heading={<h2 className="font-display text-2xl font-medium">{heading}</h2>}
+        heading={<div>
+            <h2 className="font-display text-3xl font-semibold tracking-tight">{heading}</h2>
+            <div className="layer-bar mt-3 w-24 rounded-full" aria-hidden="true" />
+          </div>}
         prevLabel={prevLabel}
         nextLabel={nextLabel}
       >
