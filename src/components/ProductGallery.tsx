@@ -93,9 +93,26 @@ export default function ProductGallery({ title, images, photoSoonLabel, labels }
       else if (e.key === "ArrowRight") step(1);
       else if (e.key === "ArrowLeft") step(-1);
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("keydown", onKey, true);
+    return () => window.removeEventListener("keydown", onKey, true);
   }, [open, step, close]);
+
+  /** Close on any click that is not on a control or on the visible photo itself (not its letterbox). */
+  const onBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.closest("button")) return;
+    if (target instanceof HTMLImageElement && target.naturalWidth > 0) {
+      const r = target.getBoundingClientRect();
+      const scale = Math.min(r.width / target.naturalWidth, r.height / target.naturalHeight);
+      const w = target.naturalWidth * scale;
+      const h = target.naturalHeight * scale;
+      const left = r.left + (r.width - w) / 2;
+      const top = r.top + (r.height - h) / 2;
+      const inside = e.clientX >= left && e.clientX <= left + w && e.clientY >= top && e.clientY <= top + h;
+      if (inside) return;
+    }
+    close();
+  };
 
   if (total === 0) {
     return (
@@ -178,6 +195,7 @@ export default function ProductGallery({ title, images, photoSoonLabel, labels }
           role="dialog"
           aria-modal="true"
           aria-label={title}
+          onClick={onBackdropClick}
           className="fixed inset-0 z-50 flex flex-col bg-neutral-900/80 backdrop-blur-sm"
         >
           <div className="flex items-center justify-between gap-4 px-4 py-3 text-white">
@@ -207,9 +225,6 @@ export default function ProductGallery({ title, images, photoSoonLabel, labels }
                   key={img.src}
                   className="flex h-full w-full shrink-0 snap-center items-center justify-center px-4 sm:px-20"
                   aria-hidden={i !== active}
-                  onClick={(e) => {
-                    if (e.target === e.currentTarget) close();
-                  }}
                 >
                   <Image
                     src={img.src}
