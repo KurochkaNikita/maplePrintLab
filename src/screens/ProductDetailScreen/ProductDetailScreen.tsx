@@ -39,7 +39,7 @@ export default function ProductDetailScreen({
 
       <div className="mt-6 grid gap-10 md:grid-cols-2">
         <div>
-          <ProductGallery images={item.images} photoSoonLabel={dict.productCard.photoSoon} labels={t.gallery} />
+          <ProductGallery title={item.title} images={item.images} photoSoonLabel={dict.productCard.photoSoon} labels={t.gallery} />
         </div>
 
         <div className="md:sticky md:top-24 md:self-start">

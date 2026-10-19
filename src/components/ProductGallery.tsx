@@ -5,6 +5,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { ResolvedImage } from "@/lib/products";
 
 type ProductGalleryProps = {
+  /** Product name, shown in the lightbox header. */
+  title: string;
   images: ResolvedImage[];
   photoSoonLabel: string;
   labels: {
@@ -43,7 +45,7 @@ const overlayBtn =
  * the main photo opens a full-screen lightbox that swipes (scroll-snap), has
  * arrows and supports ←/→/Esc.
  */
-export default function ProductGallery({ images, photoSoonLabel, labels }: ProductGalleryProps) {
+export default function ProductGallery({ title, images, photoSoonLabel, labels }: ProductGalleryProps) {
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
   const track = useRef<HTMLDivElement>(null);
@@ -175,13 +177,16 @@ export default function ProductGallery({ images, photoSoonLabel, labels }: Produ
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={main.alt}
+          aria-label={title}
           className="fixed inset-0 z-50 flex flex-col bg-charcoal"
         >
-          <div className="flex items-center justify-between px-4 py-3 text-white">
-            <p className="font-mono text-xs uppercase tracking-wider" aria-live="polite">
-              {counter(active + 1)}
-            </p>
+          <div className="flex items-center justify-between gap-4 px-4 py-3 text-white">
+            <div className="min-w-0">
+              <p className="truncate font-display text-base font-semibold sm:text-lg">{title}</p>
+              <p className="font-mono text-xs uppercase tracking-wider text-white/80" aria-live="polite">
+                {counter(active + 1)}
+              </p>
+            </div>
             <button ref={closeBtn} type="button" onClick={close} aria-label={labels.close} className={overlayBtn}>
               <Icon d="M6 6l12 12M18 6L6 18" />
             </button>
@@ -212,6 +217,7 @@ export default function ProductGallery({ images, photoSoonLabel, labels }: Produ
                     width={img.width}
                     height={img.height}
                     sizes="100vw"
+                    loading="eager"
                     className="h-full w-full rounded-lg object-contain"
                   />
                 </div>
