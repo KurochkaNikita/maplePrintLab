@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ProductGallery from "@/components/ProductGallery";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { formatDimensions } from "@/lib/dimensions";
@@ -32,7 +32,6 @@ export default function ProductDetailScreen({
     { label: category.title, href: categoryHref(lang, category.id) },
     { label: item.title, href: productHref(lang, item.slug) },
   ];
-  const [mainImage, ...otherImages] = item.images;
 
   return (
     <div className="mx-auto max-w-6xl px-5 pb-24 pt-14">
@@ -40,43 +39,7 @@ export default function ProductDetailScreen({
 
       <div className="mt-6 grid gap-10 md:grid-cols-2">
         <div>
-          {mainImage ? (
-            <Image
-              src={mainImage.src}
-              alt={mainImage.alt}
-              width={mainImage.width}
-              height={mainImage.height}
-              preload
-              sizes="(min-width: 768px) 50vw, 100vw"
-              className="aspect-[4/3] w-full rounded-2xl border border-line object-cover shadow-sm"
-            />
-          ) : (
-            <div
-              className="relative aspect-[4/3] w-full rounded-2xl border border-line bg-white"
-              aria-hidden="true"
-            >
-              <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-ink/80">
-                {dict.productCard.photoSoon}
-              </span>
-            </div>
-          )}
-
-          {otherImages.length > 0 && (
-            <div className="mt-3 grid grid-cols-3 gap-3">
-              {otherImages.map((img) => (
-                <Image
-                  key={img.src}
-                  src={img.src}
-                  alt={img.alt}
-                  width={img.width}
-                  height={img.height}
-                  unoptimized
-                  sizes="(min-width: 768px) 17vw, 33vw"
-                  className="aspect-square w-full rounded-md border border-line object-cover"
-                />
-              ))}
-            </div>
-          )}
+          <ProductGallery images={item.images} photoSoonLabel={dict.productCard.photoSoon} labels={t.gallery} />
         </div>
 
         <div className="md:sticky md:top-24 md:self-start">

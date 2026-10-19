@@ -66,6 +66,14 @@ const en = {
     coloursLabel: "Colours",
     coloursValue: "Made to order in your colours — just ask",
     materialLabel: "Material",
+    gallery: {
+      open: "Open photo full screen",
+      close: "Close",
+      prev: "Previous photo",
+      next: "Next photo",
+      counter: "Photo {n} of {total}",
+      thumbs: "Product photos",
+    },
     ctaLabel: "Order this piece",
     ctaNote: "No payment now — we confirm price and timing first.",
     perks: [

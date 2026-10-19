@@ -68,6 +68,14 @@ const fr: Dictionary = {
     coloursLabel: "Couleurs",
     coloursValue: "Réalisable dans vos couleurs — demandez-nous",
     materialLabel: "Matériau",
+    gallery: {
+      open: "Ouvrir la photo en plein écran",
+      close: "Fermer",
+      prev: "Photo précédente",
+      next: "Photo suivante",
+      counter: "Photo {n} sur {total}",
+      thumbs: "Photos du produit",
+    },
     ctaLabel: "Commander cette pièce",
     ctaNote: "Aucun paiement maintenant — nous confirmons d’abord le prix et le délai.",
     perks: [
