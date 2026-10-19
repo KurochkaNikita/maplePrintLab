@@ -48,11 +48,11 @@ export default function ProductDetailScreen({
               height={mainImage.height}
               preload
               sizes="(min-width: 768px) 50vw, 100vw"
-              className="aspect-[4/3] w-full rounded-lg border border-line object-cover"
+              className="aspect-[4/3] w-full rounded-2xl border border-line object-cover shadow-sm"
             />
           ) : (
             <div
-              className="relative aspect-[4/3] w-full rounded-lg border border-line bg-white"
+              className="relative aspect-[4/3] w-full rounded-2xl border border-line bg-white"
               aria-hidden="true"
             >
               <span className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-wider text-ink/80">
@@ -79,7 +79,7 @@ export default function ProductDetailScreen({
           )}
         </div>
 
-        <div>
+        <div className="md:sticky md:top-24 md:self-start">
           <p className="font-mono text-xs uppercase tracking-wider text-teal">
             {category.title}
           </p>
@@ -90,7 +90,7 @@ export default function ProductDetailScreen({
           {category.priceTiers ? (
             <PriceTiers lang={lang} dict={dict} tiers={category.priceTiers} className="mt-5" />
           ) : (
-            <p className="mt-4 font-display text-2xl text-charcoal">
+            <p className="mt-4 font-display text-4xl font-semibold text-charcoal">
               {formatPrice(item.price, lang, dict)}
             </p>
           )}
@@ -113,6 +113,23 @@ export default function ProductDetailScreen({
               </>
             )}
           </dl>
+
+          <div className="mt-6 max-w-md rounded-2xl border border-line bg-white p-5 shadow-sm">
+            <CtaLink href={`/${lang}/contact/`} className="w-full">
+              {t.ctaLabel}
+            </CtaLink>
+            <p className="mt-3 text-center text-sm text-ink/80">{t.ctaNote}</p>
+            <ul className="mt-4 space-y-2 border-t border-line pt-4 text-sm text-charcoal">
+              {t.perks.map((perk) => (
+                <li key={perk} className="flex gap-2.5">
+                  <svg viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 shrink-0 text-teal" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 10.5l4 4 8-9" />
+                  </svg>
+                  <span>{perk}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <p className="mt-6 max-w-md text-ink/80">{item.description}</p>
 
@@ -149,10 +166,6 @@ export default function ProductDetailScreen({
               </ul>
             </nav>
           )}
-
-          <div className="mt-8">
-            <CtaLink href={`/${lang}/contact/`}>{t.ctaLabel}</CtaLink>
-          </div>
         </div>
       </div>
       <ProductJsonLd lang={lang} item={item} priceTiers={category.priceTiers} crumbs={crumbs} />

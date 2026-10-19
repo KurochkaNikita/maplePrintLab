@@ -22,13 +22,13 @@
   }
 
   ::selection {
-    background-color: #b9722e;
-    color: #f7f0e1;
+    background-color: #c2410c;
+    color: #f6f7fb;
   }
 
   /* Видимый фокус для навигации с клавиатуры */
   :focus-visible {
-    outline: 2px solid #2f6e64;
+    outline: 2px solid #4338ca;
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -38,8 +38,8 @@
   /* "Build plate": faint printer-bed grid used behind hero areas */
   .build-plate {
     background-image:
-      linear-gradient(to right, rgb(34 32 29 / 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(34 32 29 / 0.06) 1px, transparent 1px);
+      linear-gradient(to right, rgb(20 33 61 / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(20 33 61 / 0.06) 1px, transparent 1px);
     background-size: 32px 32px;
     mask-image: linear-gradient(to bottom, #000 55%, transparent);
     -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
@@ -50,10 +50,10 @@
     height: 6px;
     background: repeating-linear-gradient(
       90deg,
-      #b9722e 0 24px,
-      #2f6e64 24px 48px,
-      #8f551f 48px 72px,
-      #22201d 72px 96px
+      #c2410c 0 24px,
+      #4338ca 24px 48px,
+      #ea580c 48px 72px,
+      #14213d 72px 96px
     );
   }
 }

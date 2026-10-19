@@ -16,19 +16,34 @@ export default function ProductScreen({ lang, dict, catalog, collections }: Prod
 
   return (
     <div className="mx-auto max-w-6xl px-5 pb-24 pt-14">
-      <h1 className="font-display text-4xl font-semibold text-charcoal">
+      <h1 className="font-display text-4xl font-semibold tracking-tight text-charcoal">
         {t.title}
       </h1>
       <p className="mt-3 max-w-2xl text-ink/80">{t.intro}</p>
 
+      <nav className="sticky top-[73px] z-30 -mx-5 mt-8 overflow-x-auto bg-filament/90 px-5 py-3 backdrop-blur" aria-label={t.title}>
+        <ul className="flex gap-2 whitespace-nowrap">
+          {catalog.map((cat) => (
+            <li key={cat.id}>
+              <a
+                href={`#cat-${cat.id}`}
+                className="inline-flex min-h-11 items-center rounded-full bg-charcoal px-5 text-sm font-medium text-filament hover:bg-amber-deep"
+              >
+                {cat.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
       {collections.length > 0 && (
-        <nav className="mt-8" aria-label={dict.collection.heading}>
+        <nav className="mt-6" aria-label={dict.collection.heading}>
           <ul className="flex flex-wrap gap-3">
             {collections.map((col) => (
               <li key={col.id}>
                 <Link
                   href={collectionHref(lang, col.id)}
-                  className="inline-block rounded-full border border-line px-4 py-2 text-sm font-medium text-charcoal hover:border-amber-deep hover:text-amber-deep"
+                  className="inline-flex min-h-11 items-center rounded-full border border-line bg-white px-5 py-2 text-sm font-medium text-charcoal hover:border-amber-deep hover:text-amber-deep"
                 >
                   {col.title}
                 </Link>
@@ -39,10 +54,10 @@ export default function ProductScreen({ lang, dict, catalog, collections }: Prod
       )}
 
       {catalog.map((cat, i) => (
-        <section key={cat.id} className="mt-14" aria-labelledby={`cat-${cat.id}`}>
+        <section key={cat.id} className="mt-14 scroll-mt-40" aria-labelledby={`cat-${cat.id}`}>
           <h2
             id={`cat-${cat.id}`}
-            className="font-display text-2xl font-medium text-charcoal"
+            className="font-display text-3xl font-semibold tracking-tight text-charcoal"
           >
             {cat.title}
           </h2>

@@ -15,17 +15,17 @@ type LayerLeafProps = {
   title?: string;
 };
 
-// Layer colours cycled: maple syrup -> filament spool -> graphite
+// Layer colours cycled: orange -> indigo -> navy
 const LAYER_COLORS = [
-  "#B9722E",
-  "#C98A45",
-  "#2F6E64",
-  "#3C8378",
-  "#B9722E",
-  "#8F551F",
-  "#2F6E64",
-  "#22201D",
-  "#8F551F",
+  "#EA580C",
+  "#F97316",
+  "#4338CA",
+  "#6366F1",
+  "#C2410C",
+  "#EA580C",
+  "#4338CA",
+  "#14213D",
+  "#C2410C",
 ];
 
 export default function LayerLeaf({ className, title = "" }: LayerLeafProps) {

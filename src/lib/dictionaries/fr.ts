@@ -28,6 +28,8 @@ const fr: Dictionary = {
 
   productCard: {
     photoSoon: "Photo à venir",
+    new: "Nouveau",
+    madeToOrder: "Sur commande",
   },
 
   category: {
@@ -66,7 +68,13 @@ const fr: Dictionary = {
     coloursLabel: "Couleurs",
     coloursValue: "Réalisable dans vos couleurs — demandez-nous",
     materialLabel: "Matériau",
-    ctaLabel: "Se renseigner sur cette pièce",
+    ctaLabel: "Commander cette pièce",
+    ctaNote: "Aucun paiement maintenant — nous confirmons d’abord le prix et le délai.",
+    perks: [
+      "Imprimé en 3D sur commande en 5 à 7 jours ouvrables",
+      "Cueillette gratuite à Coquitlam, livraison partout au Canada",
+      "Les couleurs de votre choix — dites-nous simplement",
+    ],
     highlightsHeading: "Pourquoi vous l’aimerez",
     exploreMore: "Découvrez plus de décorations 3D originales et d’accessoires de bureau sur Maple Print Lab !",
   },
@@ -105,6 +113,12 @@ const fr: Dictionary = {
   },
 
   home: {
+    perks: [
+      { title: "Imprimé sur commande", body: "Prêt en 5 à 7 jours ouvrables" },
+      { title: "Vos couleurs", body: "Choisissez votre palette" },
+      { title: "Cueillette gratuite", body: "Coquitlam, C.-B." },
+      { title: "Livraison au Canada", body: "Sur entente" },
+    ],
     hero: {
       title: "Art et jouets imprimés en 3D, sur commande",
       accent: "Imprimés couche par couche à Coquitlam — dans les couleurs de votre choix.",

@@ -4,12 +4,14 @@ type CtaLinkProps = {
   href: string;
   children: React.ReactNode;
   variant?: "solid" | "outline";
+  className?: string;
 };
 
 export default function CtaLink({
   href,
   children,
   variant = "solid",
+  className = "",
 }: CtaLinkProps) {
   const base =
     "inline-flex items-center justify-center min-h-11 rounded-full px-6 py-3 font-mono text-xs font-medium uppercase tracking-wider transition-all hover:-translate-y-0.5";
@@ -19,7 +21,7 @@ export default function CtaLink({
       : "border-2 border-charcoal text-charcoal hover:bg-charcoal hover:text-filament";
 
   return (
-    <Link href={href} className={`${base} ${styles}`}>
+    <Link href={href} className={`${base} ${styles} ${className}`.trim()}>
       {children}
     </Link>
   );

@@ -26,6 +26,8 @@ const en = {
 
   productCard: {
     photoSoon: "Photo soon",
+    new: "New",
+    madeToOrder: "Made to order",
   },
 
   category: {
@@ -64,7 +66,13 @@ const en = {
     coloursLabel: "Colours",
     coloursValue: "Made to order in your colours — just ask",
     materialLabel: "Material",
-    ctaLabel: "Ask about this piece",
+    ctaLabel: "Order this piece",
+    ctaNote: "No payment now — we confirm price and timing first.",
+    perks: [
+      "3D-printed to order in 5–7 business days",
+      "Free pickup in Coquitlam, delivery across Canada",
+      "Any colours you like — just tell us",
+    ],
     highlightsHeading: "Why you’ll love it",
     exploreMore: "Explore more unique 3D-printed decor, desk accessories, and gifts at Maple Print Lab!",
   },
@@ -103,6 +111,12 @@ const en = {
   },
 
   home: {
+    perks: [
+      { title: "Printed to order", body: "Ready in 5–7 business days" },
+      { title: "Your colours", body: "Pick any palette" },
+      { title: "Free local pickup", body: "Coquitlam, BC" },
+      { title: "Ships across Canada", body: "By arrangement" },
+    ],
     hero: {
       title: "3D-printed art and cup toys, made to order",
       accent: "Printed layer by layer in Coquitlam — in the colours you choose.",

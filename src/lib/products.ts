@@ -14,6 +14,7 @@ export type ProductItem = {
   price: { amount: number; currency: "CAD"; from?: boolean };
   /** Price falls with order size (category `priceTiers`); `price` is then the lowest tier, shown as "From …/pc". */
   volumePricing: boolean;
+  isNew: boolean;
   dimensions: Dimensions;
   material: string;
   description: string;
@@ -71,6 +72,7 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             note: t.note,
             price: resolvePrice(p, category.id, priceTiers),
             volumePricing: Boolean(priceTiers?.length),
+            isNew: Boolean(p.isNew),
             dimensions: p.dimensions,
             material: p.material[locale],
             description: t.description,

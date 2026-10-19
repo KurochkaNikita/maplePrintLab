@@ -13,7 +13,7 @@ export default function Hero({ eyebrow, title, accent, body, actions, media }: H
   return (
     <section className="relative overflow-hidden">
       <div className="build-plate pointer-events-none absolute inset-0" aria-hidden="true" />
-      <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-14 sm:pt-24">
+      <div className="relative mx-auto max-w-6xl px-5 pb-12 pt-10 sm:pb-16 sm:pt-14">
       <div className="grid items-center gap-12 sm:grid-cols-[1.4fr_1fr]">
         <div>
           {eyebrow && (
@@ -22,11 +22,11 @@ export default function Hero({ eyebrow, title, accent, body, actions, media }: H
               {eyebrow}
             </p>
           )}
-          <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-charcoal sm:text-6xl">
+          <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-charcoal sm:text-5xl">
             {title}
           </h1>
           {accent && (
-            <p className="mt-5 max-w-xl font-accent text-xl text-amber-deep">
+            <p className="mt-4 max-w-xl font-accent text-lg text-amber-deep">
               {accent}
             </p>
           )}

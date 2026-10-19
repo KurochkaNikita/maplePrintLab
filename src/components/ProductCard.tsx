@@ -9,6 +9,8 @@ type ProductCardProps = {
   price?: string;
   image?: { src: string; width: number; height: number; alt: string };
   photoSoonLabel: string;
+  /** Shows a "New" badge over the image. */
+  newLabel?: string;
   /** Above-the-fold image: preload it instead of lazy-loading (LCP). */
   preload?: boolean;
 };
@@ -20,13 +22,20 @@ export default function ProductCard({
   price,
   image,
   photoSoonLabel,
+  newLabel,
   preload = false,
 }: ProductCardProps) {
   return (
     <Link
       href={href}
-      className="group block overflow-hidden rounded-2xl border border-line bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber/50 hover:shadow-xl hover:shadow-charcoal/10"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber/50 hover:shadow-xl hover:shadow-charcoal/10"
     >
+      <div className="relative overflow-hidden">
+      {newLabel && (
+        <span className="absolute left-3 top-3 z-10 rounded-full bg-amber-deep px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wider text-white shadow">
+          {newLabel}
+        </span>
+      )}
       {image ? (
         <Image
           src={image.src}
@@ -47,16 +56,15 @@ export default function ProductCard({
           </span>
         </div>
       )}
+      </div>
 
-      <div className="p-5">
+      <div className="flex flex-1 flex-col p-5">
         <h3 className="font-display text-base font-medium text-charcoal group-hover:text-amber-deep">
           {title}
         </h3>
         <p className="mt-1.5 text-sm text-ink/80">{note}</p>
         {price && (
-          <p className="mt-3 inline-block rounded-full bg-filament px-3 py-1 font-display text-sm font-medium text-charcoal">
-            {price}
-          </p>
+          <p className="mt-auto pt-4 font-display text-lg font-semibold text-charcoal">{price}</p>
         )}
       </div>
     </Link>

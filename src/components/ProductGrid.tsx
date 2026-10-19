@@ -22,7 +22,7 @@ export default function ProductGrid({
   className = "",
 }: ProductGridProps) {
   return (
-    <div className={`grid gap-6 sm:grid-cols-3 ${className}`.trim()}>
+    <div className={`grid grid-cols-1 gap-6 min-[480px]:grid-cols-2 lg:grid-cols-3 ${className}`.trim()}>
       {items.map((item, i) => (
         <ProductCard
           key={item.slug}
@@ -32,6 +32,7 @@ export default function ProductGrid({
           image={item.images[0]}
           price={`${formatPrice(item.price, lang, dict)}${item.volumePricing ? ` ${dict.price.perPiece}` : ""}`}
           photoSoonLabel={dict.productCard.photoSoon}
+          newLabel={item.isNew ? dict.productCard.new : undefined}
           preload={preloadFirst && i === 0}
         />
       ))}

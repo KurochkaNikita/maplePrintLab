@@ -5,15 +5,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        charcoal: "#22201D",
-        filament: "#F7F0E1",
+        charcoal: "#14213D",
+        filament: "#F6F7FB",
         amber: {
-          DEFAULT: "#B9722E",
-          deep: "#8F551F",
+          DEFAULT: "#EA580C",
+          deep: "#C2410C",
         },
-        teal: "#2F6E64",
-        ink: "#3A3F44",
-        line: "#DDD6C9",
+        teal: "#4338CA",
+        ink: "#2F3A55",
+        line: "#E2E5EE",
       },
       fontFamily: {
         display: ["var(--font-display)", "system-ui", "sans-serif"],

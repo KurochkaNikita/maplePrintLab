@@ -1,6 +1,7 @@
 import LayerLeaf from "@/components/LayerLeaf";
 import CtaLink from "@/components/CtaLink";
 import Hero from "@/components/Hero";
+import PerksStrip from "@/components/PerksStrip";
 import FeatureGrid from "@/components/FeatureGrid";
 import CategoryCarouselSection from "@/components/CategoryCarouselSection";
 import ProductGridSection from "@/components/ProductGridSection";
@@ -36,10 +37,10 @@ export default function HomeScreen({ lang, dict, categories, latestItems, season
             </CtaLink>
           </>
         }
-        media={<LayerLeaf className="h-48 w-48 sm:h-60 sm:w-60" title={dict.leaf.alt} />}
+        media={<LayerLeaf className="h-40 w-40 sm:h-52 sm:w-52" title={dict.leaf.alt} />}
       />
 
-      <FeatureGrid heading={t.whatWeDo.heading} items={t.whatWeDo.items} />
+      <PerksStrip items={t.perks} />
 
       {seasonal && seasonal.items.length > 0 && (
         <ProductGridSection
@@ -71,6 +72,8 @@ export default function HomeScreen({ lang, dict, categories, latestItems, season
         seeAllHref={localeHref(lang, "products")}
         seeAllLabel={t.latest.seeAll}
       />
+
+      <FeatureGrid heading={t.whatWeDo.heading} items={t.whatWeDo.items} />
 
       <CtaBanner
         heading={t.trust.heading}
