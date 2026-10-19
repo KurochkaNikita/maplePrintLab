@@ -178,7 +178,7 @@ export default function ProductGallery({ title, images, photoSoonLabel, labels }
           role="dialog"
           aria-modal="true"
           aria-label={title}
-          className="fixed inset-0 z-50 flex flex-col bg-charcoal"
+          className="fixed inset-0 z-50 flex flex-col bg-neutral-900/80 backdrop-blur-sm"
         >
           <div className="flex items-center justify-between gap-4 px-4 py-3 text-white">
             <div className="min-w-0">
