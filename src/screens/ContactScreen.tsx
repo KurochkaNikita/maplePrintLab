@@ -23,7 +23,7 @@ export default function ContactScreen({ dict }: ContactScreenProps) {
           <dd className="mt-1">
             <a
               href={`mailto:${siteConfig.email}`}
-              className="font-display text-lg text-charcoal hover:text-amber"
+              className="font-display text-lg text-charcoal hover:text-amber-deep"
             >
               {siteConfig.email}
             </a>
@@ -39,7 +39,7 @@ export default function ContactScreen({ dict }: ContactScreenProps) {
               href={siteConfig.instagram}
               rel="me noopener"
               target="_blank"
-              className="font-display text-lg text-charcoal hover:text-amber"
+              className="font-display text-lg text-charcoal hover:text-amber-deep"
             >
               {siteConfig.instagramHandle}
             </a>

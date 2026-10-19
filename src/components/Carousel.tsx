@@ -10,7 +10,7 @@ type CarouselProps = {
 };
 
 const arrowClass =
-  "flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white/60 text-charcoal transition-colors hover:border-amber hover:text-amber";
+  "flex h-10 w-10 items-center justify-center rounded-full border border-line bg-white/60 text-charcoal transition-colors hover:border-amber hover:text-amber-deep";
 
 function Chevron({ direction }: { direction: "left" | "right" }) {
   return (
