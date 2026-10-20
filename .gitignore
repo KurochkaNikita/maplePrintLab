@@ -6,3 +6,8 @@ next-env.d.ts
 *.tsbuildinfo
 
 .idea
+
+# env files (keep only *.example in git)
+.env
+.env.*
+!.env.example
