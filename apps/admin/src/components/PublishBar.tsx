@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
-import { t } from "@/lib/i18n";
+import { useT } from "@/components/LocaleProvider";
 
 export interface PublishBarProps {
   unpublishedCount?: number;
@@ -12,6 +12,7 @@ export function PublishBar({
   unpublishedCount = 0,
   onPublish,
 }: PublishBarProps) {
+  const t = useT();
   const hasChanges = unpublishedCount > 0;
 
   return (

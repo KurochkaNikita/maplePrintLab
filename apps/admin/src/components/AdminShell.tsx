@@ -5,18 +5,23 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import PublishBar from "@/components/PublishBar";
-import { logoutAdmin } from "@/lib/auth-stub";
-import { t } from "@/lib/i18n";
+import { authClient } from "@/lib/auth/client";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useT } from "@/components/LocaleProvider";
 
 export interface AdminShellProps {
   children: ReactNode;
   unpublishedCount?: number;
 }
 
-const navItems = [
+const navItems: {
+  href: string;
+  key: "products" | "categories" | "collections" | "redirects";
+  icon: ReactNode;
+}[] = [
   {
     href: "/products",
-    label: t.shell.nav.products,
+    key: "products",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -36,7 +41,7 @@ const navItems = [
   },
   {
     href: "/categories",
-    label: t.shell.nav.categories,
+    key: "categories",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -57,7 +62,7 @@ const navItems = [
   },
   {
     href: "/collections",
-    label: t.shell.nav.collections,
+    key: "collections",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -75,7 +80,7 @@ const navItems = [
   },
   {
     href: "/redirects",
-    label: t.shell.nav.redirects,
+    key: "redirects",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -98,6 +103,7 @@ export function AdminShell({
   children,
   unpublishedCount = 0,
 }: AdminShellProps) {
+  const t = useT();
   const pathname = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -124,8 +130,9 @@ export function AdminShell({
   async function handleLogout() {
     setIsLoggingOut(true);
     try {
-      await logoutAdmin();
-      router.push("/login");
+      await authClient.signOut();
+      router.replace("/login");
+      router.refresh();
     } finally {
       setIsLoggingOut(false);
     }
@@ -203,6 +210,7 @@ export function AdminShell({
 
           {/* Плашка «Опубликовать» и кнопка «Выйти» на десктопе/планшете */}
           <div className="flex w-full flex-wrap items-center justify-between gap-3 sm:w-auto sm:justify-end">
+            <LanguageSwitcher />
             <PublishBar unpublishedCount={unpublishedCount} />
 
             <Button
@@ -243,7 +251,7 @@ export function AdminShell({
                     }`}
                   >
                     {item.icon}
-                    <span>{item.label}</span>
+                    <span>{t.shell.nav[item.key]}</span>
                   </Link>
                 </li>
               );

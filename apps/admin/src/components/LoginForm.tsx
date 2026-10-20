@@ -6,15 +6,25 @@ import Button from "@/components/Button";
 import FormError from "@/components/FormError";
 import Input from "@/components/Input";
 import Label from "@/components/Label";
-import { loginWithCredentials } from "@/lib/auth-stub";
-import { t } from "@/lib/i18n";
+import { authClient } from "@/lib/auth/client";
+import { useT } from "@/components/LocaleProvider";
+import type { Dictionary } from "@/lib/i18n";
 
-export function LoginForm() {
+/** Neon Auth reports bad credentials as HTTP 401 / INVALID_EMAIL_OR_PASSWORD, as a returned or a thrown error. */
+function errorMessage(e: unknown, t: Dictionary): string {
+  const err = (e ?? {}) as { code?: string; status?: number };
+  return err.code === "INVALID_EMAIL_OR_PASSWORD" || err.status === 401 || err.status === 400
+    ? t.login.invalidCredentialsError
+    : t.login.genericError;
+}
+
+export function LoginForm({ initialError = null }: { initialError?: string | null }) {
   const router = useRouter();
+  const t = useT();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(initialError);
   const [isLoading, setIsLoading] = useState(false);
 
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -37,14 +47,19 @@ export function LoginForm() {
     setIsLoading(true);
 
     try {
-      const result = await loginWithCredentials({ username, password });
-      if (result.ok) {
-        router.push("/products");
-      } else {
-        setError(t.login.invalidCredentialsError);
+      const { error: signInError } = await authClient.signIn.email({
+        email: username.trim(),
+        password,
+      });
+      if (signInError) {
+        setError(errorMessage(signInError, t));
+        return;
       }
-    } catch {
-      setError(t.login.genericError);
+      // Full navigation so the server layout re-checks the session and the admin email.
+      router.replace("/");
+      router.refresh();
+    } catch (e) {
+      setError(errorMessage(e, t));
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +82,8 @@ export function LoginForm() {
           ref={usernameRef}
           id="username"
           name="username"
-          type="text"
+          type="email"
+          inputMode="email"
           autoComplete="username"
           autoCorrect="off"
           autoCapitalize="off"
@@ -165,10 +181,6 @@ export function LoginForm() {
           {isLoading ? t.login.submittingButton : t.login.submitButton}
         </Button>
       </div>
-
-      <p className="rounded-lg border border-line bg-filament px-3.5 py-2.5 text-xs leading-relaxed text-ink">
-        {t.login.demoHint}
-      </p>
     </form>
   );
 }

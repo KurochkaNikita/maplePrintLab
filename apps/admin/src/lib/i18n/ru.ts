@@ -10,20 +10,21 @@ export const ru = {
     openMenu: "Открыть меню разделов",
     closeMenu: "Закрыть меню разделов",
     showPassword: "Показать пароль",
+    language: "Язык интерфейса",
     passwordWarning: "Внимание: пароль будет показан на экране в открытом виде.",
   },
   login: {
     metaTitle: "Вход в админ-панель",
     heading: "Вход в админ-панель",
     subtitle: "Управление каталогом 3D-печатных работ Maple Print Lab",
-    usernameLabel: "Логин",
+    usernameLabel: "Email",
     passwordLabel: "Пароль",
     submitButton: "Войти",
     submittingButton: "Вход…",
-    invalidCredentialsError: "Неверный логин или пароль",
-    emptyFieldsError: "Заполните логин и пароль",
+    invalidCredentialsError: "Неверный email или пароль",
+    emptyFieldsError: "Заполните email и пароль",
     genericError: "Не удалось выполнить вход. Попробуйте ещё раз.",
-    demoHint: "Временный режим (заглушка): для проверки входа введите логин admin и пароль admin.",
+    forbiddenError: "Этот аккаунт не имеет доступа к админ-панели.",
   },
   shell: {
     nav: {
@@ -56,7 +57,7 @@ export const ru = {
         "Список и редактирование 3D-печатных моделей, цен, материалов и фотографий.",
       emptyTitle: "Раздел «Товары» в разработке",
       emptyBody:
-        "Таблицы и формы управления товарами будут подключены после настройки базы данных Drizzle и Auth.js.",
+        "Таблицы и формы управления товарами будут подключены следующим этапом.",
     },
     categories: {
       metaTitle: "Категории",
@@ -86,7 +87,4 @@ export const ru = {
         "Настройка 301/308 редиректов для витрины будет подключена вместе с генерацией конфигурации хостинга.",
     },
   },
-} as const;
-
-export type Dictionary = typeof ru;
-export const t = ru;
+};

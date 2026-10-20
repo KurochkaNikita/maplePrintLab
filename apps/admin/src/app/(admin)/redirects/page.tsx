@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import SectionPlaceholder from "@/components/SectionPlaceholder";
-import { t } from "@/lib/i18n";
+import { getDict } from "@/lib/i18n/server";
 
-export const metadata: Metadata = {
-  title: t.pages.redirects.metaTitle,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getDict()).pages.redirects.metaTitle };
+}
 
-export default function RedirectsPage() {
+export default async function RedirectsPage() {
+  const t = await getDict();
   return (
     <SectionPlaceholder
       title={t.pages.redirects.heading}

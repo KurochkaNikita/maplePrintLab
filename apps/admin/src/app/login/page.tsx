@@ -1,12 +1,25 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import LoginForm from "@/components/LoginForm";
-import { t } from "@/lib/i18n";
+import { getAdminState } from "@/lib/auth/server";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { getDict } from "@/lib/i18n/server";
 
-export const metadata: Metadata = {
-  title: t.login.metaTitle,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getDict()).login.metaTitle };
+}
 
-export default function LoginPage() {
+// Reads the session cookie on every request.
+export const dynamic = "force-dynamic";
+
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const [state, { error }, t] = await Promise.all([getAdminState(), searchParams, getDict()]);
+  if (state === "admin") redirect("/");
+
   return (
     <div className="flex min-h-screen flex-col bg-filament">
       <div className="layer-bar" aria-hidden="true" />
@@ -16,6 +29,10 @@ export default function LoginPage() {
         tabIndex={-1}
         className="build-plate flex flex-1 flex-col items-center justify-center px-4 py-8 sm:px-6"
       >
+        <div className="mb-3 flex w-full max-w-md justify-end">
+          <LanguageSwitcher />
+        </div>
+
         <div className="w-full max-w-md rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-8">
           <div className="flex items-center gap-3">
             <img
@@ -38,7 +55,7 @@ export default function LoginPage() {
 
           <p className="mt-2 text-sm text-ink">{t.login.subtitle}</p>
 
-          <LoginForm />
+          <LoginForm initialError={error === "forbidden" ? t.login.forbiddenError : null} />
         </div>
       </main>
     </div>

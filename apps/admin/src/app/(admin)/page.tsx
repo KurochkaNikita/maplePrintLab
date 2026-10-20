@@ -1,36 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
-import { t } from "@/lib/i18n";
+import { getDict } from "@/lib/i18n/server";
 
-export const metadata: Metadata = {
-  title: t.pages.dashboard.metaTitle,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return { title: (await getDict()).pages.dashboard.metaTitle };
+}
 
-const cards = [
-  {
-    href: "/products",
-    title: t.pages.products.heading,
-    description: t.pages.products.description,
-  },
-  {
-    href: "/categories",
-    title: t.pages.categories.heading,
-    description: t.pages.categories.description,
-  },
-  {
-    href: "/collections",
-    title: t.pages.collections.heading,
-    description: t.pages.collections.description,
-  },
-  {
-    href: "/redirects",
-    title: t.pages.redirects.heading,
-    description: t.pages.redirects.description,
-  },
-];
+export default async function DashboardPage() {
+  const t = await getDict();
+  const cards = [
+    {
+      href: "/products",
+      title: t.pages.products.heading,
+      description: t.pages.products.description,
+    },
+    {
+      href: "/categories",
+      title: t.pages.categories.heading,
+      description: t.pages.categories.description,
+    },
+    {
+      href: "/collections",
+      title: t.pages.collections.heading,
+      description: t.pages.collections.description,
+    },
+    {
+      href: "/redirects",
+      title: t.pages.redirects.heading,
+      description: t.pages.redirects.description,
+    },
+  ];
 
-export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <PageHeader
