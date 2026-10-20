@@ -7,10 +7,15 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn workspace @maple-print-lab/web dev",
+    "dev": "concurrently -k -n web,admin -c blue,magenta \"yarn dev:web\" \"yarn dev:admin\"",
+    "dev:web": "yarn workspace @maple-print-lab/web dev",
     "dev:admin": "yarn workspace @maple-print-lab/admin dev",
-    "build": "yarn workspace @maple-print-lab/web build",
+    "build": "yarn build:web && yarn build:admin",
+    "build:web": "yarn workspace @maple-print-lab/web build",
     "build:admin": "yarn workspace @maple-print-lab/admin build",
     "typecheck": "yarn workspaces run typecheck"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
   }
 }

@@ -2,8 +2,8 @@
 
 ## Repo layout (yarn workspaces)
 
-- `apps/web` — the public site (everything below, "SEO" and "accessibility" rules apply here). Run `yarn dev` / `yarn build` from the repo root, or inside `apps/web`.
-- `apps/admin` — admin app for `admin.mapleprintlab.store` (Neon Auth, RU/EN/FR UI, `noindex`). `yarn dev:admin`, `yarn build:admin`.
+- `apps/web` — the public site (everything below, "SEO" and "accessibility" rules apply here). `yarn dev:web` / `yarn build:web` from the repo root (or `yarn dev` / `yarn build` inside `apps/web`).
+- `apps/admin` — admin app for `admin.mapleprintlab.store` (Neon Auth, RU/EN/FR UI, `noindex`). `yarn dev:admin`, `yarn build:admin`. At the repo root `yarn dev` and `yarn build` run both apps.
 - `packages/db` — Drizzle schema, migrations, seed/verify scripts for Neon Postgres.
 - `packages/ui` — shared Tailwind preset (brand colours, fonts, base styles). Put code here only when both apps use it.
 - Paths in this file are relative to `apps/web` unless they start with `apps/` or `packages/`. Each app is its own Vercel project (Root Directory `apps/web` / `apps/admin`).
