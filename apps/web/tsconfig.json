@@ -38,8 +38,6 @@
   "exclude": [
     "node_modules",
     "out",
-    ".next",
-    "apps",
-    "packages"
+    ".next"
   ]
 }

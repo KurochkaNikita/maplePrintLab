@@ -2,62 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light;
-}
-
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply bg-filament text-ink font-body antialiased;
-  }
-
-  h1,
-  h2,
-  h3 {
-    @apply font-display text-charcoal;
-  }
-
-  ::selection {
-    background-color: #c2410c;
-    color: #f6f7fb;
-  }
-
-  /* Видимый фокус для навигации с клавиатуры */
-  :focus-visible {
-    outline: 2px solid #4338ca;
-    outline-offset: 3px;
-    border-radius: 2px;
-  }
-}
-
-@layer components {
-  /* "Build plate": faint printer-bed grid used behind hero areas */
-  .build-plate {
-    background-image:
-      linear-gradient(to right, rgb(20 33 61 / 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(20 33 61 / 0.06) 1px, transparent 1px);
-    background-size: 32px 32px;
-    mask-image: linear-gradient(to bottom, #000 55%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
-  }
-
-  /* Thin striped bar echoing printed layers */
-  .layer-bar {
-    height: 6px;
-    background: repeating-linear-gradient(
-      90deg,
-      #c2410c 0 24px,
-      #4338ca 24px 48px,
-      #ea580c 48px 72px,
-      #14213d 72px 96px
-    );
-  }
-}
-
 /* Hides content visually but keeps it in the accessibility tree.
    :focus-within / :active opt elements out — useful for skip links. */
 .visually-hidden:where(:not(:focus-within, :active)) {

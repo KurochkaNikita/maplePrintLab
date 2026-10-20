@@ -1,5 +1,8 @@
 import { execFileSync } from "node:child_process";
 
+/** Commit-message marker of the move into apps/web, ignored when dating a page. */
+const RELOCATION_MARKER = "[relocation: keep lastmod]";
+
 /**
  * Date of the latest git commit touching any of `paths` (repo-relative), or
  * `undefined` when git history isn't available (e.g. a shallow clone or no
@@ -8,7 +11,10 @@ import { execFileSync } from "node:child_process";
  */
 export function lastModified(...paths: string[]): Date | undefined {
   try {
-    const out = execFileSync("git", ["log", "-1", "--format=%cI", "--", ...paths], {
+    // The app lives in apps/web but its files were moved there from the repo root: also look at
+    // the old root-level location (`:(top)`), and skip the commit that did the move itself.
+    const specs = [...paths, ...paths.map((p) => `:(top)${p}`)];
+    const out = execFileSync("git", ["log", "-1", "--format=%cI", "--invert-grep", "--fixed-strings", `--grep=${RELOCATION_MARKER}`, "--", ...specs], {
       encoding: "utf8",
       stdio: ["ignore", "pipe", "ignore"],
     }).trim();

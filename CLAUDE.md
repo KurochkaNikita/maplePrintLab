@@ -1,6 +1,14 @@
 # Maple Print Lab — project rules
 
-Next.js static export (`output: "export"`, `trailingSlash: true`), languages `en` and `fr`.
+## Repo layout (yarn workspaces)
+
+- `apps/web` — the public site (everything below, "SEO" and "accessibility" rules apply here). Run `yarn dev` / `yarn build` from the repo root, or inside `apps/web`.
+- `apps/admin` — admin app for `admin.mapleprintlab.store` (Neon Auth, RU/EN/FR UI, `noindex`). `yarn dev:admin`, `yarn build:admin`.
+- `packages/db` — Drizzle schema, migrations, seed/verify scripts for Neon Postgres.
+- `packages/ui` — shared Tailwind preset (brand colours, fonts, base styles). Put code here only when both apps use it.
+- Paths in this file are relative to `apps/web` unless they start with `apps/` or `packages/`. Each app is its own Vercel project (Root Directory `apps/web` / `apps/admin`).
+
+`apps/web` is a Next.js static export (`output: "export"`, `trailingSlash: true`), languages `en` and `fr`.
 Because it is a static export, `next.config` redirects and `middleware.ts` do NOT work — redirects go in the host config (e.g. `vercel.json`).
 
 ## Always follow: SEO
@@ -25,4 +33,4 @@ Because it is a static export, `next.config` redirects and `middleware.ts` do NO
 
 ## Before finishing any change
 
-Run `yarn typecheck` and `yarn build`. For SEO-touching changes, inspect `out/` HTML (canonical, hreflang, og:url, title/description length, no other domain). For UI changes, check contrast and touch-target size; Lighthouse accessibility should stay at 100.
+Run `yarn typecheck` (checks every workspace) and `yarn build`. For SEO-touching changes, inspect `apps/web/out/` HTML (canonical, hreflang, og:url, title/description length, no other domain). For UI changes, check contrast and touch-target size; Lighthouse accessibility should stay at 100.
