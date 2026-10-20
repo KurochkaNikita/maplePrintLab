@@ -201,16 +201,12 @@ export function AdminShell({
                 height={36}
                 className="h-8 w-7 shrink-0 sm:h-9 sm:w-8"
               />
-              <span className=" whitespace-nowrap">{t.brand.name}</span>
-              <span className="whitespace-nowrap rounded-md border border-charcoal/25 bg-white px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-charcoal sm:text-[11px]">
-                {t.brand.badge}
-              </span>
+              <span className="whitespace-nowrap">{t.brand.name}</span>
             </Link>
           </div>
 
-          {/* Плашка «Опубликовать» и кнопка «Выйти» на десктопе/планшете */}
-          <div className="flex w-full flex-wrap items-center justify-between gap-3 sm:w-auto sm:justify-end">
-            <LanguageSwitcher />
+          {/* Статус публикации и кнопка «Выйти» на планшете */}
+          <div className="flex items-center justify-end gap-3">
             <PublishBar unpublishedCount={unpublishedCount} />
 
             <Button
@@ -258,15 +254,17 @@ export function AdminShell({
             })}
           </ul>
 
-          {/* Кнопка «Выйти» в меню на мобильных экранах + дубликат внизу боковой панели */}
-          <div className="mt-6 border-t border-line pt-4 sm:hidden lg:block">
+          {/* Переключатель языка и кнопка «Выйти» внизу боковой панели */}
+          <div className="mt-6 space-y-3 border-t border-line pt-4">
+            <LanguageSwitcher className="w-full" />
+
             <Button
               type="button"
               variant="secondary"
               size="sm"
               loading={isLoggingOut}
               onClick={handleLogout}
-              className="w-full justify-center"
+              className="w-full justify-center sm:hidden lg:inline-flex"
             >
               {t.shell.logout}
             </Button>
