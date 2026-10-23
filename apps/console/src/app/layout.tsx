@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, IBM_Plex_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { LocaleProvider } from "@/components/LocaleProvider";
 import { dictionaries } from "@/lib/i18n";
@@ -65,6 +66,7 @@ export default async function RootLayout({
         <LocaleProvider locale={locale} dictionary={t}>
           {children}
         </LocaleProvider>
+        <Analytics />
       </body>
     </html>
   );
