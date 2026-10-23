@@ -25,6 +25,7 @@ export const fr: Dictionary = {
     submittingButton: "Connexion…",
     invalidCredentialsError: "Courriel ou mot de passe incorrect",
     emptyFieldsError: "Saisissez votre courriel et votre mot de passe",
+    accessDeniedError: "Ce compte n’a pas accès à l’administration",
     genericError: "Connexion impossible. Veuillez réessayer.",
   },
   shell: {

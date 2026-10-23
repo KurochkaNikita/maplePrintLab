@@ -25,6 +25,7 @@ export const en: Dictionary = {
     submittingButton: "Signing in…",
     invalidCredentialsError: "Incorrect email or password",
     emptyFieldsError: "Enter your email and password",
+    accessDeniedError: "This account does not have access to the admin console",
     genericError: "Could not sign in. Please try again.",
   },
   shell: {

@@ -52,7 +52,7 @@ export default async function LoginPage() {
 
           <p className="mt-2 text-sm text-ink">{t.login.subtitle}</p>
 
-          <LoginForm />
+          <LoginForm accessDenied={state === "forbidden"} />
         </div>
       </main>
     </div>

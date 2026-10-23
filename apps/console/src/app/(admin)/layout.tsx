@@ -11,7 +11,7 @@ export default async function ProtectedAdminLayout({
 }: {
   children: ReactNode;
 }) {
-  if ((await getAdminState()) === "anonymous") redirect("/login");
+  if ((await getAdminState()) !== "admin") redirect("/login");
 
   return <AdminShell>{children}</AdminShell>;
 }

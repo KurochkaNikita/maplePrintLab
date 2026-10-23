@@ -6,6 +6,7 @@ import Button from "@/components/Button";
 import FormError from "@/components/FormError";
 import Input from "@/components/Input";
 import Label from "@/components/Label";
+import { hasAdminAccess } from "@/lib/auth/actions";
 import { authClient } from "@/lib/auth/client";
 import { useT } from "@/components/LocaleProvider";
 import type { Dictionary } from "@/lib/i18n";
@@ -18,13 +19,14 @@ function errorMessage(e: unknown, t: Dictionary): string {
     : t.login.genericError;
 }
 
-export function LoginForm() {
+/** `accessDenied`: the page found a session without admin rights (e.g. the flag was revoked). */
+export function LoginForm({ accessDenied = false }: { accessDenied?: boolean }) {
   const router = useRouter();
   const t = useT();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(accessDenied ? t.login.accessDeniedError : null);
   const [isLoading, setIsLoading] = useState(false);
 
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -53,6 +55,12 @@ export function LoginForm() {
       });
       if (signInError) {
         setError(errorMessage(signInError, t));
+        return;
+      }
+      if (!(await hasAdminAccess())) {
+        // Signed in with valid credentials but not an admin: drop the session.
+        await authClient.signOut().catch(() => undefined);
+        setError(t.login.accessDeniedError);
         return;
       }
       // Full navigation so the server layout re-checks the session.

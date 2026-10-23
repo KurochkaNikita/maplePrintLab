@@ -23,6 +23,7 @@ export const ru = {
     submittingButton: "Вход…",
     invalidCredentialsError: "Неверный email или пароль",
     emptyFieldsError: "Заполните email и пароль",
+    accessDeniedError: "У этой учётной записи нет доступа к админ-панели",
     genericError: "Не удалось выполнить вход. Попробуйте ещё раз.",
   },
   shell: {
