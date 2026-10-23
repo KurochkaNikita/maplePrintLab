@@ -1,5 +1,13 @@
+import { fileURLToPath } from "node:url";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // `next` is hoisted into the workspace root's node_modules. Pin the root so
+  // builds that start from apps/public alone (e.g. `vercel deploy` run in this
+  // folder) still resolve it.
+  turbopack: {
+    root: fileURLToPath(new URL("../..", import.meta.url)),
+  },
   // Static export only for production builds (`next build`).
   // `next dev` keeps normal behaviour so dynamic routes render without a
   // full rebuild.

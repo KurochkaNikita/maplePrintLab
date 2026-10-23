@@ -24,7 +24,6 @@ export const ru = {
     invalidCredentialsError: "Неверный email или пароль",
     emptyFieldsError: "Заполните email и пароль",
     genericError: "Не удалось выполнить вход. Попробуйте ещё раз.",
-    forbiddenError: "Этот аккаунт не имеет доступа к админ-панели.",
   },
   shell: {
     nav: {

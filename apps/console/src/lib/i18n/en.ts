@@ -26,7 +26,6 @@ export const en: Dictionary = {
     invalidCredentialsError: "Incorrect email or password",
     emptyFieldsError: "Enter your email and password",
     genericError: "Could not sign in. Please try again.",
-    forbiddenError: "This account does not have access to the admin.",
   },
   shell: {
     nav: {

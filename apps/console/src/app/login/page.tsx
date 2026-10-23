@@ -13,12 +13,8 @@ export async function generateMetadata(): Promise<Metadata> {
 // Reads the session cookie on every request.
 export const dynamic = "force-dynamic";
 
-export default async function LoginPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ error?: string }>;
-}) {
-  const [state, { error }, t] = await Promise.all([getAdminState(), searchParams, getDict()]);
+export default async function LoginPage() {
+  const [state, t] = await Promise.all([getAdminState(), getDict()]);
   if (state === "admin") redirect("/");
 
   return (
@@ -56,7 +52,7 @@ export default async function LoginPage({
 
           <p className="mt-2 text-sm text-ink">{t.login.subtitle}</p>
 
-          <LoginForm initialError={error === "forbidden" ? t.login.forbiddenError : null} />
+          <LoginForm />
         </div>
       </main>
     </div>

@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth/server";
 
 // Redirects anonymous visitors to /login and refreshes the session cookie.
-// The "is this the admin?" check lives in the (admin) layout and requireAdmin().
+// The session check is repeated in the (admin) layout and requireAdmin().
 export default auth.middleware({ loginUrl: "/login" });
 
 // Only protected pages: a catch-all matcher would block JS/CSS on the login page.

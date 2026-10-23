@@ -18,13 +18,13 @@ function errorMessage(e: unknown, t: Dictionary): string {
     : t.login.genericError;
 }
 
-export function LoginForm({ initialError = null }: { initialError?: string | null }) {
+export function LoginForm() {
   const router = useRouter();
   const t = useT();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState<string | null>(initialError);
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -55,7 +55,7 @@ export function LoginForm({ initialError = null }: { initialError?: string | nul
         setError(errorMessage(signInError, t));
         return;
       }
-      // Full navigation so the server layout re-checks the session and the admin email.
+      // Full navigation so the server layout re-checks the session.
       router.replace("/");
       router.refresh();
     } catch (e) {

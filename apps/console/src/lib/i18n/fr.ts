@@ -26,7 +26,6 @@ export const fr: Dictionary = {
     invalidCredentialsError: "Courriel ou mot de passe incorrect",
     emptyFieldsError: "Saisissez votre courriel et votre mot de passe",
     genericError: "Connexion impossible. Veuillez réessayer.",
-    forbiddenError: "Ce compte n’a pas accès à l’administration.",
   },
   shell: {
     nav: {

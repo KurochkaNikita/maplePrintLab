@@ -6,19 +6,16 @@ export const auth = createNeonAuth({
   cookies: { secret: process.env.NEON_AUTH_COOKIE_SECRET! },
 });
 
-export type AdminState = "admin" | "forbidden" | "anonymous";
+export type AdminState = "admin" | "anonymous";
 
 /**
- * Signed in AND the one allowed account. Neon Auth is a public service anyone can
- * sign up to, so a valid session alone is NOT enough: always check the email.
- * Fails closed: with ADMIN_EMAIL unset nobody is admin.
+ * Any valid Neon Auth session counts as admin: there is no email allowlist.
+ * Access control therefore relies on registration being closed in Neon Auth
+ * (the /api/auth route only blocks sign-up through our own domain).
  */
 export async function getAdminState(): Promise<AdminState> {
   const { data: session } = await auth.getSession();
-  const email = session?.user?.email?.trim().toLowerCase();
-  if (!email) return "anonymous";
-  const allowed = process.env.ADMIN_EMAIL?.trim().toLowerCase();
-  return allowed && email === allowed ? "admin" : "forbidden";
+  return session?.user ? "admin" : "anonymous";
 }
 
 /**
