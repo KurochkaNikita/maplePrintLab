@@ -1,25 +1,18 @@
 import type { Metadata } from "next";
-import { Manrope, IBM_Plex_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+// Fonts are self-hosted (Fontsource) rather than next/font/google: that fetches from
+// fonts.googleapis.com at build time and crashed the Vercel build ("reading '1'").
+import "@fontsource-variable/manrope/wght.css";
+import "@fontsource/ibm-plex-sans/latin-400.css";
+import "@fontsource/ibm-plex-sans/latin-500.css";
+import "@fontsource/ibm-plex-sans/latin-600.css";
+import "@fontsource/ibm-plex-sans/cyrillic-400.css";
+import "@fontsource/ibm-plex-sans/cyrillic-500.css";
+import "@fontsource/ibm-plex-sans/cyrillic-600.css";
 import "./globals.css";
 import { LocaleProvider } from "@/components/LocaleProvider";
 import { dictionaries } from "@/lib/i18n";
 import { getLocale } from "@/lib/i18n/server";
-
-// Manrope has Cyrillic glyphs; Space Grotesk (used on the storefront) does not.
-const display = Manrope({
-  subsets: ["latin", "cyrillic"],
-  weight: ["500", "600", "700"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const body = IBM_Plex_Sans({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600"],
-  variable: "--font-body",
-  display: "swap",
-});
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = dictionaries[await getLocale()];
@@ -53,7 +46,7 @@ export default async function RootLayout({
   const t = dictionaries[locale];
 
   return (
-    <html lang={locale} className={`${display.variable} ${body.variable}`}>
+    <html lang={locale}>
       {/* Browser extensions (e.g. Grammarly) inject attributes into <body> before hydration. */}
       <body className="flex min-h-screen flex-col" suppressHydrationWarning>
         {/* noinspection HtmlUnknownAnchorTarget */}

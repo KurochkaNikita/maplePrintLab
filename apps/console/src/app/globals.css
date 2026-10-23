@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Family names come from the Fontsource CSS imported in layout.tsx; the shared
+   Tailwind preset reads these variables. Manrope has Cyrillic glyphs; Space
+   Grotesk (used on the storefront) does not. */
+:root {
+  --font-display: "Manrope Variable";
+  --font-body: "IBM Plex Sans";
+}
+
 /* Hides content visually but keeps it in the accessibility tree.
    :focus-within / :active opt elements out — useful for skip links. */
 .visually-hidden:where(:not(:focus-within, :active)) {
