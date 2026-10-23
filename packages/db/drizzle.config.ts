@@ -1,8 +1,8 @@
 import { defineConfig } from "drizzle-kit";
 
-// Local runs read the admin app's env file; CI/Vercel provide DATABASE_URL directly.
+// Local runs read the console app's env file; CI/Vercel provide DATABASE_URL directly.
 try {
-  process.loadEnvFile(new URL("../../apps/admin/.env.local", import.meta.url));
+  process.loadEnvFile(new URL("../../apps/console/.env.local", import.meta.url));
 } catch {}
 
 export default defineConfig({

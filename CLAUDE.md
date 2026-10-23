@@ -2,13 +2,13 @@
 
 ## Repo layout (yarn workspaces)
 
-- `apps/web` — the public site (everything below, "SEO" and "accessibility" rules apply here). `yarn dev:web` / `yarn build:web` from the repo root (or `yarn dev` / `yarn build` inside `apps/web`).
-- `apps/admin` — admin app for `admin.mapleprintlab.store` (Neon Auth, RU/EN/FR UI, `noindex`). `yarn dev:admin`, `yarn build:admin`. At the repo root `yarn dev` and `yarn build` run both apps.
+- `apps/public` — the public site (everything below, "SEO" and "accessibility" rules apply here). `yarn dev:public` / `yarn build:public` from the repo root (or `yarn dev` / `yarn build` inside `apps/public`).
+- `apps/console` — admin console app for `admin.mapleprintlab.store` (Neon Auth, RU/EN/FR UI, `noindex`). `yarn dev:console`, `yarn build:console`. At the repo root `yarn dev` and `yarn build` run both apps.
 - `packages/db` — Drizzle schema, migrations, seed/verify scripts for Neon Postgres.
 - `packages/ui` — shared Tailwind preset (brand colours, fonts, base styles). Put code here only when both apps use it.
-- Paths in this file are relative to `apps/web` unless they start with `apps/` or `packages/`. Each app is its own Vercel project (Root Directory `apps/web` / `apps/admin`).
+- Paths in this file are relative to `apps/public` unless they start with `apps/` or `packages/`. Each app is its own Vercel project (Root Directory `apps/public` / `apps/console`).
 
-`apps/web` is a Next.js static export (`output: "export"`, `trailingSlash: true`), languages `en` and `fr`.
+`apps/public` is a Next.js static export (`output: "export"`, `trailingSlash: true`), languages `en` and `fr`.
 Because it is a static export, `next.config` redirects and `middleware.ts` do NOT work — redirects go in the host config (e.g. `vercel.json`).
 
 ## Always follow: SEO
@@ -33,4 +33,4 @@ Because it is a static export, `next.config` redirects and `middleware.ts` do NO
 
 ## Before finishing any change
 
-Run `yarn typecheck` (checks every workspace) and `yarn build`. For SEO-touching changes, inspect `apps/web/out/` HTML (canonical, hreflang, og:url, title/description length, no other domain). For UI changes, check contrast and touch-target size; Lighthouse accessibility should stay at 100.
+Run `yarn typecheck` (checks every workspace) and `yarn build`. For SEO-touching changes, inspect `apps/public/out/` HTML (canonical, hreflang, og:url, title/description length, no other domain). For UI changes, check contrast and touch-target size; Lighthouse accessibility should stay at 100.

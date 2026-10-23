@@ -1,11 +1,11 @@
 /** Parity check: Postgres content must equal the file-based catalogue. Run: yarn workspace @maple-print-lab/db db:verify */
 import { isDeepStrictEqual } from "node:util";
 import { categories as fc, collections as fcol, products as fp } from "@/db";
-import { createDb } from "../src/client";
-import * as t from "../src/schema";
+import { createDb } from "../src";
+import * as t from "../src";
 
 try {
-  process.loadEnvFile(new URL("../../../apps/admin/.env.local", import.meta.url));
+  process.loadEnvFile(new URL("../../../apps/console/.env.local", import.meta.url));
 } catch {}
 
 const db = createDb();

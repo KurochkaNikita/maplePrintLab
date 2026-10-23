@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import HeaderNav from "@/components/HeaderNav";
 import { siteConfig } from "@/lib/site-config";
@@ -27,7 +28,7 @@ export default function Header({ lang, dict, hideLocaleSwitcher = false }: Heade
           href={localeHref(lang, "")}
           className="flex items-center gap-2.5 py-1 font-display text-lg font-semibold tracking-tight text-charcoal"
         >
-          <img
+          <Image
             src="/brand/logo-on-light.svg"
             alt=""
             aria-hidden="true"

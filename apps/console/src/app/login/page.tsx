@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import LoginForm from "@/components/LoginForm";
 import { getAdminState } from "@/lib/auth/server";
@@ -35,7 +36,7 @@ export default async function LoginPage({
 
         <div className="w-full max-w-md rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-8">
           <div className="flex items-center gap-3">
-            <img
+            <Image
               src="/brand/logo-on-light.svg"
               alt=""
               aria-hidden="true"

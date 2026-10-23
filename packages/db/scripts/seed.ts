@@ -4,11 +4,11 @@
  * Run: yarn workspace @maple-print-lab/db db:seed
  */
 import { categories as fileCategories, collections as fileCollections, products as fileProducts } from "@/db";
-import { createDb } from "../src/client";
-import * as t from "../src/schema";
+import { createDb } from "../src";
+import * as t from "../src";
 
 try {
-  process.loadEnvFile(new URL("../../../apps/admin/.env.local", import.meta.url));
+  process.loadEnvFile(new URL("../../../apps/console/.env.local", import.meta.url));
 } catch {}
 
 const db = createDb();

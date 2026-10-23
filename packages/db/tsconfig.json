@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "types": ["node"],
-    "paths": { "@/*": ["../../apps/web/src/*"] }
+    "paths": { "@/*": ["../../apps/public/src/*"] }
   },
   "include": ["src", "scripts", "drizzle.config.ts"]
 }

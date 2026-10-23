@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, type ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Button from "@/components/Button";
@@ -193,7 +194,7 @@ export function AdminShell({
               href="/"
               className="flex items-center gap-2 rounded-lg py-1.5 pr-1 font-display text-base font-semibold tracking-tight text-charcoal sm:gap-2.5 sm:pr-2 sm:text-lg"
             >
-              <img
+              <Image
                 src="/brand/logo-on-light.svg"
                 alt=""
                 aria-hidden="true"

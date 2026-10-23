@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -23,7 +24,7 @@ export default function Footer({ lang, dict }: FooterProps) {
       <div className="layer-bar" aria-hidden="true" />
       <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 sm:grid-cols-3">
         <div>
-          <img
+          <Image
             src="/brand/logo-on-dark.svg"
             alt=""
             aria-hidden="true"

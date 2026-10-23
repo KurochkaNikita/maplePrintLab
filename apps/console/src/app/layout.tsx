@@ -55,6 +55,7 @@ export default async function RootLayout({
     <html lang={locale} className={`${display.variable} ${body.variable}`}>
       {/* Browser extensions (e.g. Grammarly) inject attributes into <body> before hydration. */}
       <body className="flex min-h-screen flex-col" suppressHydrationWarning>
+        {/* noinspection HtmlUnknownAnchorTarget */}
         <a
           href="#main-content"
           className="visually-hidden fixed left-4 top-4 z-50 rounded-md bg-charcoal px-4 py-3 font-mono text-xs font-medium uppercase tracking-wider text-filament shadow-lg"

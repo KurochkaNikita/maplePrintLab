@@ -1,21 +1,21 @@
 {
-  "name": "@maple-print-lab/web",
+  "name": "@maple-print-lab/console",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --experimental-https",
-    "build": "next build",
-    "start": "next start",
+    "dev": "next dev --experimental-https --webpack --port 3001",
+    "build": "next build --webpack",
+    "start": "next start --port 3001",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@maple-print-lab/ui": "*",
-    "@vercel/analytics": "2.0.1",
-    "@vercel/speed-insights": "^2.0.0",
+    "@neondatabase/auth": "^0.6.0-beta",
     "next": "16.3.6",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "20.14.10",
