@@ -95,6 +95,8 @@ export const products = pgTable(
     priceFrom: boolean("price_from").notNull().default(false),
     dimensions: jsonb("dimensions").$type<Dimensions>().notNull(),
     published: boolean("published").notNull().default(true),
+    /** Page stays live but gets `noindex` and is left out of the sitemap. */
+    noindex: boolean("noindex").notNull().default(false),
     sortOrder: integer("sort_order").notNull().default(0),
     ...timestamps,
   },

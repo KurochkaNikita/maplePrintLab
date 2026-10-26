@@ -8,6 +8,13 @@
       "when": 1792475401656,
       "tag": "0000_aromatic_moira_mactaggert",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792915372008,
+      "tag": "0001_add_product_noindex",
+      "breakpoints": true
     }
   ]
 }
