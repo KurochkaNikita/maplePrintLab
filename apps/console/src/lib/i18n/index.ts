@@ -21,3 +21,8 @@ export const dictionaries: Record<Locale, Dictionary> = { ru, en, fr };
 export function isLocale(value: string | undefined): value is Locale {
   return !!value && (locales as readonly string[]).includes(value);
 }
+
+/** Fills `{name}` placeholders in a dictionary string. */
+export function format(template: string, vars: Record<string, string | number>): string {
+  return template.replace(/\{(\w+)\}/g, (match, name: string) => (name in vars ? String(vars[name]) : match));
+}
