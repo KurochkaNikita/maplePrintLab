@@ -2,6 +2,7 @@
 
 import Button from "@/components/Button";
 import { useT } from "@/components/LocaleProvider";
+import CheckCircleIcon from "@/icons/check-circle.svg";
 
 export interface PublishBarProps {
   unpublishedCount?: number;
@@ -39,18 +40,7 @@ export function PublishBar({
           </>
         ) : (
           <>
-            <svg
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-              className="h-4 w-4 shrink-0 text-teal"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <CheckCircleIcon className="h-4 w-4 shrink-0 text-teal" />
             <span>{t.shell.publish.noChanges}</span>
           </>
         )}

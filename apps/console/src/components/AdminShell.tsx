@@ -9,6 +9,12 @@ import PublishBar from "@/components/PublishBar";
 import { authClient } from "@/lib/auth/client";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useT } from "@/components/LocaleProvider";
+import ArrowRightIcon from "@/icons/arrow-right.svg";
+import CloseIcon from "@/icons/close.svg";
+import GridIcon from "@/icons/grid.svg";
+import MenuIcon from "@/icons/menu.svg";
+import PackageIcon from "@/icons/package.svg";
+import StarIcon from "@/icons/star.svg";
 
 export interface AdminShellProps {
   children: ReactNode;
@@ -24,78 +30,28 @@ const navItems: {
     href: "/products",
     key: "products",
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-        className="h-5 w-5 shrink-0"
-      >
-        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
-        <path d="m3.3 7 8.7 5 8.7-5" />
-        <path d="M12 22V12" />
-      </svg>
+      <PackageIcon className="h-5 w-5 shrink-0" />
     ),
   },
   {
     href: "/categories",
     key: "categories",
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-        className="h-5 w-5 shrink-0"
-      >
-        <rect width="7" height="7" x="3" y="3" rx="1" />
-        <rect width="7" height="7" x="14" y="3" rx="1" />
-        <rect width="7" height="7" x="14" y="14" rx="1" />
-        <rect width="7" height="7" x="3" y="14" rx="1" />
-      </svg>
+      <GridIcon className="h-5 w-5 shrink-0" />
     ),
   },
   {
     href: "/collections",
     key: "collections",
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-        className="h-5 w-5 shrink-0"
-      >
-        <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-      </svg>
+      <StarIcon className="h-5 w-5 shrink-0" />
     ),
   },
   {
     href: "/redirects",
     key: "redirects",
     icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-        className="h-5 w-5 shrink-0"
-      >
-        <path d="M9 18l6-6-6-6" />
-        <path d="M4 12h16" />
-      </svg>
+      <ArrowRightIcon className="h-5 w-5 shrink-0" />
     ),
   },
 ];
@@ -164,29 +120,9 @@ export function AdminShell({
               className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-charcoal/25 bg-white text-charcoal transition-colors hover:bg-charcoal/5 lg:hidden"
             >
               {mobileMenuOpen ? (
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  aria-hidden="true"
-                >
-                  <path d="M6 6l12 12M18 6L6 18" />
-                </svg>
+                <CloseIcon className="h-6 w-6" />
               ) : (
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  aria-hidden="true"
-                >
-                  <path d="M4 7h16M4 12h16M4 17h16" />
-                </svg>
+                <MenuIcon className="h-6 w-6" />
               )}
             </button>
 

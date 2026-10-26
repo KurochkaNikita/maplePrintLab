@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useLocale, useT } from "@/components/LocaleProvider";
 import { isLocale, LOCALE_COOKIE, localeLabels, locales } from "@/lib/i18n";
+import ChevronDownSolidIcon from "@/icons/chevron-down-solid.svg";
+import GlobeIcon from "@/icons/globe.svg";
 
 export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const router = useRouter();
@@ -17,20 +19,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
 
   return (
     <div className={`relative inline-flex items-center ${className}`.trim()}>
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-        className="pointer-events-none absolute left-3.5 h-5 w-5 text-ink"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-        <path d="M2 12h20" />
-      </svg>
+      <GlobeIcon className="pointer-events-none absolute left-3.5 h-5 w-5 text-ink" />
       <select
         aria-label={t.a11y.language}
         value={locale}
@@ -43,18 +32,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
           </option>
         ))}
       </select>
-      <svg
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        aria-hidden="true"
-        className="pointer-events-none absolute right-3 h-4 w-4 text-ink"
-      >
-        <path
-          fillRule="evenodd"
-          d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-          clipRule="evenodd"
-        />
-      </svg>
+      <ChevronDownSolidIcon className="pointer-events-none absolute right-3 h-4 w-4 text-ink" />
     </div>
   );
 }

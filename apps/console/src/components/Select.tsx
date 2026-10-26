@@ -1,4 +1,5 @@
 import { forwardRef, type SelectHTMLAttributes } from "react";
+import ChevronDownIcon from "@/icons/chevron-down.svg";
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   hasError?: boolean;
@@ -22,18 +23,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
       >
         {children}
       </select>
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-        className="pointer-events-none absolute right-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-charcoal"
-      >
-        <path d="m6 9 6 6 6-6" />
-      </svg>
+      <ChevronDownIcon className="pointer-events-none absolute right-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-charcoal" />
     </div>
   );
 });

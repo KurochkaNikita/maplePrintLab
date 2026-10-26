@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import PageHeader from "@/components/PageHeader";
+import LayersIcon from "@/icons/layers.svg";
 
 export interface SectionPlaceholderProps {
   title: string;
@@ -26,20 +27,7 @@ export function SectionPlaceholder({
       >
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-amber-deep/30 bg-amber/10 text-amber-deep">
           {icon ?? (
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.75"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              className="h-6 w-6"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
+            <LayersIcon className="h-6 w-6" />
           )}
         </div>
 

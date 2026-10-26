@@ -10,6 +10,8 @@ import { hasAdminAccess } from "@/lib/auth/actions";
 import { authClient } from "@/lib/auth/client";
 import { useT } from "@/components/LocaleProvider";
 import type { Dictionary } from "@/lib/i18n";
+import EyeIcon from "@/icons/eye.svg";
+import EyeOffIcon from "@/icons/eye-off.svg";
 
 /** Neon Auth reports bad credentials as HTTP 401 / INVALID_EMAIL_OR_PASSWORD, as a returned or a thrown error. */
 function errorMessage(e: unknown, t: Dictionary): string {
@@ -142,34 +144,9 @@ export function LoginForm({ accessDenied = false }: { accessDenied?: boolean }) 
             className="absolute right-1 top-1/2 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-md text-charcoal transition-colors hover:bg-charcoal/10 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {showPassword ? (
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-                className="h-5 w-5"
-              >
-                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
-                <path d="m1 1 22 22" />
-              </svg>
+              <EyeOffIcon className="h-5 w-5" />
             ) : (
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-                className="h-5 w-5"
-              >
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
+              <EyeIcon className="h-5 w-5" />
             )}
           </button>
           <span id="password-toggle-warning" className="visually-hidden">
