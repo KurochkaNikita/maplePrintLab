@@ -4,16 +4,13 @@ import { useRef } from "react";
 import Checkbox from "@/components/Checkbox";
 import InputField from "@/components/InputField";
 import { useT } from "@/components/LocaleProvider";
+import { useProductFormContext } from "@/hooks/useProductFormContext";
 import { DIMENSION_AXES, DIMENSION_UNITS, convertLength, type DimensionUnit } from "@/lib/products/dimensions";
 import { fieldId } from "@/lib/products/types";
-import { errorText, withDimension, type TabProps } from "./shared";
+import { errorText, withDimension } from "./shared";
 
-export interface PricingTabProps extends TabProps {
-  /** The chosen category has volume pricing, so the product has no price of its own. */
-  categoryHasPriceTiers: boolean;
-}
-
-export function PricingTab({ values, errors, onChange, categoryHasPriceTiers }: PricingTabProps) {
+export function PricingTab() {
+  const { values, errors, change: onChange, categoryHasPriceTiers } = useProductFormContext();
   const dict = useT();
   const t = dict.pages.products.form.pricing;
   const err = (key: string) => errorText(errors, key, dict);

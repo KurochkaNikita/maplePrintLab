@@ -2,13 +2,13 @@
 
 import type { ReactNode } from "react";
 import { useT } from "@/components/LocaleProvider";
+import { useProductFormContext } from "@/hooks/useProductFormContext";
 import Tabs, { tabButtonId, tabPanelId, type TabItem } from "@/components/Tabs";
 import { format } from "@/lib/i18n";
 import {
   PRODUCT_LOCALES,
   PRODUCT_LOCALE_LABELS,
   tabOfField,
-  type FieldErrors,
   type ProductLocale,
   type TabId,
 } from "@/lib/products/types";
@@ -17,15 +17,13 @@ export interface LocaleTabsProps {
   idPrefix: string;
   /** The parent tab: only errors that belong to it are counted. */
   scope: TabId;
-  locale: ProductLocale;
-  onLocaleChange: (locale: ProductLocale) => void;
-  errors: FieldErrors;
   renderPanel: (locale: ProductLocale) => ReactNode;
 }
 
 /** Second level of tabs: one panel per language. Panels stay mounted so nothing typed is lost. */
-export function LocaleTabs({ idPrefix, scope, locale, onLocaleChange, errors, renderPanel }: LocaleTabsProps) {
+export function LocaleTabs({ idPrefix, scope, renderPanel }: LocaleTabsProps) {
   const t = useT().pages.products.form;
+  const { errors, locale, setLocale } = useProductFormContext();
 
   const tabs: TabItem<ProductLocale>[] = PRODUCT_LOCALES.map((l) => {
     const count = Object.keys(errors).filter((key) => key.startsWith(`${l}.`) && tabOfField(key) === scope).length;
@@ -39,7 +37,7 @@ export function LocaleTabs({ idPrefix, scope, locale, onLocaleChange, errors, re
 
   return (
     <div>
-      <Tabs variant="folder" idPrefix={idPrefix} label={t.localeTabsLabel} tabs={tabs} active={locale} onChange={onLocaleChange} />
+      <Tabs variant="folder" idPrefix={idPrefix} label={t.localeTabsLabel} tabs={tabs} active={locale} onChange={setLocale} />
       {PRODUCT_LOCALES.map((l) => (
         <div
           key={l}

@@ -2,6 +2,7 @@
 
 import InputField from "@/components/InputField";
 import { useT } from "@/components/LocaleProvider";
+import { useProductFormContext } from "@/hooks/useProductFormContext";
 import TextareaField from "@/components/TextareaField";
 import { format } from "@/lib/i18n";
 import {
@@ -11,9 +12,10 @@ import {
   SEO_TITLE_MAX,
   type ProductLocale,
 } from "@/lib/products/types";
-import { errorText, withText, type TabProps } from "./shared";
+import { errorText, withText } from "./shared";
 
-export function LocaleSeo({ locale, values, errors, onChange }: TabProps & { locale: ProductLocale }) {
+export function LocaleSeo({ locale }: { locale: ProductLocale }) {
+  const { values, errors, change: onChange } = useProductFormContext();
   const dict = useT();
   const t = dict.pages.products.form.seo;
   const err = (key: string) => errorText(errors, `${locale}.${key}`, dict);

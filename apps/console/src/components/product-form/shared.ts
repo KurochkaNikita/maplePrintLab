@@ -6,22 +6,6 @@ import type {
   ProductTextValues,
 } from "@/lib/products/types";
 
-/**
- * Props every tab receives. `onChange` takes the next values plus the error keys
- * for the fields that were touched, so their messages disappear as soon as the user edits them.
- */
-export interface TabProps {
-  values: ProductFormValues;
-  errors: FieldErrors;
-  onChange: (next: ProductFormValues, ...touched: string[]) => void;
-}
-
-/** Tabs with one panel per language share the selected language. */
-export interface LocaleTabProps extends TabProps {
-  locale: ProductLocale;
-  onLocaleChange: (locale: ProductLocale) => void;
-}
-
 export function withText(
   values: ProductFormValues,
   locale: ProductLocale,

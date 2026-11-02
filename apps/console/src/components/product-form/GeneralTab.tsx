@@ -4,20 +4,15 @@ import Checkbox from "@/components/Checkbox";
 import Field from "@/components/Field";
 import InputField from "@/components/InputField";
 import { useT } from "@/components/LocaleProvider";
+import { useProductFormContext } from "@/hooks/useProductFormContext";
 import MultiSelect from "@/components/MultiSelect";
 import SelectField from "@/components/SelectField";
 import { format } from "@/lib/i18n";
 import { fieldId, productPath } from "@/lib/products/types";
-import type { CategoryOption, CollectionOption } from "@maple-print-lab/db";
-import { errorText, type TabProps } from "./shared";
+import { errorText } from "./shared";
 
-export interface GeneralTabProps extends TabProps {
-  categories: CategoryOption[];
-  collections: CollectionOption[];
-  isEdit: boolean;
-}
-
-export function GeneralTab({ values, errors, onChange, categories, collections, isEdit }: GeneralTabProps) {
+export function GeneralTab() {
+  const { values, errors, change: onChange, categories, collections, isEdit } = useProductFormContext();
   const dict = useT();
   const t = dict.pages.products.form;
   const err = (key: string) => errorText(errors, key, dict);

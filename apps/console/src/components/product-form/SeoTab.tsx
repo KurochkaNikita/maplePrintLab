@@ -2,13 +2,13 @@
 
 import Checkbox from "@/components/Checkbox";
 import { useT } from "@/components/LocaleProvider";
+import { useProductFormContext } from "@/hooks/useProductFormContext";
 import LocaleSeo from "./LocaleSeo";
 import LocaleTabs from "./LocaleTabs";
-import type { LocaleTabProps } from "./shared";
 
-export function SeoTab({ locale, onLocaleChange, ...props }: LocaleTabProps) {
+export function SeoTab() {
   const t = useT().pages.products.form.seo;
-  const { values, onChange } = props;
+  const { values, change } = useProductFormContext();
 
   return (
     <div className="space-y-6">
@@ -16,16 +16,9 @@ export function SeoTab({ locale, onLocaleChange, ...props }: LocaleTabProps) {
         label={t.noindexLabel}
         hint={t.noindexHint}
         checked={values.noindex}
-        onChange={(e) => onChange({ ...values, noindex: e.target.checked })}
+        onChange={(e) => change({ ...values, noindex: e.target.checked })}
       />
-      <LocaleTabs
-        idPrefix="pf-seo-lang"
-        scope="seo"
-        locale={locale}
-        onLocaleChange={onLocaleChange}
-        errors={props.errors}
-        renderPanel={(l) => <LocaleSeo locale={l} {...props} />}
-      />
+      <LocaleTabs idPrefix="pf-seo-lang" scope="seo" renderPanel={(l) => <LocaleSeo locale={l} />} />
     </div>
   );
 }
