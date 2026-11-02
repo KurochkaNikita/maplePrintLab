@@ -110,3 +110,15 @@ export function localeOfField(key: string): ProductLocale | null {
   const locale = key.split(".")[0];
   return (PRODUCT_LOCALES as readonly string[]).includes(locale) ? (locale as ProductLocale) : null;
 }
+
+/** Number of invalid fields per tab, for the badges on the tab buttons. */
+export function countErrorsByTab(errors: FieldErrors): Record<TabId, number> {
+  const counts: Record<TabId, number> = { general: 0, content: 0, pricing: 0, images: 0, seo: 0 };
+  for (const key of Object.keys(errors)) counts[tabOfField(key)] += 1;
+  return counts;
+}
+
+/** The first invalid field as the user sees it (tab order). The server lists errors in tab order too, but the focus target must not depend on that. */
+export function firstErrorKey(errors: FieldErrors): string | undefined {
+  return Object.keys(errors).sort((a, b) => TAB_IDS.indexOf(tabOfField(a)) - TAB_IDS.indexOf(tabOfField(b)))[0];
+}
