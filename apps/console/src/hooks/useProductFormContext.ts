@@ -21,8 +21,6 @@ export type ProductFormContextValue = ReturnType<typeof useProductForm> & {
   collections: CollectionOption[];
   photoBaseUrl?: string;
   isEdit: boolean;
-  /** The chosen category has volume pricing, so the product has no price of its own. */
-  categoryHasPriceTiers: boolean;
 };
 
 export const ProductFormContext = createContext<ProductFormContextValue | null>(null);
