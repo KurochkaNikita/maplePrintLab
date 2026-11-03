@@ -120,3 +120,6 @@ export function useProductPhotos() {
     previewSrc,
   };
 }
+
+/** What `useProductPhotos` returns: handed to the parts of the Photos tab so they share one upload state. */
+export type ProductPhotos = ReturnType<typeof useProductPhotos>;
