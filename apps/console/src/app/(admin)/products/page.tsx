@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { createDb, listProducts } from "@maple-print-lab/db";
-import { getDict, getLocale } from "@/lib/i18n/server";
+import { getDict } from "@/lib/i18n/server";
 import { siteUrl } from "@/lib/site-url";
 import ProductsScreen from "@/screens/products/ProductsScreen";
 
@@ -19,16 +19,14 @@ export default async function ProductsPage({
   const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
   const query = first(sp.q).trim().slice(0, 100);
 
-  const [t, locale, list] = await Promise.all([
+  const [t, list] = await Promise.all([
     getDict(),
-    getLocale(),
     listProducts(createDb(), { query, page: Number(first(sp.page)), pageSize: PAGE_SIZE }),
   ]);
 
   return (
     <ProductsScreen
       t={t}
-      locale={locale}
       products={list.items}
       total={list.total}
       page={list.page}

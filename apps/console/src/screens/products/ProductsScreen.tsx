@@ -6,11 +6,10 @@ import ProductsNoResults from "@/components/products-list/ProductsNoResults";
 import ProductsPagination from "@/components/products-list/ProductsPagination";
 import ProductsSearch from "@/components/ProductsSearch";
 import ProductsTable from "@/components/products-list/ProductsTable";
-import type { Dictionary, Locale } from "@/lib/i18n";
+import type { Dictionary } from "@/lib/i18n";
 
 export interface ProductsScreenProps {
   t: Dictionary;
-  locale: Locale;
   /** The current page of the (filtered) catalogue. */
   products: ProductListItem[];
   /** Number of products matching the search, across all pages. */
@@ -26,7 +25,6 @@ export interface ProductsScreenProps {
 
 export function ProductsScreen({
   t,
-  locale,
   products,
   total,
   page,
@@ -57,7 +55,7 @@ export function ProductsScreen({
             <ProductsNoResults labels={p.list.search} query={query} />
           ) : (
             <>
-              <ProductsTable products={products} labels={p.list} locale={locale} siteUrl={siteUrl} />
+              <ProductsTable products={products} labels={p.list} siteUrl={siteUrl} />
               <ProductsPagination
                 labels={p.list.pagination}
                 query={query}
