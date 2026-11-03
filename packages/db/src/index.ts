@@ -2,3 +2,4 @@ export * from "./schema";
 export { isAdminUser } from "./auth";
 export { createDb, type Db } from "./client";
 export * from "./products";
+export * from "./categories";
