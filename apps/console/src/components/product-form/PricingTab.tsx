@@ -7,10 +7,12 @@ import { useT } from "@/components/LocaleProvider";
 import { useProductFormContext } from "@/hooks/useProductFormContext";
 import { DIMENSION_AXES, DIMENSION_UNITS, convertLength, type DimensionUnit } from "@/lib/products/dimensions";
 import { fieldId } from "@/lib/products/types";
+import Switch from "@/components/Switch";
+import PriceTiersEditor from "./PriceTiersEditor";
 import { errorText, withDimension } from "./shared";
 
 export function PricingTab() {
-  const { values, errors, change: onChange, categoryHasPriceTiers } = useProductFormContext();
+  const { values, errors, change: onChange } = useProductFormContext();
   const dict = useT();
   const t = dict.pages.products.form.pricing;
   const err = (key: string) => errorText(errors, key, dict);
@@ -44,9 +46,16 @@ export function PricingTab() {
         onChange={(v) => onChange({ ...values, material: v }, "material")}
       />
 
-      {categoryHasPriceTiers ? (
-        <p className="rounded-lg border border-line bg-white px-4 py-3 text-sm text-charcoal">{t.priceFromTiers}</p>
-      ) : (
+      <Switch
+        label={t.modeTiers}
+        hint={t.modeTiersHint}
+        checked={values.priceMode === "tiers"}
+        onChange={(e) =>
+          onChange({ ...values, priceMode: e.target.checked ? "tiers" : "single" }, "priceAmount", "priceTiers")
+        }
+      />
+
+      {values.priceMode === "single" ? (
         <div className="max-w-sm space-y-2">
           <InputField
             id={fieldId("priceAmount")}
@@ -67,6 +76,8 @@ export function PricingTab() {
             onChange={(e) => onChange({ ...values, priceFrom: e.target.checked })}
           />
         </div>
+      ) : (
+        <PriceTiersEditor />
       )}
 
       <fieldset className="space-y-4">
