@@ -50,8 +50,8 @@ export default function ProductDetailScreen({
             {item.title}
           </h1>
 
-          {category.priceTiers ? (
-            <PriceTiers lang={lang} dict={dict} tiers={category.priceTiers} className="mt-5" />
+          {item.priceTiers ? (
+            <PriceTiers lang={lang} dict={dict} tiers={item.priceTiers} className="mt-5" />
           ) : (
             <p className="mt-4 font-display text-4xl font-semibold text-charcoal">
               {formatPrice(item.price, lang, dict)}
@@ -131,7 +131,7 @@ export default function ProductDetailScreen({
           )}
         </div>
       </div>
-      <ProductJsonLd lang={lang} item={item} priceTiers={category.priceTiers} crumbs={crumbs} />
+      <ProductJsonLd lang={lang} item={item} priceTiers={item.priceTiers} crumbs={crumbs} />
     </div>
   );
 }

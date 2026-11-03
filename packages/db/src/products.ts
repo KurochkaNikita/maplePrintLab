@@ -13,6 +13,7 @@ import {
   redirects,
   type Dimensions,
   type Highlight,
+  type PriceTier,
 } from "./schema";
 import { PRODUCT_LOCALES, productPath, type ProductLocale } from "./locales";
 
@@ -46,8 +47,10 @@ export type ProductInput = {
   noindex: boolean;
   isNew: boolean;
   sortOrder: number;
-  /** Null when the category has price tiers. */
+  /** Null when the product has price tiers. */
   priceAmount: string | null;
+  /** Volume pricing, or null for a single price. */
+  priceTiers: PriceTier[] | null;
   priceFrom: boolean;
   dimensions: Dimensions;
   /** Main photo first; the position is the index. */
@@ -76,7 +79,7 @@ export type ProductListItem = {
   updatedAt: Date;
 };
 
-export type CategoryOption = { id: string; title: string; hasPriceTiers: boolean };
+export type CategoryOption = { id: string; title: string };
 export type CollectionOption = { id: string; title: string };
 
 export type ProductListPage = { items: ProductListItem[]; total: number; page: number; pageCount: number };
@@ -85,21 +88,28 @@ export type ProductListPage = { items: ProductListItem[]; total: number; page: n
 const likePattern = (q: string) => `%${q.replace(/[\\%_]/g, "\\$&")}%`;
 
 /**
- * One page of the catalogue, optionally filtered by a substring of the slug or of a title in any language.
+ * One page of the catalogue, optionally filtered by a substring of the slug or of a title in any language,
+ * and by category.
  * `page` is 1-based and clamped to the last page, so a stale link never shows an empty page.
  */
 export async function listProducts(
   db: Db,
-  { query = "", page = 1, pageSize = 20 }: { query?: string; page?: number; pageSize?: number } = {},
+  {
+    query = "",
+    page = 1,
+    pageSize = 20,
+    categoryId,
+  }: { query?: string; page?: number; pageSize?: number; categoryId?: string } = {},
 ): Promise<ProductListPage> {
   const q = query.trim();
   const pattern = likePattern(q);
-  const where = q
+  const search = q
     ? or(
         ilike(products.slug, pattern),
         sql`exists (select 1 from ${productTranslations} pt where pt.product_id = ${products.id} and pt.title ilike ${pattern})`,
       )
     : undefined;
+  const where = and(search, categoryId === undefined ? undefined : eq(products.categoryId, categoryId));
 
   const [{ total }] = await db.select({ total: count() }).from(products).where(where);
   const pageCount = Math.max(1, Math.ceil(total / pageSize));
@@ -174,6 +184,7 @@ export async function findProduct(db: Db, id: number): Promise<ProductRecord | n
     isNew: row.isNew,
     sortOrder: row.sortOrder,
     priceAmount: row.priceAmount,
+    priceTiers: row.priceTiers,
     priceFrom: row.priceFrom,
     dimensions: row.dimensions,
     updatedAt: row.updatedAt,
@@ -184,14 +195,14 @@ export async function findProduct(db: Db, id: number): Promise<ProductRecord | n
 
 export async function listCategoryOptions(db: Db): Promise<CategoryOption[]> {
   const rows = await db
-    .select({ id: categories.id, title: categoryTranslations.title, priceTiers: categories.priceTiers })
+    .select({ id: categories.id, title: categoryTranslations.title })
     .from(categories)
     .leftJoin(
       categoryTranslations,
       and(eq(categoryTranslations.categoryId, categories.id), eq(categoryTranslations.locale, "en")),
     )
     .orderBy(asc(categories.sortOrder), asc(categories.id));
-  return rows.map((r) => ({ id: r.id, title: r.title ?? r.id, hasPriceTiers: !!r.priceTiers?.length }));
+  return rows.map((r) => ({ id: r.id, title: r.title ?? r.id }));
 }
 
 export async function listCollectionOptions(db: Db): Promise<CollectionOption[]> {
@@ -204,16 +215,6 @@ export async function listCollectionOptions(db: Db): Promise<CollectionOption[]>
     )
     .orderBy(asc(collections.sortOrder), asc(collections.id));
   return rows.map((r) => ({ id: r.id, title: r.title ?? r.id }));
-}
-
-/** Null when the category does not exist. */
-export async function getCategoryPricing(db: Db, id: string): Promise<{ hasPriceTiers: boolean } | null> {
-  const [row] = await db
-    .select({ priceTiers: categories.priceTiers })
-    .from(categories)
-    .where(eq(categories.id, id))
-    .limit(1);
-  return row ? { hasPriceTiers: !!row.priceTiers?.length } : null;
 }
 
 /** The subset of `ids` that exist. */
@@ -252,6 +253,7 @@ function productRow(input: ProductInput) {
     noindex: input.noindex,
     sortOrder: input.sortOrder,
     priceAmount: input.priceAmount,
+    priceTiers: input.priceTiers,
     priceFrom: input.priceFrom,
     dimensions: input.dimensions,
   };

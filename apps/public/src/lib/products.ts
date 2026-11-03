@@ -12,8 +12,9 @@ export type ProductItem = {
   title: string;
   note: string;
   price: { amount: number; currency: "CAD"; from?: boolean };
-  /** Price falls with order size (category `priceTiers`); `price` is then the lowest tier, shown as "From …/pc". */
+  /** Price falls with order size (`priceTiers`); `price` is then the lowest tier, shown as "From …/pc". */
   volumePricing: boolean;
+  priceTiers?: PriceTier[];
   isNew: boolean;
   dimensions: Dimensions;
   material: string;
@@ -36,7 +37,6 @@ export type ProductCategory = {
   title: string;
   intro: string;
   highlight?: string;
-  priceTiers?: PriceTier[];
   items: ProductItem[];
   seo: Seo;
   seoBlock?: SeoBlock;
@@ -45,21 +45,18 @@ export type ProductCategory = {
 
 export type ProductCatalog = ProductCategory[];
 
-function resolvePrice(
-  product: { slug: string; price?: ProductItem["price"] },
-  categoryId: string,
-  priceTiers?: PriceTier[],
-): ProductItem["price"] {
+function resolvePrice(product: { slug: string; price?: ProductItem["price"]; priceTiers?: PriceTier[] }): ProductItem["price"] {
   if (product.price) return product.price;
-  if (priceTiers?.length) return { amount: Math.min(...priceTiers.map((t) => t.amount)), currency: "CAD", from: true };
-  throw new Error(`Product "${product.slug}" has no price and category "${categoryId}" has no priceTiers`);
+  if (product.priceTiers?.length) {
+    return { amount: Math.min(...product.priceTiers.map((t) => t.amount)), currency: "CAD", from: true };
+  }
+  throw new Error(`Product "${product.slug}" has neither a price nor priceTiers`);
 }
 
 export function getProducts(locale: Locale): Promise<ProductCatalog> {
   return Promise.resolve(
     categories.map((category) => {
       const { title, intro, highlight, seo, seoBlock } = category.translations[locale];
-      const { priceTiers } = category;
       const items = products
         .filter((p) => p.categoryId === category.id)
         .map((p): ProductItem => {
@@ -70,8 +67,9 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             collectionIds: p.collectionIds ?? [],
             title: t.title,
             note: t.note,
-            price: resolvePrice(p, category.id, priceTiers),
-            volumePricing: Boolean(priceTiers?.length),
+            price: resolvePrice(p),
+            volumePricing: Boolean(p.priceTiers?.length),
+            priceTiers: p.priceTiers,
             isNew: Boolean(p.isNew),
             dimensions: p.dimensions,
             material: p.material[locale],
@@ -86,7 +84,7 @@ export function getProducts(locale: Locale): Promise<ProductCatalog> {
             seo: t.seo,
           };
         });
-      return { id: category.id, title, intro, highlight, seo, seoBlock, customColours: category.customColours ?? false, priceTiers, items };
+      return { id: category.id, title, intro, highlight, seo, seoBlock, customColours: category.customColours ?? false, items };
     }),
   );
 }

@@ -7,7 +7,6 @@ import { ProductFormContext, type ProductFormProps } from "@/hooks/useProductFor
 /** Runs the form logic once and shares it with everything below. */
 export function ProductFormProvider({ children, ...props }: ProductFormProps & { children: ReactNode }) {
   const form = useProductForm(props);
-  const categoryHasPriceTiers = props.categories.find((c) => c.id === form.values.categoryId)?.hasPriceTiers ?? false;
 
   return (
     <ProductFormContext.Provider
@@ -17,7 +16,6 @@ export function ProductFormProvider({ children, ...props }: ProductFormProps & {
         collections: props.collections,
         photoBaseUrl: props.photoBaseUrl,
         isEdit: props.mode === "edit",
-        categoryHasPriceTiers,
       }}
     >
       {children}
