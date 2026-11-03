@@ -1,13 +1,10 @@
 "use client";
 
 import Button from "@/components/Button";
-import IconButton from "@/components/IconButton";
-import InputField from "@/components/InputField";
 import { useT } from "@/components/LocaleProvider";
 import { useProductFormContext } from "@/hooks/useProductFormContext";
-import TrashIcon from "@/icons/trash.svg";
-import { format } from "@/lib/i18n";
-import { fieldId } from "@/lib/products/types";
+import { fieldId, type PriceTierValues } from "@/lib/products/types";
+import PriceTierItem from "./PriceTierItem";
 import { errorText } from "./shared";
 
 /** Optional volume pricing: rows of "from – to pieces → price per piece". */
@@ -19,7 +16,7 @@ export function PriceTiersEditor() {
   const err = (key: string) => errorText(errors, key, dict);
   const tiersError = err("priceTiers");
 
-  const setTier = (index: number, field: "from" | "to" | "amount", value: string) => {
+  const setTier = (index: number, field: keyof PriceTierValues, value: string) => {
     const next = tiers.map((tier, i) => (i === index ? { ...tier, [field]: value } : tier));
     onChange({ ...values, priceTiers: next }, `priceTiers.${index}.${field}`);
   };
@@ -46,57 +43,7 @@ export function PriceTiersEditor() {
       {tiers.length > 0 && (
         <ul className="mt-4 space-y-6">
           {tiers.map((tier, index) => (
-            <li
-              key={index}
-              role="group"
-              aria-labelledby={`pf-tier-${index}-title`}
-              className="border-t border-line pt-4 first:border-t-0 first:pt-0"
-            >
-              <div className="flex items-center justify-between gap-3">
-                <h3 id={`pf-tier-${index}-title`} className="text-sm font-semibold text-charcoal">
-                  {format(t.tierItemTitle, { n: index + 1 })}
-                </h3>
-                <IconButton
-                  icon={TrashIcon}
-                  tone="danger"
-                  label={format(t.removeTier, { n: index + 1 })}
-                  className="-mr-2"
-                  onClick={() => removeTier(index)}
-                />
-              </div>
-              <div className="mt-2 grid gap-4 sm:grid-cols-3">
-                <InputField
-                  id={fieldId(`priceTiers.${index}.from`)}
-                  label={t.tierFrom}
-                  required
-                  error={err(`priceTiers.${index}.from`)}
-                  inputMode="numeric"
-                  autoComplete="off"
-                  value={tier.from}
-                  onChange={(v) => setTier(index, "from", v)}
-                />
-                <InputField
-                  id={fieldId(`priceTiers.${index}.to`)}
-                  label={t.tierTo}
-                  hint={t.tierToHint}
-                  error={err(`priceTiers.${index}.to`)}
-                  inputMode="numeric"
-                  autoComplete="off"
-                  value={tier.to}
-                  onChange={(v) => setTier(index, "to", v)}
-                />
-                <InputField
-                  id={fieldId(`priceTiers.${index}.amount`)}
-                  label={t.tierAmount}
-                  required
-                  error={err(`priceTiers.${index}.amount`)}
-                  inputMode="decimal"
-                  autoComplete="off"
-                  value={tier.amount}
-                  onChange={(v) => setTier(index, "amount", v)}
-                />
-              </div>
-            </li>
+            <PriceTierItem key={index} index={index} tier={tier} onChange={setTier} onRemove={removeTier} />
           ))}
         </ul>
       )}
