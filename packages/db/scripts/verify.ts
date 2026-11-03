@@ -25,11 +25,10 @@ const [cats, catTr, cols, colTr, prods, prodTr, imgs, links] = await Promise.all
   db.select().from(t.productCollections),
 ]);
 
-eq("category ids/order", cats.sort((a, b) => a.sortOrder - b.sortOrder).map((c) => c.id), fc.map((c) => c.id));
+eq("category ids/order", cats.filter((c) => !c.isDefault).sort((a, b) => a.sortOrder - b.sortOrder).map((c) => c.id), fc.map((c) => c.id));
 for (const c of fc) {
   const row = cats.find((r) => r.id === c.id);
   eq(`cat ${c.id} customColours`, row?.customColours, c.customColours ?? false);
-  eq(`cat ${c.id} priceTiers`, row?.priceTiers ?? undefined, c.priceTiers);
   for (const [locale, tr] of Object.entries(c.translations)) {
     const r = catTr.find((x) => x.categoryId === c.id && x.locale === locale);
     eq(`cat ${c.id}/${locale}`, r && [r.title, r.intro, r.highlight ?? undefined, r.seoTitle, r.seoDescription, r.seoBlock ?? undefined], [tr.title, tr.intro, tr.highlight, tr.seo.title, tr.seo.description, tr.seoBlock]);
@@ -45,6 +44,7 @@ for (const c of fcol)
 eq("product slugs/order", prods.sort((a, b) => a.sortOrder - b.sortOrder).map((p) => p.slug), fp.map((p) => p.slug));
 for (const p of fp) {
   const row = prods.find((r) => r.slug === p.slug)!;
+  eq(`${p.slug} priceTiers`, row.priceTiers ?? undefined, p.priceTiers);
   eq(`${p.slug} base`, [row.categoryId, row.isNew, row.priceAmount === null ? undefined : Number(row.priceAmount), row.priceFrom, row.dimensions], [p.categoryId, p.isNew ?? false, p.price?.amount, p.price?.from ?? false, p.dimensions]);
   for (const [locale, tr] of Object.entries(p.translations)) {
     const r = prodTr.find((x) => x.productId === row.id && x.locale === locale);

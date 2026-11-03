@@ -23,7 +23,6 @@ async function main() {
     fileCategories.map((c, i) => ({
       id: c.id,
       customColours: c.customColours ?? false,
-      priceTiers: c.priceTiers ?? null,
       sortOrder: i,
     })),
   );
@@ -41,6 +40,13 @@ async function main() {
       })),
     ),
   );
+
+  // The fallback category (see migration 0002) is wiped with the others; put it back.
+  await db.insert(t.categories).values({ id: "other", isDefault: true, sortOrder: fileCategories.length });
+  await db.insert(t.categoryTranslations).values([
+    { categoryId: "other", locale: "en", title: "Other", intro: "More 3D-printed pieces, made to order in Canada.", seoTitle: "Other 3D-Printed Pieces", seoDescription: "More 3D-printed pieces, made to order in Canada. Browse the rest of the Maple Print Lab catalogue." },
+    { categoryId: "other", locale: "fr", title: "Autres", intro: "D’autres pièces imprimées en 3D, fabriquées sur commande au Canada.", seoTitle: "Autres pièces imprimées en 3D", seoDescription: "D’autres pièces imprimées en 3D, fabriquées sur commande au Canada. Parcourez le reste du catalogue Maple Print Lab." },
+  ]);
 
   await db.insert(t.collections).values(fileCollections.map((c, i) => ({ id: c.id, sortOrder: i })));
   await db.insert(t.collectionTranslations).values(
@@ -64,6 +70,7 @@ async function main() {
         categoryId: p.categoryId,
         isNew: p.isNew ?? false,
         priceAmount: p.price ? String(p.price.amount) : null,
+        priceTiers: p.priceTiers ?? null,
         priceCurrency: p.price?.currency ?? "CAD",
         priceFrom: p.price?.from ?? false,
         dimensions: p.dimensions,

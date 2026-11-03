@@ -1,4 +1,4 @@
-import type { ProductInput, ProductTextInput } from "@maple-print-lab/db";
+import type { PriceTier, ProductInput, ProductTextInput } from "@maple-print-lab/db";
 import {
   PRODUCT_LOCALES,
   MAX_PHOTOS,
@@ -29,7 +29,6 @@ const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 /** What the server learned from the database before validating. */
 export type ValidationContext = {
   categoryExists: boolean;
-  categoryHasPriceTiers: boolean;
 };
 
 /** Accepts "1.5" and "1,5" (French decimal comma). */
@@ -37,6 +36,38 @@ function parseDecimal(raw: string, maxFractionDigits?: number): number | null {
   const s = raw.trim().replace(",", ".");
   const pattern = maxFractionDigits === undefined ? /^\d+(\.\d+)?$/ : new RegExp(`^\\d+(\\.\\d{1,${maxFractionDigits}})?$`);
   return pattern.test(s) ? Number(s) : null;
+}
+
+/**
+ * Volume-price rows, or null when there are none (the single price applies). Blank rows are dropped;
+ * rows must be in ascending order without overlaps, and only the last may be open-ended.
+ */
+function parseTiers(values: ProductFormValues, errors: FieldErrors): PriceTier[] | null {
+  const tiers: PriceTier[] = [];
+  let previousEnd = 0;
+  values.priceTiers.forEach((row, i) => {
+    const key = (field: string) => `priceTiers.${i}.${field}`;
+    const from = row.from.trim();
+    const to = row.to.trim();
+    const amount = row.amount.trim();
+    if (!from && !to && !amount) return;
+
+    const fromN = from === "" ? NaN : Number(from);
+    const toN = to === "" ? undefined : Number(to);
+    if (!from) errors[key("from")] = { code: "required" };
+    else if (!Number.isInteger(fromN) || fromN < 1 || fromN > 1_000_000) errors[key("from")] = { code: "invalidNumber" };
+    else if (fromN <= previousEnd) errors[key("from")] = { code: "tierOrder" };
+    if (toN !== undefined && (!Number.isInteger(toN) || toN < fromN || toN > 1_000_000)) {
+      errors[key("to")] = { code: Number.isInteger(toN) && toN < fromN ? "tierOrder" : "invalidNumber" };
+    }
+    const price = amount ? parseDecimal(amount, 2) : null;
+    if (!amount) errors[key("amount")] = { code: "required" };
+    else if (price === null || price <= 0 || price >= 100_000_000) errors[key("amount")] = { code: "invalidPrice" };
+
+    tiers.push({ from: fromN, ...(toN === undefined ? {} : { to: toN }), amount: price ?? 0 });
+    previousEnd = toN ?? Infinity;
+  });
+  return tiers.length ? tiers : null;
 }
 
 /**
@@ -93,7 +124,11 @@ export function validateProduct(
 
   // Pricing and size
   let priceAmount: string | null = null;
-  if (!ctx.categoryHasPriceTiers) {
+  let priceTiers: PriceTier[] | null = null;
+  if (values.priceMode === "tiers") {
+    priceTiers = parseTiers(values, errors);
+    if (!priceTiers) errors.priceTiers = { code: "tiersRequired" };
+  } else {
     const raw = values.priceAmount.trim();
     if (!raw) errors.priceAmount = { code: "required" };
     else {
@@ -155,8 +190,9 @@ export function validateProduct(
       isNew: values.isNew,
       sortOrder,
       priceAmount,
+      priceTiers,
       // "From" only makes sense next to a price the admin typed in.
-      priceFrom: ctx.categoryHasPriceTiers ? false : values.priceFrom,
+      priceFrom: values.priceMode === "tiers" ? false : values.priceFrom,
       dimensions: { cm, in: inches },
       images,
       translations,

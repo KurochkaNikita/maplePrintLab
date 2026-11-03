@@ -40,6 +40,12 @@ export type ProductTextValues = {
   seoDescription: string;
 };
 
+/** One volume-price row; `to` empty means "and up". */
+export type PriceTierValues = { from: string; to: string; amount: string };
+
+/** How the product is priced: one price, or volume pricing; only the chosen one is saved. */
+export type PriceMode = "single" | "tiers";
+
 export type ProductFormValues = {
   slug: string;
   categoryId: string;
@@ -48,7 +54,10 @@ export type ProductFormValues = {
   noindex: boolean;
   isNew: boolean;
   sortOrder: string;
+  priceMode: PriceMode;
   priceAmount: string;
+  /** Volume pricing rows; used only in `tiers` mode (kept while the admin switches back and forth). */
+  priceTiers: PriceTierValues[];
   priceFrom: boolean;
   /** One value for every language (stored on each translation row). */
   material: string;
@@ -66,6 +75,8 @@ export type ErrorCode =
   | "tooLong"
   | "invalidNumber"
   | "invalidPrice"
+  | "tierOrder"
+  | "tiersRequired"
   | "photoRequired"
   | "invalidPhoto"
   | "unknownCategory"
@@ -75,7 +86,7 @@ export type FieldError = { code: ErrorCode; max?: number };
 
 /**
  * Keyed by field path, in tab order: `slug`, `categoryId`, `collectionIds`, `sortOrder`,
- * `<locale>.title`, `<locale>.highlights.<i>.text`, `priceAmount`, `dimensions.cm.<i>`, `photos`,
+ * `<locale>.title`, `<locale>.highlights.<i>.text`, `priceAmount`, `priceTiers.<i>.from|to|amount`, `dimensions.cm.<i>`, `photos`,
  * `photos.<i>.alts.<locale>`,
  * `<locale>.seoTitle`, …
  */
@@ -92,7 +103,7 @@ export const TAB_IDS: readonly TabId[] = ["general", "content", "pricing", "imag
 /** Which tab holds the input behind a `FieldErrors` key. */
 export function tabOfField(key: string): TabId {
   if (key === "photos" || key.startsWith("photos.")) return "images";
-  if (key.startsWith("dimensions.") || key === "priceAmount" || key === "material") return "pricing";
+  if (key.startsWith("dimensions.") || key === "priceAmount" || key === "material" || key.startsWith("priceTiers")) return "pricing";
   const [locale, field] = key.split(".");
   if (locale && (PRODUCT_LOCALES as readonly string[]).includes(locale)) {
     return field === "seoTitle" || field === "seoDescription" ? "seo" : "content";

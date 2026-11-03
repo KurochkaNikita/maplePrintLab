@@ -10,6 +10,7 @@ import {
   timestamp,
   uniqueIndex,
 } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 
 /** JSON shapes stored in jsonb columns (mirror `src/db/types.ts` of the site). */
 export type PriceTier = { from: number; to?: number; amount: number };
@@ -22,6 +23,13 @@ export type Dimensions = {
   in: [number, number, number];
 };
 export type Highlight = { title: string; text: string };
+/** Category cover: a Blob URL (or bare file name from the site), its size, and alt text per locale. */
+export type CategoryCover = {
+  file: string;
+  width: number;
+  height: number;
+  alts: Record<string, string>;
+};
 
 const timestamps = {
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
@@ -29,15 +37,22 @@ const timestamps = {
 };
 
 /** Languages are rows, not columns: adding a locale needs no migration. */
-export const categories = pgTable("categories", {
-  /** URL slug: /<lang>/category/<id>/ */
-  id: text("id").primaryKey(),
-  customColours: boolean("custom_colours").notNull().default(false),
-  priceTiers: jsonb("price_tiers").$type<PriceTier[]>(),
-  published: boolean("published").notNull().default(true),
-  sortOrder: integer("sort_order").notNull().default(0),
-  ...timestamps,
-});
+export const categories = pgTable(
+  "categories",
+  {
+    /** URL slug: /<lang>/category/<id>/ */
+    id: text("id").primaryKey(),
+    customColours: boolean("custom_colours").notNull().default(false),
+    /** Optional cover shown on category cards and headers. */
+    cover: jsonb("cover").$type<CategoryCover>(),
+    /** The one fallback category: products of a deleted category move here. It cannot be deleted. */
+    isDefault: boolean("is_default").notNull().default(false),
+    published: boolean("published").notNull().default(true),
+    sortOrder: integer("sort_order").notNull().default(0),
+    ...timestamps,
+  },
+  (t) => [uniqueIndex("categories_default_uq").on(t.isDefault).where(sql`${t.isDefault}`)],
+);
 
 export const categoryTranslations = pgTable(
   "category_translations",
@@ -89,8 +104,10 @@ export const products = pgTable(
       .notNull()
       .references(() => categories.id, { onUpdate: "cascade" }),
     isNew: boolean("is_new").notNull().default(false),
-    /** Null when the category has `price_tiers` (the first tier is used). */
+    /** Null when the product has `price_tiers` (the first tier is used). */
     priceAmount: numeric("price_amount", { precision: 10, scale: 2 }),
+    /** Volume pricing of this product; shown as a table on its page. */
+    priceTiers: jsonb("price_tiers").$type<PriceTier[]>(),
     priceCurrency: text("price_currency").notNull().default("CAD"),
     priceFrom: boolean("price_from").notNull().default(false),
     dimensions: jsonb("dimensions").$type<Dimensions>().notNull(),

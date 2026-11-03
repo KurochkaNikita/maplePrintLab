@@ -27,8 +27,6 @@ export type CategoryRecord = {
   id: string;
   /** Every product in the category can be made in colours the customer picks; shown in each product's spec list. */
   customColours?: boolean;
-  /** Volume pricing shared by every product in the category; shown as a table on the category and product pages. */
-  priceTiers?: PriceTier[];
   translations: Translations<{
     title: string;
     intro: string;
@@ -88,8 +86,10 @@ export type ProductRecord = {
   collectionIds?: string[];
   /** Set `true` to show the product in the homepage "Latest work" section (in file order); omit or `false` to hide it. */
   isNew?: boolean;
-  /** Omit when the category has `priceTiers` — the first tier is used. */
+  /** Omit when the product has `priceTiers` — the first tier is used. */
   price?: { amount: number; currency: "CAD"; from?: boolean };
+  /** Volume pricing of this product; shown as a table on its page. */
+  priceTiers?: PriceTier[];
   /** Every product states its size. */
   dimensions: Dimensions;
   images: ProductImage[];
