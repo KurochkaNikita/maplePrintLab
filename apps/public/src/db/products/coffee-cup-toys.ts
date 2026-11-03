@@ -3,13 +3,20 @@ import { pla } from "@/db/products/materials";
 
 type Names = { en: string; fr: string };
 
-/** All cup toys share price (category `priceTiers`), size, material and copy; only the name and photos differ. */
+/** All cup toys share volume pricing, size, material and copy; only the name and photos differ. */
 const size: ProductRecord["dimensions"] = { cm: [18, 18, 18], in: [7.1, 7.1, 7.1] };
+const priceTiers: ProductRecord["priceTiers"] = [
+  { from: 50, to: 149, amount: 1.2 },
+  { from: 150, to: 349, amount: 1.1 },
+  { from: 350, to: 499, amount: 1.0 },
+  { from: 500, amount: 0.9 },
+];
 
 function coffeeCupToy(slug: string, name: Names, images: ProductRecord["images"] = []): ProductRecord {
   return {
     slug,
     categoryId: "coffee-cup-toys",
+    priceTiers,
     dimensions: size,
     images,
     material: pla,

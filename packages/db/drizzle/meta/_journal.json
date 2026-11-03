@@ -15,6 +15,13 @@
       "when": 1792915372008,
       "tag": "0001_add_product_noindex",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793670250282,
+      "tag": "0002_faithful_king_cobra",
+      "breakpoints": true
     }
   ]
 }

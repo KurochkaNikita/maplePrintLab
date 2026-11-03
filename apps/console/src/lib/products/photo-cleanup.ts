@@ -1,6 +1,6 @@
 import "server-only";
 import { del, list, type ListBlobResultBlob } from "@vercel/blob";
-import { listUploadedPhotoRefs, type Db } from "@maple-print-lab/db";
+import { listUploadedCoverRefs, listUploadedPhotoRefs, type Db } from "@maple-print-lab/db";
 
 /** Photos are uploaded before the form is saved, so a young folder may still be on its way into a product. */
 export const ORPHAN_MIN_AGE_MS = 24 * 60 * 60 * 1000;
@@ -14,7 +14,7 @@ const folderOf = (pathname: string) => FOLDER.exec(pathname)?.[1] ?? null;
 export type PhotoCleanupResult = { folders: number; orphans: number; deleted: number; dryRun: boolean };
 
 /**
- * Deletes uploaded photo folders that no product references and that are older than `ORPHAN_MIN_AGE_MS`
+ * Deletes uploaded photo folders that no product or category cover references and that are older than `ORPHAN_MIN_AGE_MS`
  * (abandoned forms, replaced or removed photos). A folder is removed whole, with all its sizes.
  * With `dryRun` nothing is deleted.
  */
@@ -25,7 +25,10 @@ export async function cleanUpOrphanPhotos(
   // Read the references first: a product saved while we list is then still seen as referenced
   // or is too young to be touched.
   const referenced = new Set(
-    (await listUploadedPhotoRefs(db)).flatMap((ref) => {
+    [
+      ...(await listUploadedPhotoRefs(db)),
+      ...(await listUploadedCoverRefs(db))
+    ].flatMap((ref) => {
       try {
         const folder = folderOf(decodeURIComponent(new URL(ref).pathname.slice(1)));
         return folder ? [folder] : [];

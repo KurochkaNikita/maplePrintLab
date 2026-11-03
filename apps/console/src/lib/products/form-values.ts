@@ -25,7 +25,9 @@ export function emptyProductValues(sortOrder: number): ProductFormValues {
     noindex: false,
     isNew: false,
     sortOrder: String(sortOrder),
+    priceMode: "single",
     priceAmount: "",
+    priceTiers: [],
     priceFrom: false,
     material: "",
     photos: [],
@@ -47,7 +49,13 @@ export function toFormValues(product: ProductRecord): ProductFormValues {
     noindex: product.noindex,
     isNew: product.isNew,
     sortOrder: str(product.sortOrder),
+    priceMode: product.priceTiers?.length ? "tiers" : "single",
     priceAmount: product.priceAmount ?? "",
+    priceTiers: (product.priceTiers ?? []).map((tier) => ({
+      from: str(tier.from),
+      to: tier.to === undefined ? "" : str(tier.to),
+      amount: tier.amount.toFixed(2),
+    })),
     priceFrom: product.priceFrom,
     material: product.translations.en?.material ?? product.translations.fr?.material ?? "",
     photos: product.images.map((img) => ({

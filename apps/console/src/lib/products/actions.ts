@@ -4,7 +4,7 @@ import {
   createDb,
   createProduct as insertProduct,
   existingCollectionIds,
-  getCategoryPricing,
+  categoryExists,
   isSlugTaken,
   isUniqueViolation,
   updateProduct as writeProduct,
@@ -19,10 +19,8 @@ type Prepared = { input: ProductInput; errors?: undefined } | { errors: FieldErr
 
 /** Validation plus the checks that need the database. */
 async function prepare(db: Db, values: ProductFormValues, productId?: number): Promise<Prepared> {
-  const category = values.categoryId ? await getCategoryPricing(db, values.categoryId.trim()) : null;
   const result = validateProduct(values, {
-    categoryExists: !!category,
-    categoryHasPriceTiers: category?.hasPriceTiers ?? false,
+    categoryExists: values.categoryId ? await categoryExists(db, values.categoryId.trim()) : false,
   });
   const errors: FieldErrors = "errors" in result ? { ...result.errors } : {};
 
