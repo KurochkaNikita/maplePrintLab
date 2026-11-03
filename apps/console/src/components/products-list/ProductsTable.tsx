@@ -10,10 +10,12 @@ export interface ProductsTableProps {
   labels: Dictionary["pages"]["products"]["list"];
   /** Origin of the public site, for thumbnails of photos imported from it. */
   siteUrl?: string;
+  /** Hide the category column, e.g. on a page that already is one category. */
+  hideCategory?: boolean;
 }
 
 /** The products list: only says which columns there are; `DataTable` builds the table. */
-export function ProductsTable({ products, labels, siteUrl }: ProductsTableProps) {
+export function ProductsTable({ products, labels, siteUrl, hideCategory = false }: ProductsTableProps) {
   // dd.mm.yyyy in every interface language (the ru-RU pattern).
   const dateFormat = new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit", year: "numeric" });
 
@@ -22,13 +24,14 @@ export function ProductsTable({ products, labels, siteUrl }: ProductsTableProps)
       id: "photo",
       header: labels.columns.photo,
       hideHeader: true,
-      headerClassName: "w-20",
-      className: "!py-2",
+      headerClassName: "w-24",
+      className: "!p-0",
       cell: (p) => <ProductThumb src={productThumbUrl(p.slug, p.imageFile, siteUrl)} />,
     },
     { id: "title", header: labels.columns.title, rowHeader: true, cell: (p) => p.title ?? labels.untitled },
-    { id: "slug", header: labels.columns.slug, className: "font-mono text-[13px]", cell: (p) => p.slug },
-    { id: "category", header: labels.columns.category, cell: (p) => p.categoryTitle ?? p.categoryId },
+    ...(hideCategory
+      ? []
+      : [{ id: "category", header: labels.columns.category, cell: (p: ProductListItem) => p.categoryTitle ?? p.categoryId }]),
     { id: "status", header: labels.columns.status, cell: (p) => <ProductStatus product={p} labels={labels} /> },
     {
       id: "updated",
