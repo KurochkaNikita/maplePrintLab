@@ -53,24 +53,24 @@ export function useProductForm(options: UseProductFormOptions) {
   const errorTotal = Object.keys(errors).length;
 
   /** `touched` are the error keys of the edited fields: their messages go away as soon as the user edits them. */
-  function change(next: ProductFormValues, ...touched: string[]) {
+  const change = (next: ProductFormValues, ...touched: string[]) => {
     setValues(next);
     setStatus(null);
     if (touched.some((key) => key in errors)) {
       setErrors(Object.fromEntries(Object.entries(errors).filter(([key]) => !touched.includes(key))));
     }
-  }
+  };
 
-  function showFieldErrors(fieldErrors: FieldErrors) {
+  const showFieldErrors = (fieldErrors: FieldErrors) => {
     setErrors(fieldErrors);
     const first = firstErrorKey(fieldErrors);
     if (!first) return;
     setTab(tabOfField(first));
     setLocale(localeOfField(first) ?? locale);
     setFocusRequest({ key: first });
-  }
+  };
 
-  async function submit(e: FormEvent<HTMLFormElement>) {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (saving) return;
 
@@ -103,7 +103,7 @@ export function useProductForm(options: UseProductFormOptions) {
     } finally {
       if (!navigating) setSaving(false);
     }
-  }
+  };
 
   return {
     values,

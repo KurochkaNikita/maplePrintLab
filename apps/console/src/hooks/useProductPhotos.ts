@@ -46,12 +46,12 @@ export function useProductPhotos() {
   };
 
   /** Opens the file picker for photo `index`, or for a new photo when null. */
-  function pick(index: number | null) {
+  const pick = (index: number | null) => {
     target.current = index;
     fileInput.current?.click();
-  }
+  };
 
-  function onFileInputChange(e: ChangeEvent<HTMLInputElement>) {
+  const onFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = ""; // the same file can be picked again
     if (!file) return;
@@ -61,10 +61,10 @@ export function useProductPhotos() {
     if (file.size > MAX_PHOTO_BYTES) return setPickError(t.errors.size);
     setDialogError(null);
     setPending({ file, index: target.current });
-  }
+  };
 
   /** Uploads the cropped image and puts it into the list: in place of the replaced photo, or at the end. */
-  async function confirmCrop(cropped: Blob) {
+  const confirmCrop = async (cropped: Blob) => {
     if (!pending) return;
     setBusy(true);
     setDialogError(null);
@@ -88,17 +88,17 @@ export function useProductPhotos() {
     change({ ...latest.current, photos: next }, ...photoErrorKeys());
     setPending(null);
     setBusy(false);
-  }
+  };
 
-  function remove(index: number) {
+  const remove = (index: number) => {
     // Later photos move up, so the main photo is always the first one left.
     change({ ...values, photos: photos.filter((_, i) => i !== index) }, ...photoErrorKeys());
-  }
+  };
 
-  function setAlt(index: number, locale: ProductLocale, value: string) {
+  const setAlt = (index: number, locale: ProductLocale, value: string) => {
     const next = photos.map((p, i) => (i === index ? { ...p, alts: { ...p.alts, [locale]: value } } : p));
     change({ ...values, photos: next }, `photos.${index}.alts.${locale}`);
-  }
+  };
 
   /** Uploaded photos come from Blob; imported ones are bare file names on the public site (null without its URL). */
   const previewSrc = (ref: string) =>
