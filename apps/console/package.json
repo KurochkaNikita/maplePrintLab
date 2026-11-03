@@ -17,7 +17,7 @@
     "@neondatabase/auth": "^0.6.0-beta",
     "@vercel/analytics": "2.0.1",
     "@vercel/blob": "^2.8.2",
-    "next": "16.4.3",
+    "next": "16.4.4",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-easy-crop": "^6.2.4",

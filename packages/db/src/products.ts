@@ -1,4 +1,4 @@
-import { and, asc, count, eq, ilike, inArray, max, ne, or, sql } from "drizzle-orm";
+import { and, asc, count, eq, ilike, inArray, like, max, ne, or, sql } from "drizzle-orm";
 import type { BatchItem } from "drizzle-orm/batch";
 import type { Db } from "./client";
 import {
@@ -230,6 +230,12 @@ export async function isSlugTaken(db: Db, slug: string, exceptId?: number): Prom
     .where(exceptId === undefined ? eq(products.slug, slug) : and(eq(products.slug, slug), ne(products.id, exceptId)))
     .limit(1);
   return !!row;
+}
+
+/** Every photo `file` that is a full URL (a Blob upload), for telling stored photos from orphans. */
+export async function listUploadedPhotoRefs(db: Db): Promise<string[]> {
+  const rows = await db.select({ file: productImages.file }).from(productImages).where(like(productImages.file, "http%"));
+  return rows.map((r) => r.file);
 }
 
 export async function nextProductSortOrder(db: Db): Promise<number> {
