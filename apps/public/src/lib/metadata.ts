@@ -37,6 +37,7 @@ export function pageMetadata({
   title,
   description,
   image,
+  noindex,
 }: {
   lang: Locale;
   path: string;
@@ -44,6 +45,8 @@ export function pageMetadata({
   description?: Metadata["description"];
   /** Site-relative path, e.g. "/product/x/x-front.webp" — used for og:image. */
   image?: string;
+  /** Keep the page live but out of search results. */
+  noindex?: boolean;
 }): Metadata {
   const ogImage = image ?? siteConfig.defaultOgImage;
   const ogTitle = typeof title === "string" ? title : undefined;
@@ -56,6 +59,7 @@ export function pageMetadata({
     ...(title !== undefined && { title }),
     ...(description !== undefined && { description }),
     alternates: localizedAlternates(lang, path),
+    ...(noindex && { robots: { index: false, follow: true } }),
     ...(ogTitle !== undefined &&
       ogDescription !== undefined && {
         openGraph: {

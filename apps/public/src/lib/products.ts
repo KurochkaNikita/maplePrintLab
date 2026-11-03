@@ -1,9 +1,20 @@
 import { locales, type Locale } from "@/lib/i18n";
-import { categories, collections, products, type Dimensions, type PriceTier, type Seo, type SeoBlock } from "@/db";
+import {
+  createDb,
+  loadStorefront,
+  type Dimensions,
+  type PriceTier,
+  type SeoBlockJson as SeoBlock,
+  type Storefront,
+  type StorefrontProduct,
+} from "@maple-print-lab/db";
+
+/** Search-engine data for one page in one language. */
+export type Seo = { title: string; description: string };
 
 export type ResolvedImage = { src: string; width: number; height: number; alt: string };
 
-/** Resolved, single-language shapes the pages render (joined from `@/db`). */
+/** Resolved, single-language shapes the pages render (built from `@maple-print-lab/db`). */
 export type ProductItem = {
   slug: string;
   categoryId: string;
@@ -16,6 +27,9 @@ export type ProductItem = {
   volumePricing: boolean;
   priceTiers?: PriceTier[];
   isNew: boolean;
+  /** Page stays live but gets `noindex` and is left out of the sitemap. */
+  noindex: boolean;
+  updatedAt: Date;
   dimensions: Dimensions;
   material: string;
   description: string;
@@ -41,60 +55,102 @@ export type ProductCategory = {
   seo: Seo;
   seoBlock?: SeoBlock;
   customColours: boolean;
+  updatedAt: Date;
 };
 
 export type ProductCatalog = ProductCategory[];
 
-function resolvePrice(product: { slug: string; price?: ProductItem["price"]; priceTiers?: PriceTier[] }): ProductItem["price"] {
-  if (product.price) return product.price;
+/**
+ * Catalogue rows are read from Postgres once per build (the site is a static export). Needs `DATABASE_URL`
+ * with read access; see `.env.example`.
+ */
+let storefront: Promise<Storefront> | undefined;
+
+/**
+ * Next.js caches `fetch` (which the Neon driver uses) on disk across builds and dev restarts, so a cached
+ * answer would show old content after an edit in the console. `revalidate: 1` makes each entry expire at once
+ * (`cache: "no-store"` would make the pages dynamic, which a static export refuses).
+ */
+const freshQueries = { next: { revalidate: 1 } } as RequestInit;
+
+function loadCatalogue(): Promise<Storefront> {
+  // `next dev` re-reads on every request so edits made in the console show up on refresh.
+  if (process.env.NODE_ENV !== "production") return loadStorefront(createDb(undefined, freshQueries));
+  storefront ??= loadStorefront(createDb(undefined, freshQueries));
+  return storefront;
+}
+
+/** A photo `file` is a Blob URL, or a bare file name under `public/product/<slug>/`. */
+const imageSrc = (slug: string, file: string) => (/^https?:\/\//.test(file) ? file : `/product/${slug}/${file}`);
+
+function resolvePrice(product: StorefrontProduct): ProductItem["price"] {
+  if (product.priceAmount !== null) {
+    return { amount: product.priceAmount, currency: "CAD", ...(product.priceFrom && { from: true }) };
+  }
   if (product.priceTiers?.length) {
     return { amount: Math.min(...product.priceTiers.map((t) => t.amount)), currency: "CAD", from: true };
   }
   throw new Error(`Product "${product.slug}" has neither a price nor priceTiers`);
 }
 
-export function getProducts(locale: Locale): Promise<ProductCatalog> {
-  return Promise.resolve(
-    categories.map((category) => {
-      const { title, intro, highlight, seo, seoBlock } = category.translations[locale];
-      const items = products
-        .filter((p) => p.categoryId === category.id)
-        .map((p): ProductItem => {
-          const t = p.translations[locale];
-          return {
-            slug: p.slug,
-            categoryId: p.categoryId,
-            collectionIds: p.collectionIds ?? [],
-            title: t.title,
-            note: t.note,
-            price: resolvePrice(p),
-            volumePricing: Boolean(p.priceTiers?.length),
-            priceTiers: p.priceTiers,
-            isNew: Boolean(p.isNew),
-            dimensions: p.dimensions,
-            material: p.material[locale],
-            description: t.description,
-            highlights: t.highlights ?? [],
-            images: p.images.map((img, i) => ({
-              src: `/product/${p.slug}/${img.file}`,
-              width: img.width,
-              height: img.height,
-              alt: t.imageAlts[i] ?? "",
-            })),
-            seo: t.seo,
-          };
-        });
-      return { id: category.id, title, intro, highlight, seo, seoBlock, customColours: category.customColours ?? false, items };
-    }),
-  );
+/** Published categories that have a translation for `locale` and at least one published product to show. */
+export async function getProducts(locale: Locale): Promise<ProductCatalog> {
+  const data = await loadCatalogue();
+  const catalog: ProductCategory[] = [];
+
+  for (const category of data.categories) {
+    const text = category.translations[locale];
+    if (!text) continue;
+
+    const items = data.products
+      .filter((p) => p.categoryId === category.id && p.translations[locale])
+      .map((p): ProductItem => {
+        const t = p.translations[locale]!;
+        return {
+          slug: p.slug,
+          categoryId: p.categoryId,
+          collectionIds: [],
+          title: t.title,
+          note: t.note,
+          price: resolvePrice(p),
+          volumePricing: Boolean(p.priceTiers?.length),
+          priceTiers: p.priceTiers ?? undefined,
+          isNew: p.isNew,
+          noindex: p.noindex,
+          updatedAt: p.updatedAt,
+          dimensions: p.dimensions,
+          material: t.material,
+          description: t.description,
+          highlights: t.highlights,
+          images: p.images.map((img) => ({
+            src: imageSrc(p.slug, img.file),
+            width: img.width,
+            height: img.height,
+            alt: img.alts[locale] ?? "",
+          })),
+          seo: { title: t.seoTitle, description: t.seoDescription },
+        };
+      });
+    if (!items.length) continue;
+
+    catalog.push({
+      id: category.id,
+      title: text.title,
+      intro: text.intro,
+      highlight: text.highlight ?? undefined,
+      seo: { title: text.seoTitle, description: text.seoDescription },
+      seoBlock: text.seoBlock ?? undefined,
+      customColours: category.customColours,
+      updatedAt: category.updatedAt,
+      items,
+    });
+  }
+  return catalog;
 }
 
-/** Products flagged `isNew`, for the homepage "Latest work" section, in table order. */
+/** Products flagged `isNew`, for the homepage "Latest work" section, in display order. */
 export function getNewItems(catalog: ProductCatalog): ProductItem[] {
-  return products
-    .filter((p) => p.isNew)
-    .map((p) => findProduct(catalog, p.slug)?.item)
-    .filter((item): item is ProductItem => item !== undefined);
+  return catalog.flatMap((c) => c.items).filter((i) => i.isNew);
 }
 
 export function findProduct(
@@ -131,22 +187,13 @@ export async function generateCategoryStaticParams() {
   return locales.flatMap((lang) => catalog.map((c) => ({ lang, id: c.id })));
 }
 
-/** Collections with their products resolved from the catalog, in `collections.ts` order. */
-export function getCollections(catalog: ProductCatalog, locale: Locale): ProductCollection[] {
-  const items = catalog.flatMap((c) => c.items);
-  return collections.map((c) => {
-    const { title, intro, seo } = c.translations[locale];
-    return {
-      id: c.id,
-      title,
-      intro,
-      seo,
-      items: products
-        .filter((p) => p.collectionIds?.includes(c.id))
-        .map((p) => items.find((i) => i.slug === p.slug))
-        .filter((i): i is ProductItem => i !== undefined),
-    };
-  });
+/**
+ * Collections are hidden for now: no collection pages, links or sitemap entries. Flip
+ * make `getCollections` and `generateCollectionStaticParams` read the `collections` tables of
+ * `@maple-print-lab/db` to bring them back.
+ */
+export function getCollections(_catalog: ProductCatalog, _locale: Locale): ProductCollection[] {
+  return [];
 }
 
 export function findCollection(collections: ProductCollection[], id: string): ProductCollection | undefined {
@@ -154,5 +201,5 @@ export function findCollection(collections: ProductCollection[], id: string): Pr
 }
 
 export async function generateCollectionStaticParams() {
-  return locales.flatMap((lang) => collections.map((c) => ({ lang, id: c.id })));
+  return [];
 }

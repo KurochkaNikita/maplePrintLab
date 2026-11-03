@@ -1,7 +1,7 @@
 import { siteConfig } from "@/lib/site-config";
 import { localeTag, productHref, type Locale } from "@/lib/i18n";
 import type { Crumb } from "@/components/Breadcrumbs";
-import type { PriceTier } from "@/db";
+import type { PriceTier } from "@maple-print-lab/db";
 import type { ProductItem } from "@/lib/products";
 
 type ProductJsonLdProps = {

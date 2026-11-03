@@ -12,7 +12,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
-/** JSON shapes stored in jsonb columns (mirror `src/db/types.ts` of the site). */
+/** JSON shapes stored in jsonb columns. */
 export type PriceTier = { from: number; to?: number; amount: number };
 export type SeoBlockJson = {
   sections: { heading: string; paragraphs: string[] }[];

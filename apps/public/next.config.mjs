@@ -2,6 +2,8 @@ import { fileURLToPath } from "node:url";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // The db package ships TypeScript source.
+  transpilePackages: ["@maple-print-lab/db"],
   // `next` is hoisted into the workspace root's node_modules. Pin the root so
   // builds that start from apps/public alone (e.g. `vercel deploy` run in this
   // folder) still resolve it.

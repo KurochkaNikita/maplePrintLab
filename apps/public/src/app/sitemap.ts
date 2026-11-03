@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
 import { locales, localeTag, defaultLocale, routes, localeHref } from "@/lib/i18n";
-import { allProductSlugs, getCollections, getProducts } from "@/lib/products";
+import { getProducts } from "@/lib/products";
 import { lastModified, latest } from "@/lib/lastmod";
 
 export const dynamic = "force-static";
@@ -21,19 +21,16 @@ function languages(pathFor: (lang: (typeof locales)[number]) => string) {
  * source (data, copy, screen), not the build time.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // Slugs and category ids are shared across locales, so the default locale's catalog lists them.
   const catalog = await getProducts(locales[0]);
-  const slugs = allProductSlugs(catalog);
+  const items = catalog.flatMap((c) => c.items);
 
   const dictionaries = lastModified("src/lib/dictionaries");
-  const productDate = (slug: string) => lastModified(`src/db/products/${slug}`);
-  const categoriesFile = lastModified("src/db/categories.ts");
-  const collectionsFile = lastModified("src/db/collections.ts");
-  const collections = getCollections(catalog, locales[0]);
-  const allProducts = lastModified("src/db/products");
+  const catalogDate = latest(...catalog.map((c) => c.updatedAt), ...items.map((i) => i.updatedAt));
 
   const routeDate = {
-    "": latest(allProducts, categoriesFile, dictionaries, lastModified("src/screens/HomeScreen.tsx")),
-    products: latest(allProducts, categoriesFile, dictionaries, lastModified("src/screens/ProductScreen.tsx")),
+    "": latest(catalogDate, dictionaries, lastModified("src/screens/HomeScreen.tsx")),
+    products: latest(catalogDate, dictionaries, lastModified("src/screens/ProductScreen.tsx")),
     "how-to-order": latest(dictionaries, lastModified("src/screens/HowToOrderScreen.tsx")),
     about: latest(dictionaries, lastModified("src/screens/AboutScreen.tsx")),
     contact: latest(dictionaries, lastModified("src/screens/ContactScreen.tsx", "src/lib/site-config.ts")),
@@ -49,35 +46,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
+  // `noindex` products stay live but are left out of the sitemap.
   const products = locales.flatMap((lang) =>
-    slugs.map((slug) => ({
-      url: abs(`/${lang}/product/${slug}/`),
-      lastModified: latest(productDate(slug), categoriesFile),
-      changeFrequency: "yearly" as const,
-      priority: 0.6,
-      alternates: { languages: languages((l) => `/${l}/product/${slug}/`) },
-    })),
+    items
+      .filter((item) => !item.noindex)
+      .map((item) => ({
+        url: abs(`/${lang}/product/${item.slug}/`),
+        lastModified: latest(item.updatedAt, catalog.find((c) => c.id === item.categoryId)?.updatedAt),
+        changeFrequency: "yearly" as const,
+        priority: 0.6,
+        alternates: { languages: languages((l) => `/${l}/product/${item.slug}/`) },
+      })),
   );
 
   const categories = locales.flatMap((lang) =>
     catalog.map((cat) => ({
       url: abs(`/${lang}/category/${cat.id}/`),
-      lastModified: latest(categoriesFile, ...cat.items.map((i) => productDate(i.slug))),
+      lastModified: latest(cat.updatedAt, ...cat.items.map((i) => i.updatedAt)),
       changeFrequency: "yearly" as const,
       priority: 0.7,
       alternates: { languages: languages((l) => `/${l}/category/${cat.id}/`) },
     })),
   );
 
-  const collectionPages = locales.flatMap((lang) =>
-    collections.map((col) => ({
-      url: abs(`/${lang}/collection/${col.id}/`),
-      lastModified: latest(collectionsFile, ...col.items.map((i) => productDate(i.slug))),
-      changeFrequency: "yearly" as const,
-      priority: 0.7,
-      alternates: { languages: languages((l) => `/${l}/collection/${col.id}/`) },
-    })),
-  );
-
-  return [...pages, ...categories, ...collectionPages, ...products];
+  // Collection pages are hidden for now (see `getCollections`).
+  return [...pages, ...categories, ...products];
 }

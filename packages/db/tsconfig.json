@@ -10,8 +10,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["node"],
-    "paths": { "@/*": ["../../apps/public/src/*"] }
+    "types": ["node"]
   },
   "include": ["src", "scripts", "drizzle.config.ts"]
 }

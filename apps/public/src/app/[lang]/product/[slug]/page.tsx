@@ -26,6 +26,7 @@ export async function generateMetadata({
     title: found.item.seo.title,
     description: found.item.seo.description,
     image: found.item.images[0]?.src,
+    noindex: found.item.noindex,
   });
 }
 
