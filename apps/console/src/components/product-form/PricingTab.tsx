@@ -23,14 +23,14 @@ export function PricingTab() {
    * Keeps the units in step (cm <-> in) after the user leaves a size field, but never overwrites
    * a hand-set value (e.g. 10 in) just because the field was visited.
    */
-  function syncOtherUnit(unit: DimensionUnit, index: number, value: string) {
+  const syncOtherUnit = (unit: DimensionUnit, index: number, value: string) => {
     if (value === onFocusValue.current) return;
     const other = unit === "cm" ? "in" : "cm";
     const converted = convertLength(value, unit);
     if (converted !== null) {
       onChange(withDimension(values, other, index, converted), `dimensions.${other}.${index}`);
     }
-  }
+  };
 
   return (
     <div className="space-y-8">

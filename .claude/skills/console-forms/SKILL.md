@@ -43,7 +43,7 @@ Reference implementation: the product form (`src/components/product-form/**`, `s
 
 - A form component renders; state, handlers, submit, focus and server calls live in hooks: `use<Section>Form` (values, errors, `change`, `submit`, active tab) and feature hooks such as `use<Section>Photos`.
 - Provide the form once (`<Section>FormProvider` + `use<Section>FormContext()`); tabs and fields read `values`, `errors`, `change` from context. Do not pass the same props through three levels.
-- Extract event handlers into named functions (`handleCancel`, `syncOtherUnit`) instead of long inline arrow bodies.
+- Extract event handlers into named `const` arrow functions (`const handleCancel = () => {…}`, `syncOtherUnit`; see `const-arrow-functions`) instead of long inline arrow bodies.
 - Components are top-level; never declare one inside another (see `one-component-per-file`).
 
 ## Strings (i18n)

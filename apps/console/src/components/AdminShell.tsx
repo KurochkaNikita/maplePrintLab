@@ -74,17 +74,17 @@ export function AdminShell({
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
-    function handleKeyDown(e: KeyboardEvent) {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setMobileMenuOpen(false);
         menuButtonRef.current?.focus();
       }
-    }
+    };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileMenuOpen]);
 
-  async function handleLogout() {
+  const handleLogout = async () => {
     setIsLoggingOut(true);
     try {
       await authClient.signOut();
@@ -93,11 +93,11 @@ export function AdminShell({
     } finally {
       setIsLoggingOut(false);
     }
-  }
+  };
 
-  function isItemActive(href: string) {
+  const isItemActive = (href: string) => {
     return pathname === href || pathname.startsWith(`${href}/`);
-  }
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-filament">

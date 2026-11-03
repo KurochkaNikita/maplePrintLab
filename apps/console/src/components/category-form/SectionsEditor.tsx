@@ -20,22 +20,22 @@ export function SectionsEditor({ locale }: { locale: ProductLocale }) {
   const headingId = `cf-${locale}-sections-heading`;
   const err = (key: string) => errorText(errors, `${locale}.${key}`, dict);
 
-  function patch(next: typeof sections, ...touched: string[]) {
+  const patch = (next: typeof sections, ...touched: string[]) => {
     onChange(withText(values, locale, { sections: next }), ...touched.map((key) => `${locale}.${key}`));
-  }
+  };
 
-  function setSection(index: number, field: "heading" | "paragraphs", value: string) {
+  const setSection = (index: number, field: "heading" | "paragraphs", value: string) => {
     patch(
       sections.map((s, i) => (i === index ? { ...s, [field]: value } : s)),
       `sections.${index}.${field}`,
     );
-  }
+  };
 
-  function removeSection(index: number) {
+  const removeSection = (index: number) => {
     // Later rows shift up, so their error keys are stale: drop all section errors for this language.
     const stale = sections.flatMap((_, i) => [`sections.${i}.heading`, `sections.${i}.paragraphs`]);
     patch(sections.filter((_, i) => i !== index), ...stale);
-  }
+  };
 
   return (
     <section aria-labelledby={headingId} className="border-t border-line pt-8">

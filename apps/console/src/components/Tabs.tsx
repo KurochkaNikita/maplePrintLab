@@ -32,7 +32,7 @@ export interface TabsProps<T extends string> {
 export function Tabs<T extends string>({ idPrefix, label, tabs, active, onChange, variant = "underline" }: TabsProps<T>) {
   const buttons = useRef<Partial<Record<T, HTMLButtonElement | null>>>({});
 
-  function handleKeyDown(e: KeyboardEvent<HTMLButtonElement>, index: number) {
+  const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>, index: number) => {
     const last = tabs.length - 1;
     const next =
       e.key === "ArrowRight" ? (index === last ? 0 : index + 1)
@@ -45,7 +45,7 @@ export function Tabs<T extends string>({ idPrefix, label, tabs, active, onChange
     const target = tabs[next].id;
     onChange(target);
     buttons.current[target]?.focus();
-  }
+  };
 
   return (
     <div

@@ -23,10 +23,10 @@ export function Modal({ title, description, onClose, closable = true, children }
   }, []);
 
   /** Escape (or the browser's close request): the parent unmounts the modal, never the browser behind React's back. */
-  function handleCancel(e: SyntheticEvent<HTMLDialogElement>) {
+  const handleCancel = (e: SyntheticEvent<HTMLDialogElement>) => {
     e.preventDefault();
     if (closable) onClose();
-  }
+  };
 
   return (
     <dialog

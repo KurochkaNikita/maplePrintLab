@@ -11,11 +11,11 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const locale = useLocale();
   const t = useT();
 
-  function change(value: string) {
+  const change = (value: string) => {
     if (!isLocale(value)) return;
     document.cookie = `${LOCALE_COOKIE}=${value}; path=/; max-age=31536000; samesite=lax`;
     router.refresh();
-  }
+  };
 
   return (
     <div className={`relative inline-flex items-center ${className}`.trim()}>

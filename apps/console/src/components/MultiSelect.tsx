@@ -54,11 +54,11 @@ export function MultiSelect({
   const activeIndex = Math.min(active, Math.max(filtered.length - 1, 0));
   const optionId = (i: number) => `${listId}-${i}`;
 
-  function toggle(v: string) {
+  const toggle = (v: string) => {
     onChange(value.includes(v) ? value.filter((x) => x !== v) : [...value, v]);
-  }
+  };
 
-  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
       if (!open) return setOpen(true);
@@ -75,7 +75,7 @@ export function MultiSelect({
     } else if (e.key === "Backspace" && !query && value.length) {
       onChange(value.slice(0, -1));
     }
-  }
+  };
 
   const borderClass = hasError
     ? "border-2 border-amber-deep bg-amber/5"

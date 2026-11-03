@@ -24,7 +24,7 @@ export function DeleteCategory({ categoryId, title, productCount }: DeleteCatego
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<keyof typeof t.errors | null>(null);
 
-  async function handleConfirm() {
+  const handleConfirm = async () => {
     setBusy(true);
     setError(null);
     try {
@@ -38,12 +38,12 @@ export function DeleteCategory({ categoryId, title, productCount }: DeleteCatego
       setError("unknown");
     }
     setBusy(false);
-  }
+  };
 
-  function handleClose() {
+  const handleClose = () => {
     setOpen(false);
     setError(null);
-  }
+  };
 
   return (
     <>

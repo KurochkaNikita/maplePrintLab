@@ -42,7 +42,7 @@ export function CropDialog({ file, busy, error, onCancel, onConfirm }: CropDialo
         })
       : null;
 
-  async function apply() {
+  const apply = async () => {
     if (!src || !area || tooSmall) return;
     setCropError(null);
     try {
@@ -50,7 +50,7 @@ export function CropDialog({ file, busy, error, onCancel, onConfirm }: CropDialo
     } catch {
       setCropError(t.errors.crop);
     }
-  }
+  };
 
   return (
     <Modal title={t.cropTitle} description={t.cropHint} onClose={onCancel} closable={!busy}>

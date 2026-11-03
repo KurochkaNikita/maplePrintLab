@@ -36,7 +36,7 @@ export function LoginForm({ accessDenied = false }: { accessDenied?: boolean }) 
 
   const errorId = "login-form-error";
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isLoading) return;
@@ -73,7 +73,7 @@ export function LoginForm({ accessDenied = false }: { accessDenied?: boolean }) 
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <form

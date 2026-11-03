@@ -16,20 +16,20 @@ export function LocaleContent({ locale }: { locale: ProductLocale }) {
   const err = (key: string) => errorText(errors, `${locale}.${key}`, dict);
   const text = values.translations[locale];
 
-  function patch(next: Partial<typeof text>, ...touched: string[]) {
+  const patch = (next: Partial<typeof text>, ...touched: string[]) => {
     onChange(withText(values, locale, next), ...touched.map((key) => `${locale}.${key}`));
-  }
+  };
 
-  function setHighlight(index: number, field: "title" | "text", value: string) {
+  const setHighlight = (index: number, field: "title" | "text", value: string) => {
     const highlights = text.highlights.map((h, i) => (i === index ? { ...h, [field]: value } : h));
     patch({ highlights }, `highlights.${index}.${field}`);
-  }
+  };
 
-  function removeHighlight(index: number) {
+  const removeHighlight = (index: number) => {
     // Later rows shift up, so their error keys are stale: drop all highlight errors for this language.
     const stale = text.highlights.flatMap((_, i) => [`highlights.${i}.title`, `highlights.${i}.text`]);
     patch({ highlights: text.highlights.filter((_, i) => i !== index) }, ...stale);
-  }
+  };
 
   return (
     <div className="space-y-6">

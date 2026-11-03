@@ -30,23 +30,23 @@ export function ProductsSearch({ initialQuery, label, clearLabel }: ProductsSear
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  function apply(next: string) {
+  const apply = (next: string) => {
     clearTimeout(timer.current);
     const q = next.trim();
     // A new search always starts from the first page.
     startTransition(() => router.replace(q ? `/products?q=${encodeURIComponent(q)}` : "/products", { scroll: false }));
-  }
+  };
 
-  function handleChange(next: string) {
+  const handleChange = (next: string) => {
     setValue(next);
     clearTimeout(timer.current);
     timer.current = setTimeout(() => apply(next), DEBOUNCE_MS);
-  }
+  };
 
-  function handleSubmit(e: FormEvent) {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault(); // Enter applies immediately
     apply(value);
-  }
+  };
 
   return (
     <form role="search" onSubmit={handleSubmit}>
