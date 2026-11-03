@@ -3,7 +3,7 @@
 import type { ChangeEventHandler, RefObject } from "react";
 
 export interface HiddenFileInputProps {
-  inputRef: RefObject<HTMLInputElement>;
+  inputRef: RefObject<HTMLInputElement | null>;
   /** Allowed MIME types. */
   accept: readonly string[];
   onChange: ChangeEventHandler<HTMLInputElement>;
