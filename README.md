@@ -28,7 +28,7 @@ Stop `next dev` before running `yarn build` (it corrupts `.next`).
 ## Publishing content
 
 The public site is static, so edits made in the console appear only after a rebuild. The **Publish** button in the
-console calls a Vercel Deploy Hook of the public project (`PUBLIC_DEPLOY_HOOK_URL`, set in the console project only).
+console calls a Vercel Deploy Hook of the public project (`SITE_DEPLOY_HOOK_URL`, set in the console project only).
 Create the hook in Vercel: public project -> Settings -> Git -> Deploy Hooks.
 
 ## Environment variables

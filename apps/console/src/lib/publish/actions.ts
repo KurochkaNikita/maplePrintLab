@@ -15,7 +15,7 @@ export async function publishSite(): Promise<PublishResult> {
     return { ok: false, error: "forbidden" };
   }
 
-  const hook = process.env.PUBLIC_DEPLOY_HOOK_URL;
+  const hook = process.env.SITE_DEPLOY_HOOK_URL;
   if (!hook) return { ok: false, error: "notConfigured" };
 
   try {
