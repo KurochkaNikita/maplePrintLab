@@ -67,7 +67,6 @@ export function PhotoCard({
         >
           {src ? (
             // Decorative: the alt text is edited beside it.
-            // eslint-disable-next-line @next/next/no-img-element -- remote Blob photo
             <img src={src} alt="" width={photo.width} height={photo.height} className="h-full w-full object-cover" />
           ) : (
             <span className="flex h-full items-center justify-center px-6 text-center text-sm text-ink">

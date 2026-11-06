@@ -83,7 +83,6 @@ export default function ProductGallery({ title, images, photoSoonLabel, labels }
     return () => {
       document.body.style.overflow = prevOverflow;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   useEffect(() => {

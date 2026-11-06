@@ -39,9 +39,11 @@ export const en: Dictionary = {
     logout: "Sign out",
     publish: {
       button: "Publish",
-      unpublishedLabel: "Unpublished changes:",
-      noChanges: "All changes are published",
       statusAriaLabel: "Catalogue publishing status",
+      started: "Build started, the site will update in a couple of minutes",
+      failed: "Could not start publishing",
+      notConfigured: "The publish hook URL is not configured",
+      forbidden: "No access: please sign in again",
     },
   },
   pages: {

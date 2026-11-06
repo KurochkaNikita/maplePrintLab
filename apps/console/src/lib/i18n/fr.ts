@@ -39,9 +39,11 @@ export const fr: Dictionary = {
     logout: "Se déconnecter",
     publish: {
       button: "Publier",
-      unpublishedLabel: "Modifications non publiées :",
-      noChanges: "Toutes les modifications sont publiées",
       statusAriaLabel: "État de publication du catalogue",
+      started: "Construction lancée, le site sera à jour dans quelques minutes",
+      failed: "Impossible de lancer la publication",
+      notConfigured: "L’adresse du hook de publication n’est pas configurée",
+      forbidden: "Accès refusé : reconnectez-vous",
     },
   },
   pages: {

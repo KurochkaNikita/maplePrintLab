@@ -40,7 +40,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     routes.map((route) => ({
       url: abs(localeHref(lang, route)),
       lastModified: routeDate[route],
-      changeFrequency: "yearly" as const,
       priority: route === "" ? 1 : 0.7,
       alternates: { languages: languages((l) => localeHref(l, route)) },
     })),
@@ -53,7 +52,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .map((item) => ({
         url: abs(`/${lang}/product/${item.slug}/`),
         lastModified: latest(item.updatedAt, catalog.find((c) => c.id === item.categoryId)?.updatedAt),
-        changeFrequency: "yearly" as const,
         priority: 0.6,
         alternates: { languages: languages((l) => `/${l}/product/${item.slug}/`) },
       })),
@@ -63,7 +61,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     catalog.map((cat) => ({
       url: abs(`/${lang}/category/${cat.id}/`),
       lastModified: latest(cat.updatedAt, ...cat.items.map((i) => i.updatedAt)),
-      changeFrequency: "yearly" as const,
       priority: 0.7,
       alternates: { languages: languages((l) => `/${l}/category/${cat.id}/`) },
     })),

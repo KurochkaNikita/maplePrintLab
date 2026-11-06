@@ -6,7 +6,6 @@
     "dev": "next dev --experimental-https --webpack --port 3001",
     "build": "next build --webpack",
     "start": "next start --port 3001",
-    "lint": "next lint",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -17,7 +16,7 @@
     "@neondatabase/auth": "^0.6.0-beta",
     "@vercel/analytics": "2.0.1",
     "@vercel/blob": "^2.8.2",
-    "next": "16.4.4",
+    "next": "16.4.5",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-easy-crop": "^6.2.4",
@@ -33,5 +32,8 @@
     "postcss": "8.5.28",
     "tailwindcss": "3.4.7",
     "typescript": "5.5.3"
+  },
+  "engines": {
+    "node": ">=20.9"
   }
 }

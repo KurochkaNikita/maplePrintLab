@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/json-ld";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductGrid from "@/components/ProductGrid";
 import { collectionHref, localeHref, productHref, localeTag, type Locale } from "@/lib/i18n";
@@ -74,8 +75,7 @@ export default function CollectionScreen({ lang, dict, collection }: CollectionS
 
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
       />
     </div>
   );

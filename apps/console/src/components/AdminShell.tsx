@@ -18,7 +18,6 @@ import StarIcon from "@/icons/star.svg";
 
 export interface AdminShellProps {
   children: ReactNode;
-  unpublishedCount?: number;
 }
 
 const navItems: {
@@ -58,7 +57,6 @@ const navItems: {
 
 export function AdminShell({
   children,
-  unpublishedCount = 0,
 }: AdminShellProps) {
   const t = useT();
   const pathname = usePathname();
@@ -144,7 +142,7 @@ export function AdminShell({
 
           {/* Статус публикации и кнопка «Выйти» на планшете */}
           <div className="flex items-center justify-end gap-3">
-            <PublishBar unpublishedCount={unpublishedCount} />
+            <PublishBar />
 
             <Button
               type="button"

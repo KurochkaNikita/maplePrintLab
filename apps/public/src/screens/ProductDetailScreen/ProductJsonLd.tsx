@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/lib/site-config";
 import { localeTag, productHref, type Locale } from "@/lib/i18n";
 import type { Crumb } from "@/components/Breadcrumbs";
@@ -70,8 +71,7 @@ export default function ProductJsonLd({ lang, item, priceTiers, crumbs }: Produc
   return (
     <script
       type="application/ld+json"
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
     />
   );
 }

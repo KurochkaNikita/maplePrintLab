@@ -10,7 +10,6 @@ export function ProductThumb({ src }: { src: string | null }) {
   return (
     <span className="flex h-[72px] w-24 shrink-0 items-center justify-center overflow-hidden bg-filament text-charcoal/60">
       {src && !failed ? (
-        // eslint-disable-next-line @next/next/no-img-element -- remote storefront photo, already pre-sized
         <img
           src={src}
           alt=""

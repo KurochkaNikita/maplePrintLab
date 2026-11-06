@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/lib/site-config";
 import { localeTag, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
@@ -48,8 +49,7 @@ export default function JsonLd({ lang, dict }: JsonLdProps) {
   return (
     <script
       type="application/ld+json"
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
     />
   );
 }
