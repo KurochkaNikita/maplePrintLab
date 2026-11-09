@@ -138,6 +138,14 @@ export function validateProduct(
     }
   }
 
+  // Cost is optional: a product without one just prefills an empty cost in new orders.
+  let costAmount: string | null = null;
+  if (values.costAmount.trim()) {
+    const cost = parseDecimal(values.costAmount.trim(), 2);
+    if (cost === null || cost >= 100_000_000) errors.costAmount = { code: "invalidPrice" };
+    else costAmount = cost.toFixed(2);
+  }
+
   const material = text("material", values.material);
   for (const locale of PRODUCT_LOCALES) translations[locale].material = material;
 
@@ -193,6 +201,7 @@ export function validateProduct(
       priceTiers,
       // "From" only makes sense next to a price the admin typed in.
       priceFrom: values.priceMode === "tiers" ? false : values.priceFrom,
+      costAmount,
       dimensions: { cm, in: inches },
       images,
       translations,

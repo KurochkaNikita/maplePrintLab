@@ -29,6 +29,7 @@ export function emptyProductValues(sortOrder: number): ProductFormValues {
     priceAmount: "",
     priceTiers: [],
     priceFrom: false,
+    costAmount: "",
     material: "",
     photos: [],
     dimensions: { cm: ["", "", ""], in: ["", "", ""] },
@@ -57,6 +58,7 @@ export function toFormValues(product: ProductRecord): ProductFormValues {
       amount: tier.amount.toFixed(2),
     })),
     priceFrom: product.priceFrom,
+    costAmount: product.costAmount ?? "",
     material: product.translations.en?.material ?? product.translations.fr?.material ?? "",
     photos: product.images.map((img) => ({
       url: img.file,

@@ -1,3 +1,5 @@
+import { financeRu } from "./finance/ru";
+
 export const ru = {
   brand: {
     name: "Maple Print Lab",
@@ -33,6 +35,7 @@ export const ru = {
       categories: "Категории",
       collections: "Коллекции",
       redirects: "Редиректы",
+      ...financeRu.nav,
     },
     logout: "Выйти",
     publish: {
@@ -45,6 +48,7 @@ export const ru = {
     },
   },
   pages: {
+    ...financeRu.pages,
     dashboard: {
       metaTitle: "Панель управления",
       heading: "Панель управления",
@@ -182,6 +186,7 @@ export const ru = {
           removeHighlight: "Удалить пункт {n}",
         },
         pricing: {
+          cost: financeRu.productCost,
           materialLabel: "Материал",
           materialHint: "Один для всех языков, например PLA.",
           priceLabel: "Цена, CAD",

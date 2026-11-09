@@ -59,6 +59,8 @@ export type ProductFormValues = {
   /** Volume pricing rows; used only in `tiers` mode (kept while the admin switches back and forth). */
   priceTiers: PriceTierValues[];
   priceFrom: boolean;
+  /** Our cost of one piece; optional, blank means "not entered". */
+  costAmount: string;
   /** One value for every language (stored on each translation row). */
   material: string;
   /** Main photo first. */
@@ -103,7 +105,7 @@ export const TAB_IDS: readonly TabId[] = ["general", "content", "pricing", "imag
 /** Which tab holds the input behind a `FieldErrors` key. */
 export function tabOfField(key: string): TabId {
   if (key === "photos" || key.startsWith("photos.")) return "images";
-  if (key.startsWith("dimensions.") || key === "priceAmount" || key === "material" || key.startsWith("priceTiers")) return "pricing";
+  if (key.startsWith("dimensions.") || key === "priceAmount" || key === "costAmount" || key === "material" || key.startsWith("priceTiers")) return "pricing";
   const [locale, field] = key.split(".");
   if (locale && (PRODUCT_LOCALES as readonly string[]).includes(locale)) {
     return field === "seoTitle" || field === "seoDescription" ? "seo" : "content";

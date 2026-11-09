@@ -80,6 +80,19 @@ export function PricingTab() {
         <PriceTiersEditor />
       )}
 
+      <InputField
+        id={fieldId("costAmount")}
+        label={t.cost.label}
+        hint={t.cost.hint}
+        error={err("costAmount")}
+        className="max-w-sm"
+        name="costAmount"
+        inputMode="decimal"
+        autoComplete="off"
+        value={values.costAmount}
+        onChange={(v) => onChange({ ...values, costAmount: v }, "costAmount")}
+      />
+
       <fieldset className="space-y-4">
         <legend className="font-display text-lg font-semibold text-charcoal">{t.dimensionsLabel}</legend>
         <p className="text-sm text-ink">{t.dimensionsHint}</p>

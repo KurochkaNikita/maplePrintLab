@@ -4,3 +4,4 @@ export { createDb, type Db } from "./client";
 export * from "./products";
 export * from "./categories";
 export * from "./storefront";
+export * from "./finance";
