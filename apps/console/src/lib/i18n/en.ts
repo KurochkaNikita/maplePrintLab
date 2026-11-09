@@ -1,4 +1,5 @@
 import type { Dictionary } from "./index";
+import { financeEn } from "./finance/en";
 
 export const en: Dictionary = {
   brand: {
@@ -35,6 +36,7 @@ export const en: Dictionary = {
       categories: "Categories",
       collections: "Collections",
       redirects: "Redirects",
+      ...financeEn.nav,
     },
     logout: "Sign out",
     publish: {
@@ -47,6 +49,7 @@ export const en: Dictionary = {
     },
   },
   pages: {
+    ...financeEn.pages,
     dashboard: {
       metaTitle: "Dashboard",
       heading: "Dashboard",
@@ -180,6 +183,7 @@ export const en: Dictionary = {
           removeHighlight: "Remove highlight {n}",
         },
         pricing: {
+          cost: financeEn.productCost,
           materialLabel: "Material",
           materialHint: "The same for every language, for example PLA.",
           priceLabel: "Price, CAD",

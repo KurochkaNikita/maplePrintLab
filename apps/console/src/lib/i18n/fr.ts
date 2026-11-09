@@ -1,4 +1,5 @@
 import type { Dictionary } from "./index";
+import { financeFr } from "./finance/fr";
 
 export const fr: Dictionary = {
   brand: {
@@ -35,6 +36,7 @@ export const fr: Dictionary = {
       categories: "Catégories",
       collections: "Collections",
       redirects: "Redirections",
+      ...financeFr.nav,
     },
     logout: "Se déconnecter",
     publish: {
@@ -47,6 +49,7 @@ export const fr: Dictionary = {
     },
   },
   pages: {
+    ...financeFr.pages,
     dashboard: {
       metaTitle: "Tableau de bord",
       heading: "Tableau de bord",
@@ -182,6 +185,7 @@ export const fr: Dictionary = {
           removeHighlight: "Supprimer le point fort {n}",
         },
         pricing: {
+          cost: financeFr.productCost,
           materialLabel: "Matériau",
           materialHint: "Le même pour toutes les langues, par exemple PLA.",
           priceLabel: "Prix, CAD",

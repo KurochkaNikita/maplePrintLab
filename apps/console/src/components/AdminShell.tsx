@@ -10,11 +10,15 @@ import { authClient } from "@/lib/auth/client";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useT } from "@/components/LocaleProvider";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
+import ChartIcon from "@/icons/chart.svg";
 import CloseIcon from "@/icons/close.svg";
 import GridIcon from "@/icons/grid.svg";
+import ListIcon from "@/icons/list.svg";
 import MenuIcon from "@/icons/menu.svg";
 import PackageIcon from "@/icons/package.svg";
+import ReceiptIcon from "@/icons/receipt.svg";
 import StarIcon from "@/icons/star.svg";
+import WalletIcon from "@/icons/wallet.svg";
 
 export interface AdminShellProps {
   children: ReactNode;
@@ -22,7 +26,7 @@ export interface AdminShellProps {
 
 const navItems: {
   href: string;
-  key: "products" | "categories" | "collections" | "redirects";
+  key: "products" | "categories" | "collections" | "redirects" | "finance" | "orders" | "expenses" | "lists";
   icon: ReactNode;
 }[] = [
   {
@@ -53,6 +57,10 @@ const navItems: {
       <ArrowRightIcon className="h-5 w-5 shrink-0" />
     ),
   },
+  { href: "/finance", key: "finance", icon: <ChartIcon className="h-5 w-5 shrink-0" /> },
+  { href: "/orders", key: "orders", icon: <ReceiptIcon className="h-5 w-5 shrink-0" /> },
+  { href: "/expenses", key: "expenses", icon: <WalletIcon className="h-5 w-5 shrink-0" /> },
+  { href: "/lists", key: "lists", icon: <ListIcon className="h-5 w-5 shrink-0" /> },
 ];
 
 export function AdminShell({
@@ -209,7 +217,7 @@ export function AdminShell({
         <main
           id="main-content"
           tabIndex={-1}
-          className="flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8"
+          className="min-w-0 flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8"
         >
           {children}
         </main>
