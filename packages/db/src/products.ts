@@ -52,6 +52,8 @@ export type ProductInput = {
   /** Volume pricing, or null for a single price. */
   priceTiers: PriceTier[] | null;
   priceFrom: boolean;
+  /** Our cost of one piece, or null when not entered. */
+  costAmount: string | null;
   dimensions: Dimensions;
   /** Main photo first; the position is the index. */
   images: ProductImageInput[];
@@ -186,6 +188,7 @@ export async function findProduct(db: Db, id: number): Promise<ProductRecord | n
     priceAmount: row.priceAmount,
     priceTiers: row.priceTiers,
     priceFrom: row.priceFrom,
+    costAmount: row.costAmount,
     dimensions: row.dimensions,
     updatedAt: row.updatedAt,
     images: imageRows.map((img) => ({ file: img.file, width: img.width, height: img.height, alts: img.alts })),
@@ -255,6 +258,7 @@ function productRow(input: ProductInput) {
     priceAmount: input.priceAmount,
     priceTiers: input.priceTiers,
     priceFrom: input.priceFrom,
+    costAmount: input.costAmount,
     dimensions: input.dimensions,
   };
 }
