@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import { fieldId, type FieldErrors, type FormErrorKind, type SaveResult } from "@/lib/finance/types";
 
@@ -54,7 +54,7 @@ export function useFinanceForm<V>({ initialValues, idPrefix, validate, save, get
     if (first) setFocusRequest({ key: first });
   };
 
-  const submit = async (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (saving) return;
 

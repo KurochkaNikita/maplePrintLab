@@ -50,3 +50,44 @@ export function smoothPath(pts: Point[]): string {
   }
   return d;
 }
+
+export const CHART_WIDTH = 480;
+export const CHART_HEIGHT = 280;
+const PAD = { left: 46, right: 16, top: 14, bottom: 32 };
+
+export type ChartGeometry = {
+  scale: Scale;
+  /** Data x to picture x. */
+  px: (x: number) => number;
+  /** Data value to picture y. */
+  py: (value: number) => number;
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+  /** Picture y of the zero line. */
+  zero: number;
+};
+
+/** Where things go in the picture: the y axis fits every value, the x axis spans the first to the last position. */
+export function chartGeometry(xs: number[], values: number[]): ChartGeometry {
+  const scale = niceScale(Math.min(...values, 0), Math.max(...values, 0));
+  const left = PAD.left;
+  const right = CHART_WIDTH - PAD.right;
+  const top = PAD.top;
+  const bottom = CHART_HEIGHT - PAD.bottom;
+  const first = xs[0];
+  const span = xs[xs.length - 1] - first;
+  const px = (x: number) => (span === 0 ? (left + right) / 2 : left + ((right - left) * (x - first)) / span);
+  const py = (value: number) => top + (bottom - top) * (1 - (value - scale.min) / (scale.max - scale.min));
+  return { scale, px, py, left, right, top, bottom, zero: py(0) };
+}
+
+/** Index of the position closest to `at` (a picture x). */
+export function nearestIndex(positions: number[], at: number): number {
+  let best = 0;
+  positions.forEach((p, i) => {
+    if (Math.abs(p - at) < Math.abs(positions[best] - at)) best = i;
+  });
+  return best;
+}

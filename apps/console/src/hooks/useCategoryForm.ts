@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import { createCategory, updateCategory } from "@/lib/categories/actions";
 import {
@@ -70,7 +70,7 @@ export function useCategoryForm(options: UseCategoryFormOptions) {
     setFocusRequest({ key: first });
   };
 
-  const submit = async (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (saving) return;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import type { FinanceOption, FinanceOptionKind } from "@maple-print-lab/db";
 import { addOption, removeOption, renameOption } from "@/lib/finance/actions";
@@ -44,7 +44,7 @@ export function useLookupEditor({ kind, items }: UseLookupEditorOptions) {
     return false;
   };
 
-  const handleAdd = async (e: FormEvent<HTMLFormElement>) => {
+  const handleAdd = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (busy) return;
     if (await run("add", () => addOption(kind, newName))) setNewName("");
@@ -61,7 +61,7 @@ export function useLookupEditor({ kind, items }: UseLookupEditorOptions) {
     setError(null);
   };
 
-  const handleRename = async (e: FormEvent<HTMLFormElement>, id: number) => {
+  const handleRename = async (e: SubmitEvent<HTMLFormElement>, id: number) => {
     e.preventDefault();
     if (busy) return;
     if (await run(id, () => renameOption(kind, id, editName))) setEditingId(null);

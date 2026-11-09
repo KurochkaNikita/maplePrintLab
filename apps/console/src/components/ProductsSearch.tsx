@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition, type FormEvent } from "react";
+import { useEffect, useRef, useState, useTransition, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import Input from "@/components/Input";
 import CloseIcon from "@/icons/close.svg";
@@ -43,7 +43,7 @@ export function ProductsSearch({ initialQuery, label, clearLabel }: ProductsSear
     timer.current = setTimeout(() => apply(next), DEBOUNCE_MS);
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: SubmitEvent) => {
     e.preventDefault(); // Enter applies immediately
     apply(value);
   };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useRef, useState, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import FormError from "@/components/FormError";
@@ -36,7 +36,7 @@ export function LoginForm({ accessDenied = false }: { accessDenied?: boolean }) 
 
   const errorId = "login-form-error";
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isLoading) return;
