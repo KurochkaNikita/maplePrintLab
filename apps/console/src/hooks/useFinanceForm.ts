@@ -3,7 +3,7 @@
 import { useEffect, useState, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useT } from "@/components/LocaleProvider";
-import { useToast } from "@/components/toast/ToastProvider";
+import { useToast } from "@/hooks/useToast";
 import { fieldId, type FieldErrors, type FormErrorKind, type SaveResult } from "@/lib/finance/types";
 
 export interface UseFinanceFormOptions<V> {

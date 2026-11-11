@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import FormError from "@/components/FormError";
 import Modal from "@/components/Modal";
-import { useToast } from "@/components/toast/ToastProvider";
+import { useToast } from "@/hooks/useToast";
 
 export interface ConfirmDeleteLabels {
   button: string;

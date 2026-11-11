@@ -4,7 +4,7 @@ import { useState, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import type { FinanceOption, FinanceOptionKind } from "@maple-print-lab/db";
 import { useT } from "@/components/LocaleProvider";
-import { useToast } from "@/components/toast/ToastProvider";
+import { useToast } from "@/hooks/useToast";
 import { addOption, removeOption, renameOption } from "@/lib/finance/actions";
 import type { OptionResult } from "@/lib/finance/types";
 
