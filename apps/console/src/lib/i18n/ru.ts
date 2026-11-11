@@ -38,6 +38,7 @@ export const ru = {
       ...financeRu.nav,
     },
     logout: "Выйти",
+    toast: { close: "Закрыть уведомление" },
     publish: {
       button: "Опубликовать",
       statusAriaLabel: "Статус публикации каталога",

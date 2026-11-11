@@ -1,6 +1,7 @@
 "use client";
 
 import type { FinanceOption } from "@maple-print-lab/db";
+import { useT } from "@/components/LocaleProvider";
 import { createExpense, updateExpense } from "@/lib/finance/actions";
 import type { ExpenseFormValues } from "@/lib/finance/types";
 import { validateExpense } from "@/lib/finance/validation";
@@ -12,20 +13,20 @@ export interface UseExpenseFormOptions {
   target: ExpenseFormTarget;
   initialValues: ExpenseFormValues;
   categories: FinanceOption[];
-  justCreated?: boolean;
 }
 
-export function useExpenseForm({ target, initialValues, categories, justCreated }: UseExpenseFormOptions) {
+export function useExpenseForm({ target, initialValues, categories }: UseExpenseFormOptions) {
+  const t = useT().pages.expenses.form;
   const form = useFinanceForm<ExpenseFormValues>({
     initialValues,
     idPrefix: "ef",
-    justCreated,
     validate: (values) => {
       const result = validateExpense(values, { categoryExists: categories.some((c) => String(c.id) === values.categoryId.trim()) });
       return "errors" in result ? result.errors : null;
     },
     save: (values) => (target.mode === "create" ? createExpense(values) : updateExpense(target.expenseId, values)),
-    getCreatedUrl: target.mode === "create" ? (id) => `/expenses/${id}?created=1` : null,
+    resetAfterSave: target.mode === "create",
+    messages: { created: t.status.created, saved: t.status.saved },
   });
   const { values, change } = form;
 

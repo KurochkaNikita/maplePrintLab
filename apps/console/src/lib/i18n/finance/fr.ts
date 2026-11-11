@@ -127,6 +127,7 @@ export const financeFr: FinanceStrings = {
         cancel: "Annuler",
         confirm: "Supprimer",
         deleting: "Suppression…",
+        done: "Commande supprimée",
       },
     },
     expenses: {
@@ -169,6 +170,7 @@ export const financeFr: FinanceStrings = {
         cancel: "Annuler",
         confirm: "Supprimer",
         deleting: "Suppression…",
+        done: "Dépense supprimée",
       },
     },
     lists: {
@@ -188,6 +190,7 @@ export const financeFr: FinanceStrings = {
         addPlaceholder: "Par exemple, Loyer",
       },
       common: {
+        toast: { added: "Ajouté", renamed: "Renommé", removed: "Supprimé" },
         listLabel: "Liste : {title}",
         nameLabel: "Nom",
         add: "Ajouter",

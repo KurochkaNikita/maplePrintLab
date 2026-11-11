@@ -2,9 +2,9 @@
 
 import { useEffect, useState, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useT } from "@/components/LocaleProvider";
+import { useToast } from "@/components/toast/ToastProvider";
 import { fieldId, type FieldErrors, type FormErrorKind, type SaveResult } from "@/lib/finance/types";
-
-export type FinanceFormStatus = "created" | "saved";
 
 export interface UseFinanceFormOptions<V> {
   initialValues: V;
@@ -13,22 +13,22 @@ export interface UseFinanceFormOptions<V> {
   /** The same validation the server runs; returns the errors, or null when the values are fine. */
   validate: (values: V) => FieldErrors | null;
   save: (values: V) => Promise<SaveResult>;
-  /** Where to go after a record was created, given its id; null for an edit form (it stays and refreshes). */
-  getCreatedUrl: ((id: string) => string) | null;
-  /** The page was reached right after creating the record. */
-  justCreated?: boolean;
+  /** A create form clears itself after saving so the next record can be typed in; an edit form keeps its values. */
+  resetAfterSave: boolean;
+  /** Notification texts of a successful save. */
+  messages: { created: string; saved: string };
 }
 
 /**
- * State and behaviour shared by the order and expense forms: values, per-field errors, saving and moving
- * focus to the first invalid field. The form components only render.
+ * State and behaviour shared by the order and expense forms: values, per-field errors, saving, notifications
+ * and moving focus to the first invalid field. The form components only render.
  */
-export function useFinanceForm<V>({ initialValues, idPrefix, validate, save, getCreatedUrl, justCreated = false }: UseFinanceFormOptions<V>) {
+export function useFinanceForm<V>({ initialValues, idPrefix, validate, save, resetAfterSave, messages }: UseFinanceFormOptions<V>) {
   const router = useRouter();
+  const { notify } = useToast();
+  const formErrors = useT().pages.finance.formErrors;
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [formError, setFormError] = useState<FormErrorKind | null>(null);
-  const [status, setStatus] = useState<FinanceFormStatus | null>(justCreated ? "created" : null);
   const [saving, setSaving] = useState(false);
   const [focusRequest, setFocusRequest] = useState<{ key: string } | null>(null);
 
@@ -39,7 +39,6 @@ export function useFinanceForm<V>({ initialValues, idPrefix, validate, save, get
   /** `touched` are the error keys of the edited fields: their messages go away as soon as the user edits them. */
   const change = (next: V, ...touched: string[]) => {
     setValues(next);
-    setStatus(null);
     if (touched.some((key) => key in errors)) {
       setErrors(Object.fromEntries(Object.entries(errors).filter(([key]) => !touched.includes(key))));
     }
@@ -60,39 +59,30 @@ export function useFinanceForm<V>({ initialValues, idPrefix, validate, save, get
 
     const clientErrors = validate(values);
     if (clientErrors) {
-      setFormError(null);
       showFieldErrors(clientErrors);
       return;
     }
 
     setSaving(true);
-    setFormError(null);
-    setStatus(null);
-    let navigating = false;
 
     try {
       const result = await save(values);
       if (result.ok) {
         setErrors({});
-        if (getCreatedUrl) {
-          // Stay in the saving state until the next page replaces this one.
-          navigating = true;
-          router.push(getCreatedUrl(result.id));
-        } else {
-          setStatus("saved");
-          router.refresh();
-        }
+        if (resetAfterSave) setValues(initialValues);
+        notify("success", resetAfterSave ? messages.created : messages.saved);
+        router.refresh();
       } else if ("errors" in result) {
         showFieldErrors(result.errors);
       } else {
-        setFormError(result.formError);
+        notify("error", formErrors[result.formError satisfies FormErrorKind]);
       }
     } catch {
-      setFormError("unknown");
+      notify("error", formErrors.unknown);
     } finally {
-      if (!navigating) setSaving(false);
+      setSaving(false);
     }
   };
 
-  return { values, errors, errorTotal: Object.keys(errors).length, formError, status, saving, change, clearErrors, submit };
+  return { values, errors, errorTotal: Object.keys(errors).length, saving, change, clearErrors, submit };
 }

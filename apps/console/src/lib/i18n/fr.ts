@@ -39,6 +39,7 @@ export const fr: Dictionary = {
       ...financeFr.nav,
     },
     logout: "Se déconnecter",
+    toast: { close: "Fermer la notification" },
     publish: {
       button: "Publier",
       statusAriaLabel: "État de publication du catalogue",

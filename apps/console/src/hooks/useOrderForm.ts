@@ -1,6 +1,7 @@
 "use client";
 
 import type { FinanceOption, ProductSaleOption } from "@maple-print-lab/db";
+import { useT } from "@/components/LocaleProvider";
 import { createOrder, updateOrder } from "@/lib/finance/actions";
 import { emptyOrderItem } from "@/lib/finance/form-values";
 import { roundMoney } from "@/lib/finance/money";
@@ -16,15 +17,14 @@ export interface UseOrderFormOptions {
   initialValues: OrderFormValues;
   channels: FinanceOption[];
   products: ProductSaleOption[];
-  justCreated?: boolean;
 }
 
 /** The order form: shared form state plus helpers for the list of order lines. */
-export function useOrderForm({ target, initialValues, channels, products, justCreated }: UseOrderFormOptions) {
+export function useOrderForm({ target, initialValues, channels, products }: UseOrderFormOptions) {
+  const t = useT().pages.orders.form;
   const form = useFinanceForm<OrderFormValues>({
     initialValues,
     idPrefix: "of",
-    justCreated,
     validate: (values) => {
       const result = validateOrder(values, {
         channelExists: channels.some((c) => String(c.id) === values.channelId.trim()),
@@ -33,7 +33,8 @@ export function useOrderForm({ target, initialValues, channels, products, justCr
       return "errors" in result ? result.errors : null;
     },
     save: (values) => (target.mode === "create" ? createOrder(values) : updateOrder(target.orderId, values)),
-    getCreatedUrl: target.mode === "create" ? (id) => `/orders/${id}?created=1` : null,
+    resetAfterSave: target.mode === "create",
+    messages: { created: t.status.created, saved: t.status.saved },
   });
   const { values, change, clearErrors } = form;
 

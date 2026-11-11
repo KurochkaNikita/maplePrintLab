@@ -135,6 +135,7 @@ export const financeRu = {
         cancel: "Отмена",
         confirm: "Удалить",
         deleting: "Удаляем…",
+        done: "Заказ удалён",
       },
     },
     expenses: {
@@ -177,6 +178,7 @@ export const financeRu = {
         cancel: "Отмена",
         confirm: "Удалить",
         deleting: "Удаляем…",
+        done: "Расход удалён",
       },
     },
     lists: {
@@ -196,6 +198,7 @@ export const financeRu = {
         addPlaceholder: "Например, Аренда",
       },
       common: {
+        toast: { added: "Добавлено", renamed: "Название изменено", removed: "Удалено" },
         listLabel: "Список: {title}",
         nameLabel: "Название",
         add: "Добавить",
