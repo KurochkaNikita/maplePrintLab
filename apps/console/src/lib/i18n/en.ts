@@ -35,7 +35,6 @@ export const en: Dictionary = {
       products: "Products",
       categories: "Categories",
       collections: "Collections",
-      redirects: "Redirects",
       ...financeEn.nav,
     },
     logout: "Sign out",
@@ -55,7 +54,7 @@ export const en: Dictionary = {
       metaTitle: "Dashboard",
       heading: "Dashboard",
       description:
-        "Pick a section in the menu to manage products, categories, collections and redirects for the storefront.",
+        "Pick a section in the menu to manage products, categories, and collections for the storefront.",
       quickLinksHeading: "Catalogue sections",
       openSection: "Open section",
     },
@@ -384,13 +383,6 @@ export const en: Dictionary = {
       description: "Themed and seasonal product groups for the home page and landing sections.",
       emptyTitle: "The Collections section is under construction",
       emptyBody: "Managing collections and assigning products will be available once the database is connected.",
-    },
-    redirects: {
-      metaTitle: "Redirects",
-      heading: "Redirects",
-      description: "Redirect rules for old product and category URLs when a slug changes.",
-      emptyTitle: "The Redirects section is under construction",
-      emptyBody: "Setting up 301/308 redirects for the storefront will arrive together with hosting config generation.",
     },
   },
 };

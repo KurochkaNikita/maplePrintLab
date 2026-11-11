@@ -35,7 +35,6 @@ export const fr: Dictionary = {
       products: "Produits",
       categories: "Catégories",
       collections: "Collections",
-      redirects: "Redirections",
       ...financeFr.nav,
     },
     logout: "Se déconnecter",
@@ -55,7 +54,7 @@ export const fr: Dictionary = {
       metaTitle: "Tableau de bord",
       heading: "Tableau de bord",
       description:
-        "Choisissez une section dans le menu pour gérer les produits, les catégories, les collections et les redirections de la boutique.",
+        "Choisissez une section dans le menu pour gérer les produits, les catégories et les collections de la boutique.",
       quickLinksHeading: "Sections du catalogue",
       openSection: "Ouvrir la section",
     },
@@ -387,13 +386,6 @@ export const fr: Dictionary = {
       description: "Regroupements thématiques et saisonniers de produits pour la page d’accueil et les pages de destination.",
       emptyTitle: "La section Collections est en cours de développement",
       emptyBody: "La gestion des collections et l’association des produits seront disponibles une fois la base de données connectée.",
-    },
-    redirects: {
-      metaTitle: "Redirections",
-      heading: "Redirections",
-      description: "Règles de redirection des anciennes URL de produits et de catégories lorsqu’un identifiant change.",
-      emptyTitle: "La section Redirections est en cours de développement",
-      emptyBody: "La configuration des redirections 301/308 pour la boutique arrivera avec la génération de la configuration d’hébergement.",
     },
   },
 };

@@ -30,11 +30,6 @@ export default async function DashboardPage() {
       title: t.pages.finance.heading,
       description: t.pages.finance.description,
     },
-    {
-      href: "/redirects",
-      title: t.pages.redirects.heading,
-      description: t.pages.redirects.description,
-    },
   ];
 
   return (
