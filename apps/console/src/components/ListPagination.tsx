@@ -1,5 +1,7 @@
 import { format } from "@/lib/i18n";
 import ButtonLink from "@/components/ButtonLink";
+import ChevronLeftIcon from "@/icons/chevron-left.svg";
+import ChevronRightIcon from "@/icons/chevron-right.svg";
 
 export interface ListPaginationLabels {
   label: string;
@@ -25,6 +27,7 @@ export interface ListPaginationProps {
 /** "1–20 of 57" with previous/next links. */
 export function ListPagination({ labels, getHref, page, pageCount, pageSize, total, count }: ListPaginationProps) {
   const disabled = "pointer-events-none opacity-50";
+  const square = "!min-h-11 !w-11 !px-0";
 
   return (
     <nav aria-label={labels.label} className="flex flex-wrap items-center justify-between gap-3 border-t border-line p-3 sm:p-4">
@@ -38,11 +41,12 @@ export function ListPagination({ labels, getHref, page, pageCount, pageSize, tot
             size="sm"
             href={getHref(Math.max(page - 1, 1))}
             rel="prev"
+            aria-label={labels.prev}
             aria-disabled={page <= 1 || undefined}
             tabIndex={page <= 1 ? -1 : undefined}
-            className={page <= 1 ? disabled : ""}
+            className={`${square} ${page <= 1 ? disabled : ""}`}
           >
-            {labels.prev}
+            <ChevronLeftIcon className="h-5 w-5" />
           </ButtonLink>
           <span className="text-sm font-medium text-charcoal">{format(labels.pageOf, { page, pages: pageCount })}</span>
           <ButtonLink
@@ -50,11 +54,12 @@ export function ListPagination({ labels, getHref, page, pageCount, pageSize, tot
             size="sm"
             href={getHref(Math.min(page + 1, pageCount))}
             rel="next"
+            aria-label={labels.next}
             aria-disabled={page >= pageCount || undefined}
             tabIndex={page >= pageCount ? -1 : undefined}
-            className={page >= pageCount ? disabled : ""}
+            className={`${square} ${page >= pageCount ? disabled : ""}`}
           >
-            {labels.next}
+            <ChevronRightIcon className="h-5 w-5" />
           </ButtonLink>
         </div>
       )}

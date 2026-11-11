@@ -10,19 +10,18 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: (await getDict()).pages.expenses.edit.metaTitle };
 }
 
-export default async function EditExpensePage({ params, searchParams }: Params & { searchParams: Promise<{ created?: string }> }) {
+export default async function EditExpensePage({ params }: Params) {
   const db = createDb();
   const { id: rawId } = await params;
   if (!/^\d+$/.test(rawId) || !Number.isSafeInteger(Number(rawId))) notFound();
 
-  const [expense, query, t, locale, categories] = await Promise.all([
+  const [expense, t, locale, categories] = await Promise.all([
     findExpense(db, Number(rawId)),
-    searchParams,
     getDict(),
     getLocale(),
     listFinanceOptions(db, "expense_category"),
   ]);
   if (!expense) notFound();
 
-  return <EditExpenseScreen t={t} locale={locale} expense={expense} categories={categories} justCreated={query.created === "1"} />;
+  return <EditExpenseScreen t={t} locale={locale} expense={expense} categories={categories} />;
 }

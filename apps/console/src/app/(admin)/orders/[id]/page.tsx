@@ -10,15 +10,14 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: (await getDict()).pages.orders.edit.metaTitle };
 }
 
-export default async function EditOrderPage({ params, searchParams }: Params & { searchParams: Promise<{ created?: string }> }) {
+export default async function EditOrderPage({ params }: Params) {
   const db = createDb();
   const { id } = await params;
   // Not a UUID: no need to ask the database.
   if (!/^[0-9a-f-]{36}$/i.test(id)) notFound();
 
-  const [order, query, t, locale, channels, products] = await Promise.all([
+  const [order, t, locale, channels, products] = await Promise.all([
     findOrder(db, id),
-    searchParams,
     getDict(),
     getLocale(),
     listFinanceOptions(db, "channel"),
@@ -26,5 +25,5 @@ export default async function EditOrderPage({ params, searchParams }: Params & {
   ]);
   if (!order) notFound();
 
-  return <EditOrderScreen t={t} locale={locale} order={order} channels={channels} products={products} justCreated={query.created === "1"} />;
+  return <EditOrderScreen t={t} locale={locale} order={order} channels={channels} products={products} />;
 }

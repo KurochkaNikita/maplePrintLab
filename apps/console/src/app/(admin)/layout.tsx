@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import AdminShell from "@/components/AdminShell";
+import ToastProvider from "@/components/toast/ToastProvider";
 import { getAdminState } from "@/lib/auth/server";
 
 // Reads the session cookie on every request.
@@ -13,5 +14,9 @@ export default async function ProtectedAdminLayout({
 }) {
   if ((await getAdminState()) !== "admin") redirect("/login");
 
-  return <AdminShell>{children}</AdminShell>;
+  return (
+    <ToastProvider>
+      <AdminShell>{children}</AdminShell>
+    </ToastProvider>
+  );
 }

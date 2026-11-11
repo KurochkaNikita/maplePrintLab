@@ -22,8 +22,6 @@ export interface OrderFormProps {
   channels: FinanceOption[];
   /** Catalogue products that can be picked as order lines. */
   products: ProductSaleOption[];
-  /** The page was reached right after creating the order. */
-  justCreated?: boolean;
   /** Extra controls on the right of the save bar, e.g. a delete button. */
   actions?: ReactNode;
 }
@@ -31,14 +29,14 @@ export interface OrderFormProps {
 const ERROR_ID = "order-form-error";
 
 /** Create/edit form of an order: date, source, note and the list of lines with price and our cost. */
-export function OrderForm({ target, initialValues, channels, products, justCreated, actions }: OrderFormProps) {
+export function OrderForm({ target, initialValues, channels, products, actions }: OrderFormProps) {
   const dict = useT();
   const t = dict.pages.orders.form;
-  const f = useOrderForm({ target, initialValues, channels, products, justCreated });
+  const f = useOrderForm({ target, initialValues, channels, products });
   const { values, errors, change } = f;
   const err = (key: string) => errorText(errors, key, dict);
 
-  const banner = f.formError ? dict.pages.finance.formErrors[f.formError] : f.errorTotal ? format(t.errorSummary, { count: f.errorTotal }) : null;
+  const banner = f.errorTotal ? format(t.errorSummary, { count: f.errorTotal }) : null;
   const submitLabel = f.saving ? t.actions.saving : f.isEdit ? t.actions.save : t.actions.create;
   const itemsError = err("items");
 
@@ -117,7 +115,6 @@ export function OrderForm({ target, initialValues, channels, products, justCreat
         saving={f.saving}
         cancelHref="/orders"
         cancelLabel={dict.pages.orders.backToList}
-        status={f.status ? t.status[f.status] : ""}
       >
         {actions}
       </FormActionBar>

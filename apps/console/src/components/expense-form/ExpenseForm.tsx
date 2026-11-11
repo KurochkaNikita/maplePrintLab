@@ -16,8 +16,6 @@ export interface ExpenseFormProps {
   target: ExpenseFormTarget;
   initialValues: ExpenseFormValues;
   categories: FinanceOption[];
-  /** The page was reached right after creating the expense. */
-  justCreated?: boolean;
   /** Extra controls on the right of the save bar, e.g. a delete button. */
   actions?: ReactNode;
 }
@@ -25,14 +23,14 @@ export interface ExpenseFormProps {
 const ERROR_ID = "expense-form-error";
 
 /** Create/edit form of an expense: date, category, what for and how much. */
-export function ExpenseForm({ target, initialValues, categories, justCreated, actions }: ExpenseFormProps) {
+export function ExpenseForm({ target, initialValues, categories, actions }: ExpenseFormProps) {
   const dict = useT();
   const t = dict.pages.expenses.form;
-  const f = useExpenseForm({ target, initialValues, categories, justCreated });
+  const f = useExpenseForm({ target, initialValues, categories });
   const { values, errors } = f;
   const err = (key: string) => errorText(errors, key, dict);
 
-  const banner = f.formError ? dict.pages.finance.formErrors[f.formError] : f.errorTotal ? format(t.errorSummary, { count: f.errorTotal }) : null;
+  const banner = f.errorTotal ? format(t.errorSummary, { count: f.errorTotal }) : null;
   const submitLabel = f.saving ? t.actions.saving : f.isEdit ? t.actions.save : t.actions.create;
 
   return (
@@ -92,7 +90,6 @@ export function ExpenseForm({ target, initialValues, categories, justCreated, ac
         saving={f.saving}
         cancelHref="/expenses"
         cancelLabel={dict.pages.expenses.backToList}
-        status={f.status ? t.status[f.status] : ""}
       >
         {actions}
       </FormActionBar>
