@@ -267,6 +267,133 @@ export async function deleteOrder(db: Db, id: string): Promise<boolean> {
 }
 
 // ---------------------------------------------------------------------------
+// Sales of one catalogue product
+// ---------------------------------------------------------------------------
+
+export type ProductSalesSummary = {
+  units: number;
+  revenue: number;
+  /** Gross: revenue minus the cost of the pieces sold. Shared expenses are not included. */
+  profit: number;
+  orders: number;
+  /** YYYY-MM-DD of the latest order, null when never sold. */
+  lastSoldOn: string | null;
+  /** Lines saved with a zero cost; they make the profit look higher than it is. */
+  linesWithoutCost: number;
+};
+
+export type ProductSalesChannel = { channelId: number; name: string; units: number; revenue: number; profit: number };
+
+export type ProductSaleLine = {
+  /** Id of the order line. */
+  id: number;
+  orderId: string;
+  orderedOn: string;
+  channel: string;
+  quantity: number;
+  unitPrice: number;
+  unitCost: number;
+};
+
+export type ProductSales = {
+  summary: ProductSalesSummary;
+  byChannel: ProductSalesChannel[];
+  lines: Page<ProductSaleLine>;
+};
+
+/**
+ * Sales history of one product, from the order lines that point at it (price and cost were copied at the time of sale).
+ * Totals are summed in SQL; the three queries run in one batch.
+ */
+export async function getProductSales(
+  db: Db,
+  productId: number,
+  { page = 1, pageSize = 20 }: { page?: number; pageSize?: number } = {},
+): Promise<ProductSales> {
+  const mine = eq(orderItems.productId, productId);
+  const lineProfit = sql`${orderItems.quantity} * (${orderItems.unitPrice} - ${orderItems.unitCost})`;
+
+  // The page is clamped from the line count, which is known only after the first query: fetch the count in the batch
+  // and the lines for the requested page; if the page is past the end, re-read the last one.
+  const summaryQuery = db
+    .select({
+      units: sql<string>`coalesce(sum(${orderItems.quantity}), 0)`,
+      revenue: sql<string>`coalesce(sum(${lineRevenue}), 0)`,
+      profit: sql<string>`coalesce(sum(${lineProfit}), 0)`,
+      orders: sql<string>`count(distinct ${orderItems.orderId})`,
+      lastSoldOn: max(orders.orderedOn),
+      lines: count(),
+      linesWithoutCost: sql<string>`count(*) filter (where ${orderItems.unitCost} = 0)`,
+    })
+    .from(orderItems)
+    .innerJoin(orders, eq(orders.id, orderItems.orderId))
+    .where(mine);
+
+  const channelQuery = db
+    .select({
+      channelId: financeOptions.id,
+      name: financeOptions.name,
+      units: sql<string>`sum(${orderItems.quantity})`,
+      revenue: sql<string>`sum(${lineRevenue})`,
+      profit: sql<string>`sum(${lineProfit})`,
+    })
+    .from(orderItems)
+    .innerJoin(orders, eq(orders.id, orderItems.orderId))
+    .innerJoin(financeOptions, eq(financeOptions.id, orders.channelId))
+    .where(mine)
+    .groupBy(financeOptions.id, financeOptions.name)
+    .orderBy(desc(sql`sum(${lineRevenue})`), asc(financeOptions.name));
+
+  const linesQuery = (current: number) =>
+    db
+      .select({
+        id: orderItems.id,
+        orderId: orders.id,
+        orderedOn: orders.orderedOn,
+        channel: financeOptions.name,
+        quantity: orderItems.quantity,
+        unitPrice: orderItems.unitPrice,
+        unitCost: orderItems.unitCost,
+      })
+      .from(orderItems)
+      .innerJoin(orders, eq(orders.id, orderItems.orderId))
+      .innerJoin(financeOptions, eq(financeOptions.id, orders.channelId))
+      .where(mine)
+      .orderBy(desc(orders.orderedOn), desc(orders.createdAt), desc(orderItems.id))
+      .limit(pageSize)
+      .offset((Math.max(1, Math.floor(page) || 1) - 1) * pageSize);
+
+  const [[s], channels, rawLines] = await db.batch([summaryQuery, channelQuery, linesQuery(page)]);
+  const { pageCount, current } = clampPage(s.lines, page, pageSize);
+  // A page past the end would come back empty: read the last page instead.
+  const lines = current === Math.max(1, Math.floor(page) || 1) ? rawLines : await linesQuery(current);
+
+  return {
+    summary: {
+      units: Number(s.units),
+      revenue: money(s.revenue),
+      profit: money(s.profit),
+      orders: Number(s.orders),
+      lastSoldOn: s.lastSoldOn,
+      linesWithoutCost: Number(s.linesWithoutCost),
+    },
+    byChannel: channels.map((c) => ({
+      channelId: c.channelId,
+      name: c.name,
+      units: Number(c.units),
+      revenue: money(c.revenue),
+      profit: money(c.profit),
+    })),
+    lines: {
+      items: lines.map((l) => ({ ...l, unitPrice: money(l.unitPrice), unitCost: money(l.unitCost) })),
+      total: s.lines,
+      page: current,
+      pageCount,
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Expenses
 // ---------------------------------------------------------------------------
 

@@ -11,8 +11,6 @@ export interface EditProductScreenProps {
   product: ProductRecord;
   categories: CategoryOption[];
   collections: CollectionOption[];
-  /** The page was reached right after creating the product. */
-  justCreated: boolean;
   /** Origin of the public site, for previews of photos imported from it. */
   siteUrl?: string;
 }
@@ -23,7 +21,6 @@ export function EditProductScreen({
   product,
   categories,
   collections,
-  justCreated,
   siteUrl,
 }: EditProductScreenProps) {
   const p = t.pages.products;
@@ -33,7 +30,7 @@ export function EditProductScreen({
 
   return (
     <div className="space-y-6">
-      <BackLink href="/products">{p.backToList}</BackLink>
+      <BackLink href={`/products/${product.id}`}>{p.edit.backToProduct}</BackLink>
 
       <PageHeader
         title={product.translations.en?.title ?? product.slug}
@@ -47,7 +44,6 @@ export function EditProductScreen({
         categories={categories}
         collections={collections}
         photoBaseUrl={siteUrl ? `${siteUrl}/product/${product.slug}/` : undefined}
-        justCreated={justCreated}
       />
     </div>
   );
