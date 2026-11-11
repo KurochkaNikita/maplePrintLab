@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import FormError from "@/components/FormError";
 import Modal from "@/components/Modal";
+import { useToast } from "@/components/toast/ToastProvider";
 
 export interface ConfirmDeleteLabels {
   button: string;
@@ -21,13 +22,16 @@ export interface ConfirmDeleteProps {
   errors: Record<"forbidden" | "notFound" | "unknown", string>;
   /** A server action bound to the record, e.g. `deleteOrder.bind(null, id)`. */
   action: () => Promise<{ ok: true } | { ok: false; formError: "forbidden" | "notFound" | "unknown" }>;
+  /** Notification shown after a successful delete (it stays on screen over the redirect). */
+  successMessage: string;
   /** Where to go after a successful delete. */
   redirectTo: string;
 }
 
-/** "Delete" button plus a confirmation dialog. */
-export function ConfirmDelete({ labels, errors, action, redirectTo }: ConfirmDeleteProps) {
+/** "Delete" button plus a confirmation dialog; a failure is shown inside the dialog, success as a notification. */
+export function ConfirmDelete({ labels, errors, action, successMessage, redirectTo }: ConfirmDeleteProps) {
   const router = useRouter();
+  const { notify } = useToast();
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<keyof typeof errors | null>(null);
@@ -38,6 +42,7 @@ export function ConfirmDelete({ labels, errors, action, redirectTo }: ConfirmDel
     try {
       const result = await action();
       if (result.ok) {
+        notify("success", successMessage);
         router.push(redirectTo);
         return; // stay busy until the list replaces this page
       }

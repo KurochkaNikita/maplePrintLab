@@ -14,10 +14,9 @@ export interface EditOrderScreenProps {
   order: OrderRecord;
   channels: FinanceOption[];
   products: ProductSaleOption[];
-  justCreated: boolean;
 }
 
-export function EditOrderScreen({ t, locale, order, channels, products, justCreated }: EditOrderScreenProps) {
+export function EditOrderScreen({ t, locale, order, channels, products }: EditOrderScreenProps) {
   const p = t.pages.orders;
   const date = formatDate(order.orderedOn, locale);
 
@@ -30,12 +29,12 @@ export function EditOrderScreen({ t, locale, order, channels, products, justCrea
         initialValues={toOrderFormValues(order)}
         channels={channels}
         products={products}
-        justCreated={justCreated}
         actions={
           <ConfirmDelete
             labels={{ ...p.delete, title: format(p.delete.title, { date }) }}
             errors={t.pages.finance.formErrors}
             action={deleteOrder.bind(null, order.id)}
+            successMessage={p.delete.done}
             redirectTo="/orders"
           />
         }

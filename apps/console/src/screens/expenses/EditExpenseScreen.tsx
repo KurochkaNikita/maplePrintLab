@@ -13,10 +13,9 @@ export interface EditExpenseScreenProps {
   locale: Locale;
   expense: ExpenseRecord;
   categories: FinanceOption[];
-  justCreated: boolean;
 }
 
-export function EditExpenseScreen({ t, locale, expense, categories, justCreated }: EditExpenseScreenProps) {
+export function EditExpenseScreen({ t, locale, expense, categories }: EditExpenseScreenProps) {
   const p = t.pages.expenses;
   const date = formatDate(expense.spentOn, locale);
 
@@ -28,12 +27,12 @@ export function EditExpenseScreen({ t, locale, expense, categories, justCreated 
         target={{ mode: "edit", expenseId: expense.id }}
         initialValues={toExpenseFormValues(expense)}
         categories={categories}
-        justCreated={justCreated}
         actions={
           <ConfirmDelete
             labels={{ ...p.delete, title: format(p.delete.title, { date }) }}
             errors={t.pages.finance.formErrors}
             action={deleteExpense.bind(null, expense.id)}
+            successMessage={p.delete.done}
             redirectTo="/expenses"
           />
         }
