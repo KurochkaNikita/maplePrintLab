@@ -1,7 +1,7 @@
 import type { FinanceStrings } from "./ru";
 
 export const financeFr: FinanceStrings = {
-  nav: { finance: "Finances", orders: "Commandes", expenses: "Dépenses", lists: "Listes" },
+  nav: { finance: "Finances", orders: "Commandes", expenses: "Dépenses", settings: "Paramètres" },
   productCost: {
     label: "Coût de revient, CAD",
     hint: "Ce que nous coûte une pièce : matériau, électricité, emballage. Reporté dans une commande quand vous choisissez ce produit.",
@@ -96,7 +96,7 @@ export const financeFr: FinanceStrings = {
         dateLabel: "Date de la commande",
         channelLabel: "Provenance",
         channelPlaceholder: "Choisissez une source",
-        channelHint: "Vous pouvez modifier les sources dans la section Listes.",
+        channelHint: "Vous pouvez modifier les sources dans la section Paramètres.",
         noteLabel: "Note",
         noteHint: "Facultatif : qui a commandé, détails, ententes.",
         items: {
@@ -155,7 +155,7 @@ export const financeFr: FinanceStrings = {
         dateLabel: "Date",
         categoryLabel: "Catégorie",
         categoryPlaceholder: "Choisissez une catégorie",
-        categoryHint: "Vous pouvez modifier les catégories dans la section Listes.",
+        categoryHint: "Vous pouvez modifier les catégories dans la section Paramètres.",
         descriptionLabel: "Pour quoi",
         descriptionHint: "Par exemple : bobine de PLA, publicité Instagram, boîtes.",
         amountLabel: "Montant, CAD",
@@ -173,9 +173,12 @@ export const financeFr: FinanceStrings = {
         done: "Dépense supprimée",
       },
     },
-    lists: {
-      metaTitle: "Listes",
-      heading: "Listes",
+    settings: {
+      metaTitle: "Paramètres",
+      heading: "Paramètres",
+      tabsLabel: "Paramètres",
+      tabs: { general: "Général", reference: "Référentiel" },
+      generalPlaceholder: "Les paramètres généraux apparaîtront ici plus tard.",
       description: "Les sources de ventes et les catégories de dépenses. Vous les choisissez dans les formulaires de commandes et de dépenses.",
       channels: {
         title: "D’où viennent les ventes",

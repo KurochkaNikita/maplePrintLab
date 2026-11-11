@@ -18,7 +18,7 @@ export interface LookupRowViewProps {
 
 /** A pick-list entry at rest: name, usage and the rename and delete buttons. */
 export function LookupRowView({ name, usage, busy, error, onEdit, onRemove }: LookupRowViewProps) {
-  const t = useT().pages.lists.common;
+  const t = useT().pages.settings.common;
 
   return (
     <>

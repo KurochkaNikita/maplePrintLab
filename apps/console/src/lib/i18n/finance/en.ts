@@ -1,7 +1,7 @@
 import type { FinanceStrings } from "./ru";
 
 export const financeEn: FinanceStrings = {
-  nav: { finance: "Finance", orders: "Orders", expenses: "Expenses", lists: "Lists" },
+  nav: { finance: "Finance", orders: "Orders", expenses: "Expenses", settings: "Settings" },
   productCost: {
     label: "Cost, CAD",
     hint: "What one piece costs us: material, power, packaging. Prefilled into an order when you pick this product.",
@@ -96,7 +96,7 @@ export const financeEn: FinanceStrings = {
         dateLabel: "Order date",
         channelLabel: "Where it came from",
         channelPlaceholder: "Choose a source",
-        channelHint: "You can edit the sources in the Lists section.",
+        channelHint: "You can edit the sources in the Settings section.",
         noteLabel: "Note",
         noteHint: "Optional: who ordered, details, agreements.",
         items: {
@@ -155,7 +155,7 @@ export const financeEn: FinanceStrings = {
         dateLabel: "Date",
         categoryLabel: "Category",
         categoryPlaceholder: "Choose a category",
-        categoryHint: "You can edit the categories in the Lists section.",
+        categoryHint: "You can edit the categories in the Settings section.",
         descriptionLabel: "What was it for",
         descriptionHint: "For example: PLA spool, Instagram ads, boxes.",
         amountLabel: "Amount, CAD",
@@ -173,9 +173,12 @@ export const financeEn: FinanceStrings = {
         done: "Expense deleted",
       },
     },
-    lists: {
-      metaTitle: "Lists",
-      heading: "Lists",
+    settings: {
+      metaTitle: "Settings",
+      heading: "Settings",
+      tabsLabel: "Settings",
+      tabs: { general: "General", reference: "Reference" },
+      generalPlaceholder: "General settings will appear here later.",
       description: "Sales sources and expense categories. You pick them in the order and expense forms.",
       channels: {
         title: "Where sales come from",

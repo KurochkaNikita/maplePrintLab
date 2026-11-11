@@ -6,5 +6,5 @@ export default auth.middleware({ loginUrl: "/login" });
 
 // Only protected pages: a catch-all matcher would block JS/CSS on the login page.
 export const config = {
-  matcher: ["/", "/products/:path*", "/categories/:path*", "/collections/:path*", "/redirects/:path*", "/finance/:path*", "/orders/:path*", "/expenses/:path*", "/lists/:path*"],
+  matcher: ["/", "/products/:path*", "/categories/:path*", "/collections/:path*", "/redirects/:path*", "/finance/:path*", "/orders/:path*", "/expenses/:path*", "/settings/:path*"],
 };

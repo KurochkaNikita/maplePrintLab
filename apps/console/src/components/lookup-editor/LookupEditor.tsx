@@ -20,7 +20,7 @@ export interface LookupEditorProps {
 
 /** A pick-list the admin can grow, rename and shrink (entries still in use cannot be deleted). */
 export function LookupEditor({ kind, items, title, hint, addLabel, addPlaceholder }: LookupEditorProps) {
-  const t = useT().pages.lists.common;
+  const t = useT().pages.settings.common;
   const idPrefix = useId();
   const headingId = `${idPrefix}-heading`;
   const editor = useLookupEditor({ kind, items });

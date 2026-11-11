@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { createDb, listFinanceOptions } from "@maple-print-lab/db";
 import { getDict } from "@/lib/i18n/server";
-import ListsScreen from "@/screens/lists/ListsScreen";
+import SettingsScreen from "@/screens/settings/SettingsScreen";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { title: (await getDict()).pages.lists.metaTitle };
+  return { title: (await getDict()).pages.settings.metaTitle };
 }
 
 export default async function ListsPage() {
@@ -15,5 +15,5 @@ export default async function ListsPage() {
     listFinanceOptions(db, "expense_category"),
   ]);
 
-  return <ListsScreen t={t} channels={channels} categories={categories} />;
+  return <SettingsScreen t={t} channels={channels} categories={categories} />;
 }

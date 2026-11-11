@@ -18,7 +18,7 @@ export interface LookupRowFormProps {
 
 /** The rename form of a pick-list entry. */
 export function LookupRowForm({ inputId, name, busy, error, onChange, onSubmit, onCancel }: LookupRowFormProps) {
-  const t = useT().pages.lists.common;
+  const t = useT().pages.settings.common;
 
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-wrap items-end gap-3">

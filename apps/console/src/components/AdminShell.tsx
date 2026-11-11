@@ -26,7 +26,7 @@ export interface AdminShellProps {
 
 const navItems: {
   href: string;
-  key: "products" | "categories" | "collections" | "redirects" | "finance" | "orders" | "expenses" | "lists";
+  key: "products" | "categories" | "collections" | "redirects" | "finance" | "orders" | "expenses" | "settings";
   icon: ReactNode;
 }[] = [
   {
@@ -60,7 +60,7 @@ const navItems: {
   { href: "/finance", key: "finance", icon: <ChartIcon className="h-5 w-5 shrink-0" /> },
   { href: "/orders", key: "orders", icon: <ReceiptIcon className="h-5 w-5 shrink-0" /> },
   { href: "/expenses", key: "expenses", icon: <WalletIcon className="h-5 w-5 shrink-0" /> },
-  { href: "/lists", key: "lists", icon: <ListIcon className="h-5 w-5 shrink-0" /> },
+  { href: "/settings", key: "settings", icon: <ListIcon className="h-5 w-5 shrink-0" /> },
 ];
 
 export function AdminShell({

@@ -1,6 +1,6 @@
 /** Strings of the finance section (dashboard, orders, expenses, pick-lists) and the product cost field. */
 export const financeRu = {
-  nav: { finance: "Финансы", orders: "Заказы", expenses: "Расходы", lists: "Справочники" },
+  nav: { finance: "Финансы", orders: "Заказы", expenses: "Расходы", settings: "Настройки" },
   productCost: {
     label: "Себестоимость, CAD",
     hint: "Во сколько нам обходится одна штука: материал, электричество, упаковка. Подставляется в заказ, когда выбираете этот товар.",
@@ -104,7 +104,7 @@ export const financeRu = {
         dateLabel: "Дата заказа",
         channelLabel: "Откуда заказ",
         channelPlaceholder: "Выберите источник",
-        channelHint: "Список источников можно менять в разделе «Справочники».",
+        channelHint: "Список источников можно менять в разделе «Настройки».",
         noteLabel: "Заметка",
         noteHint: "Необязательно: кто заказал, детали, договорённости.",
         items: {
@@ -163,7 +163,7 @@ export const financeRu = {
         dateLabel: "Дата",
         categoryLabel: "Категория",
         categoryPlaceholder: "Выберите категорию",
-        categoryHint: "Список категорий можно менять в разделе «Справочники».",
+        categoryHint: "Список категорий можно менять в разделе «Настройки».",
         descriptionLabel: "На что потратили",
         descriptionHint: "Например: катушка PLA, реклама в Instagram, коробки.",
         amountLabel: "Сумма, CAD",
@@ -181,9 +181,12 @@ export const financeRu = {
         done: "Расход удалён",
       },
     },
-    lists: {
-      metaTitle: "Справочники",
-      heading: "Справочники",
+    settings: {
+      metaTitle: "Настройки",
+      heading: "Настройки",
+      tabsLabel: "Настройки",
+      tabs: { general: "Общие", reference: "Справочник" },
+      generalPlaceholder: "Общие настройки появятся здесь позже.",
       description: "Источники продаж и категории расходов. Их можно выбирать в формах заказов и расходов.",
       channels: {
         title: "Откуда продажи",

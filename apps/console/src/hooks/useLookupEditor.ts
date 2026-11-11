@@ -25,7 +25,7 @@ const FIELD_ERRORS: readonly LookupErrorCode[] = ["required", "tooLong", "taken"
 export function useLookupEditor({ kind, items }: UseLookupEditorOptions) {
   const router = useRouter();
   const { notify } = useToast();
-  const t = useT().pages.lists.common;
+  const t = useT().pages.settings.common;
   const [newName, setNewName] = useState("");
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editName, setEditName] = useState("");
