@@ -91,7 +91,7 @@ const likePattern = (q: string) => `%${q.replace(/[\\%_]/g, "\\$&")}%`;
 
 /**
  * One page of the catalogue, optionally filtered by a substring of the slug or of a title in any language,
- * and by category.
+ * and by category or collection.
  * `page` is 1-based and clamped to the last page, so a stale link never shows an empty page.
  */
 export async function listProducts(
@@ -101,7 +101,8 @@ export async function listProducts(
     page = 1,
     pageSize = 20,
     categoryId,
-  }: { query?: string; page?: number; pageSize?: number; categoryId?: string } = {},
+    collectionId,
+  }: { query?: string; page?: number; pageSize?: number; categoryId?: string; collectionId?: string } = {},
 ): Promise<ProductListPage> {
   const q = query.trim();
   const pattern = likePattern(q);
@@ -111,7 +112,15 @@ export async function listProducts(
         sql`exists (select 1 from ${productTranslations} pt where pt.product_id = ${products.id} and pt.title ilike ${pattern})`,
       )
     : undefined;
-  const where = and(search, categoryId === undefined ? undefined : eq(products.categoryId, categoryId));
+  const inCollection =
+    collectionId === undefined
+      ? undefined
+      : sql`exists (select 1 from ${productCollections} pc where pc.product_id = ${products.id} and pc.collection_id = ${collectionId})`;
+  const where = and(
+    search,
+    categoryId === undefined ? undefined : eq(products.categoryId, categoryId),
+    inCollection,
+  );
 
   const [{ total }] = await db.select({ total: count() }).from(products).where(where);
   const pageCount = Math.max(1, Math.ceil(total / pageSize));
