@@ -12,7 +12,7 @@ export const siteConfig = {
   defaultOgImage: "/og-image.png",
   // Square brand logo (PNG, 512×512) for structured data.
   logo: "/brand/logo-512.png",
-  email: "hello@mapleprintlab.store",
+  email: "support@mapleprintlab.store",
   instagram: "https://instagram.com/maple_print_lab",
   instagramHandle: "@maple_print_lab",
   // Structured-data address (used by JsonLd)
