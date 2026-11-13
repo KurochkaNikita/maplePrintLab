@@ -7,6 +7,7 @@ import {
   categoryExists,
   isSlugTaken,
   isUniqueViolation,
+  setProductPublished as writePublished,
   updateProduct as writeProduct,
   type Db,
   type ProductInput,
@@ -76,6 +77,20 @@ export async function updateProduct(id: number, values: ProductFormValues): Prom
   } catch (e) {
     if (isUniqueViolation(e)) return { ok: false, errors: { slug: { code: "slugTaken" } } };
     console.error("updateProduct failed", e);
+    return { ok: false, formError: "unknown" };
+  }
+}
+
+/** Show or hide a product on the site without validating or rewriting the other fields. */
+export async function setProductPublished(id: number, published: boolean): Promise<ActionResult> {
+  const denied = await guard();
+  if (denied) return denied;
+  if (!Number.isInteger(id) || id <= 0) return { ok: false, formError: "notFound" };
+
+  try {
+    return (await writePublished(createDb(), id, published)) ? { ok: true, id } : { ok: false, formError: "notFound" };
+  } catch (e) {
+    console.error("setProductPublished failed", e);
     return { ok: false, formError: "unknown" };
   }
 }

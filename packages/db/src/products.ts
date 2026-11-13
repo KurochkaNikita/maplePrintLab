@@ -382,6 +382,16 @@ export async function updateProduct(db: Db, id: number, input: ProductInput): Pr
   return true;
 }
 
+/** Changes only the published flag, leaving the rest of the product untouched. */
+export async function setProductPublished(db: Db, id: number, published: boolean): Promise<boolean> {
+  const rows = await db
+    .update(products)
+    .set({ published, updatedAt: new Date() })
+    .where(eq(products.id, id))
+    .returning({ id: products.id });
+  return rows.length > 0;
+}
+
 /** Postgres unique_violation, bare or wrapped by drizzle's `DrizzleQueryError`. */
 export function isUniqueViolation(e: unknown): boolean {
   const err = e as { code?: string; cause?: { code?: string } } | null;
