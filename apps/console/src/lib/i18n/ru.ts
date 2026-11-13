@@ -73,6 +73,7 @@ export const ru = {
           title: "Название",
           slug: "Slug",
           category: "Категория",
+          collection: "Коллекции",
           status: "Статус",
           updated: "Изменён",
         },
@@ -80,6 +81,8 @@ export const ru = {
         draft: "Черновик",
         isNew: "Новинка",
         untitled: "Без названия",
+        noCollection: "Нет коллекции",
+        sortBy: "Сортировать по столбцу «{column}»",
         search: {
           label: "Поиск по slug или названию",
           clear: "Сбросить поиск",

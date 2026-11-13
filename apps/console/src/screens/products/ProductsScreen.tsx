@@ -7,6 +7,7 @@ import ProductsPagination from "@/components/products-list/ProductsPagination";
 import ProductsSearch from "@/components/ProductsSearch";
 import ProductsTable from "@/components/products-list/ProductsTable";
 import type { Dictionary } from "@/lib/i18n";
+import type { ProductListSort } from "@/lib/products/list-params";
 
 export interface ProductsScreenProps {
   t: Dictionary;
@@ -19,6 +20,8 @@ export interface ProductsScreenProps {
   pageSize: number;
   /** The applied search text, empty when none. */
   query: string;
+  /** The applied sort, undefined for the manual catalogue order. */
+  sort?: ProductListSort;
   /** Origin of the public site, for thumbnails of photos imported from it. */
   siteUrl?: string;
 }
@@ -31,6 +34,7 @@ export function ProductsScreen({
   pageCount,
   pageSize,
   query,
+  sort,
   siteUrl,
 }: ProductsScreenProps) {
   const p = t.pages.products;
@@ -48,17 +52,18 @@ export function ProductsScreen({
       ) : (
         <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
           <div className="border-b border-line p-3 sm:p-4">
-            <ProductsSearch initialQuery={query} label={p.list.search.label} clearLabel={p.list.search.clear} />
+            <ProductsSearch initialQuery={query} sort={sort} label={p.list.search.label} clearLabel={p.list.search.clear} />
           </div>
 
           {products.length === 0 ? (
             <ProductsNoResults labels={p.list.search} query={query} />
           ) : (
             <>
-              <ProductsTable products={products} labels={p.list} siteUrl={siteUrl} />
+              <ProductsTable products={products} labels={p.list} siteUrl={siteUrl} sortable={{ query, current: sort }} />
               <ProductsPagination
                 labels={p.list.pagination}
                 query={query}
+                sort={sort}
                 page={page}
                 pageCount={pageCount}
                 pageSize={pageSize}

@@ -1,4 +1,4 @@
-import { and, asc, count, eq, ilike, inArray, like, max, ne, or, sql } from "drizzle-orm";
+import { and, asc, count, desc, eq, ilike, inArray, like, max, ne, or, sql } from "drizzle-orm";
 import type { BatchItem } from "drizzle-orm/batch";
 import type { Db } from "./client";
 import {
@@ -74,6 +74,8 @@ export type ProductListItem = {
   title: string | null;
   categoryId: string;
   categoryTitle: string | null;
+  /** English titles of the collections the product is in, alphabetical; empty when in none. */
+  collectionTitles: string[];
   published: boolean;
   isNew: boolean;
   /** File name of the main photo (position 0) under `public/product/<slug>/` on the storefront. */
@@ -83,6 +85,9 @@ export type ProductListItem = {
 
 export type CategoryOption = { id: string; title: string };
 export type CollectionOption = { id: string; title: string };
+
+export type ProductSortKey = "title" | "collection" | "category";
+export type SortDirection = "asc" | "desc";
 
 export type ProductListPage = { items: ProductListItem[]; total: number; page: number; pageCount: number };
 
@@ -102,7 +107,18 @@ export async function listProducts(
     pageSize = 20,
     categoryId,
     collectionId,
-  }: { query?: string; page?: number; pageSize?: number; categoryId?: string; collectionId?: string } = {},
+    sort,
+    dir = "asc",
+  }: {
+    query?: string;
+    page?: number;
+    pageSize?: number;
+    categoryId?: string;
+    collectionId?: string;
+    /** Column to sort by; without it the catalogue keeps its manual order. */
+    sort?: ProductSortKey;
+    dir?: SortDirection;
+  } = {},
 ): Promise<ProductListPage> {
   const q = query.trim();
   const pattern = likePattern(q);
@@ -126,6 +142,19 @@ export async function listProducts(
   const pageCount = Math.max(1, Math.ceil(total / pageSize));
   const current = Math.min(Math.max(1, Math.floor(page) || 1), pageCount);
 
+  // English collection titles of a product, alphabetical, as a JSON array (parsed by the driver).
+  const collectionTitles = sql<string[]>`coalesce((select json_agg(ct.title order by ct.title) from ${productCollections} pc join ${collectionTranslations} ct on ct.collection_id = pc.collection_id and ct.locale = 'en' where pc.product_id = ${products.id}), '[]'::json)`;
+  // Products in no collection sort last in either direction, like missing titles.
+  const sortExpr = {
+    title: sql`lower(${productTranslations.title})`,
+    category: sql`lower(${categoryTranslations.title})`,
+    collection: sql`lower((select min(ct.title) from ${productCollections} pc join ${collectionTranslations} ct on ct.collection_id = pc.collection_id and ct.locale = 'en' where pc.product_id = ${products.id}))`,
+  };
+  const direction = dir === "desc" ? desc : asc;
+  const orderBy = sort
+    ? [sql`${direction(sortExpr[sort])} nulls last`, asc(products.sortOrder), asc(products.id)]
+    : [asc(products.sortOrder), asc(products.id)];
+
   const items = await db
     .select({
       id: products.id,
@@ -133,6 +162,7 @@ export async function listProducts(
       title: productTranslations.title,
       categoryId: products.categoryId,
       categoryTitle: categoryTranslations.title,
+      collectionTitles,
       published: products.published,
       isNew: products.isNew,
       imageFile: productImages.file,
@@ -149,7 +179,7 @@ export async function listProducts(
       and(eq(categoryTranslations.categoryId, products.categoryId), eq(categoryTranslations.locale, "en")),
     )
     .where(where)
-    .orderBy(asc(products.sortOrder), asc(products.id))
+    .orderBy(...orderBy)
     .limit(pageSize)
     .offset((current - 1) * pageSize);
 

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import SortHeaderLink from "@/components/SortHeaderLink";
 
 export interface DataTableColumn<T> {
   id: string;
@@ -15,6 +16,14 @@ export interface DataTableColumn<T> {
   className?: string;
   /** Extra classes for the header cell (e.g. a width). */
   headerClassName?: string;
+  /** Makes the header a link that sorts by this column. */
+  sort?: {
+    href: string;
+    /** Current state of this column, announced via `aria-sort`. */
+    direction: "asc" | "desc" | null;
+    /** Accessible name of the link, e.g. "Sort by Title". */
+    label: string;
+  };
 }
 
 export interface DataTableProps<T> {
@@ -46,8 +55,21 @@ export function DataTable<T>({
         <thead className="border-b border-line bg-filament text-charcoal">
           <tr>
             {columns.map((column) => (
-              <th key={column.id} scope="col" className={`px-4 py-3 font-semibold ${column.headerClassName ?? ""}`.trim()}>
-                {column.hideHeader ? <span className="visually-hidden">{column.header}</span> : column.header}
+              <th
+                key={column.id}
+                scope="col"
+                aria-sort={
+                  column.sort ? (column.sort.direction === "asc" ? "ascending" : column.sort.direction === "desc" ? "descending" : "none") : undefined
+                }
+                className={`px-4 py-3 font-semibold ${column.headerClassName ?? ""}`.trim()}
+              >
+                {column.sort ? (
+                  <SortHeaderLink header={column.header} sort={column.sort} />
+                ) : column.hideHeader ? (
+                  <span className="visually-hidden">{column.header}</span>
+                ) : (
+                  column.header
+                )}
               </th>
             ))}
           </tr>

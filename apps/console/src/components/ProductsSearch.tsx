@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useTransition, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import Input from "@/components/Input";
+import { productsListHref, type ProductListSort } from "@/lib/products/list-params";
 import CloseIcon from "@/icons/close.svg";
 import SearchIcon from "@/icons/search.svg";
 
@@ -11,12 +12,14 @@ const DEBOUNCE_MS = 300;
 export interface ProductsSearchProps {
   /** The `q` currently applied by the server. */
   initialQuery: string;
+  /** The applied sort; a new search keeps it. */
+  sort?: ProductListSort;
   label: string;
   clearLabel: string;
 }
 
 /** Live search: the URL (`?q=`) is updated shortly after typing stops, and the server re-renders the table. */
-export function ProductsSearch({ initialQuery, label, clearLabel }: ProductsSearchProps) {
+export function ProductsSearch({ initialQuery, sort, label, clearLabel }: ProductsSearchProps) {
   const router = useRouter();
   const [value, setValue] = useState(initialQuery);
   const [pending, startTransition] = useTransition();
@@ -34,7 +37,7 @@ export function ProductsSearch({ initialQuery, label, clearLabel }: ProductsSear
     clearTimeout(timer.current);
     const q = next.trim();
     // A new search always starts from the first page.
-    startTransition(() => router.replace(q ? `/products?q=${encodeURIComponent(q)}` : "/products", { scroll: false }));
+    startTransition(() => router.replace(productsListHref({ q, sort }), { scroll: false }));
   };
 
   const handleChange = (next: string) => {

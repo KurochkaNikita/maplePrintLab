@@ -42,7 +42,7 @@ export default function ProductDetailScreen({
           <ProductGallery title={item.title} images={item.images} photoSoonLabel={dict.productCard.photoSoon} labels={t.gallery} />
         </div>
 
-        <div className="md:sticky md:top-24 md:self-start">
+        <div>
           <p className="font-mono text-xs uppercase tracking-wider text-teal">
             {category.title}
           </p>
@@ -93,43 +93,45 @@ export default function ProductDetailScreen({
               ))}
             </ul>
           </div>
-
-          <p className="mt-6 max-w-md text-ink/80">{item.description}</p>
-
-          {item.highlights.length > 0 && (
-            <>
-              <h2 className="mt-6 font-display text-xl font-semibold text-charcoal">
-                {t.highlightsHeading}
-              </h2>
-              <ul className="mt-3 max-w-md list-disc space-y-2 pl-5 text-ink/80">
-                {item.highlights.map((h) => (
-                  <li key={h.title}>
-                    <strong className="font-semibold text-charcoal">{h.title}</strong> {h.text}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-4 max-w-md text-ink/80">{t.exploreMore}</p>
-            </>
-          )}
-
-          {collections.length > 0 && (
-            <nav className="mt-6" aria-label={dict.collection.productHeading}>
-              <ul className="flex flex-wrap items-center gap-2">
-                <li className="text-sm text-ink/80">{dict.collection.productHeading}:</li>
-                {collections.map((col) => (
-                  <li key={col.id}>
-                    <Link
-                      href={collectionHref(lang, col.id)}
-                      className="inline-block rounded-full border border-line px-3 py-2 text-sm font-medium text-charcoal hover:border-amber-deep hover:text-amber-deep"
-                    >
-                      {col.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          )}
         </div>
+      </div>
+
+      <div className="mt-12 border-t border-line pt-10">
+        <p className="text-ink/80">{item.description}</p>
+
+        {item.highlights.length > 0 && (
+          <>
+            <h2 className="mt-6 font-display text-xl font-semibold text-charcoal">
+              {t.highlightsHeading}
+            </h2>
+            <ul className="mt-3 grid list-disc gap-x-10 gap-y-2 pl-5 md:grid-cols-2 text-ink/80">
+              {item.highlights.map((h) => (
+                <li key={h.title}>
+                  <strong className="font-semibold text-charcoal">{h.title}</strong> {h.text}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-ink/80">{t.exploreMore}</p>
+          </>
+        )}
+
+        {collections.length > 0 && (
+          <nav className="mt-6" aria-label={dict.collection.productHeading}>
+            <ul className="flex flex-wrap items-center gap-2">
+              <li className="text-sm text-ink/80">{dict.collection.productHeading}:</li>
+              {collections.map((col) => (
+                <li key={col.id}>
+                  <Link
+                    href={collectionHref(lang, col.id)}
+                    className="inline-block rounded-full border border-line px-3 py-2 text-sm font-medium text-charcoal hover:border-amber-deep hover:text-amber-deep"
+                  >
+                    {col.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
       </div>
       <ProductJsonLd lang={lang} item={item} priceTiers={item.priceTiers} crumbs={crumbs} />
     </div>

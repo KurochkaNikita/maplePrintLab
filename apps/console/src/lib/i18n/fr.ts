@@ -73,6 +73,7 @@ export const fr: Dictionary = {
           title: "Titre",
           slug: "Slug",
           category: "Catégorie",
+          collection: "Collections",
           status: "Statut",
           updated: "Modifié",
         },
@@ -80,6 +81,8 @@ export const fr: Dictionary = {
         draft: "Brouillon",
         isNew: "Nouveauté",
         untitled: "Sans titre",
+        noCollection: "Aucune",
+        sortBy: "Trier par {column}",
         search: {
           label: "Rechercher par slug ou titre",
           clear: "Effacer la recherche",
