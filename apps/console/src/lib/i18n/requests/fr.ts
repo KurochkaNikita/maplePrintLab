@@ -1,0 +1,62 @@
+import type { RequestsStrings } from "./ru";
+
+export const requestsFr: RequestsStrings = {
+  nav: { requests: "Demandes" },
+  pages: {
+    requests: {
+      metaTitle: "Demandes",
+      heading: "Demandes",
+      description: "Demandes reçues depuis les pages produits. Répondez par courriel et, si vous vous entendez, créez une commande.",
+      backToList: "Retour aux demandes",
+      badgeLabel: "Nouvelles demandes : {count}",
+      status: { new: "Nouvelle", replied: "Répondue", converted: "Dans une commande", spam: "Pourriel", closed: "Fermée" },
+      list: {
+        tableLabel: "Liste des demandes",
+        emptyTitle: "Aucune demande pour le moment",
+        emptyBody: "Quand un client enverra une demande depuis une page produit, elle apparaîtra ici.",
+        emptyFilteredTitle: "Aucune demande avec ce statut",
+        emptyFilteredBody: "Choisissez un autre statut ou affichez toutes les demandes.",
+        columns: { date: "Date", name: "Nom", email: "Courriel", product: "Produits", status: "Statut" },
+        andMore: "et {count} de plus",
+        filter: { label: "Statut de la demande", all: "Toutes" },
+        pagination: {
+          label: "Pages de la liste",
+          prev: "Précédent",
+          next: "Suivant",
+          pageOf: "Page {page} de {pages}",
+          range: "{from}–{to} sur {total}",
+        },
+      },
+      detail: {
+        metaTitle: "Demande",
+        heading: "Demande de {name}",
+        fields: {
+          date: "Reçue le",
+          name: "Nom",
+          email: "Courriel",
+          items: "Produits",
+          locale: "Langue du site",
+          message: "Commentaire",
+          order: "Commande",
+          status: "Statut",
+        },
+        noMessage: "Aucun commentaire",
+        noPrice: "Non précisé",
+        itemsTable: { caption: "Produits de la demande", product: "Produit", quantity: "Qté", price: "Prix l’unité", sum: "Somme", total: "Total estimatif" },
+        productDeleted: "Le produit a été supprimé du catalogue",
+        openOnSite: "Ouvrir la page du produit sur le site",
+        localeNames: { en: "Anglais", fr: "Français" },
+        reply: "Répondre par courriel",
+        replySubject: "Re : {product}",
+        createOrder: "Créer une commande",
+        viewOrder: "Ouvrir la commande",
+        statusForm: { label: "Changer le statut", save: "Enregistrer le statut", saving: "Enregistrement…", saved: "Statut mis à jour" },
+        errors: { forbidden: "Accès refusé : reconnectez-vous", notFound: "Demande introuvable", unknown: "Enregistrement impossible. Veuillez réessayer." },
+      },
+      fromRequest: {
+        note: "Création d’une commande à partir d’une demande : {name}, {email}. Après l’enregistrement, la demande passera à « Dans une commande ».",
+        backToRequest: "Retour à la demande",
+      },
+    },
+  },
+};

@@ -1,0 +1,62 @@
+import type { RequestsStrings } from "./ru";
+
+export const requestsEn: RequestsStrings = {
+  nav: { requests: "Requests" },
+  pages: {
+    requests: {
+      metaTitle: "Requests",
+      heading: "Requests",
+      description: "Enquiries from product pages. Reply by email, and if you agree, create an order.",
+      backToList: "Back to requests",
+      badgeLabel: "New requests: {count}",
+      status: { new: "New", replied: "Replied", converted: "In an order", spam: "Spam", closed: "Closed" },
+      list: {
+        tableLabel: "Requests list",
+        emptyTitle: "No requests yet",
+        emptyBody: "When a customer sends a request from a product page, it will show up here.",
+        emptyFilteredTitle: "No requests with this status",
+        emptyFilteredBody: "Pick another status or show all requests.",
+        columns: { date: "Date", name: "Name", email: "Email", product: "Products", status: "Status" },
+        andMore: "and {count} more",
+        filter: { label: "Request status", all: "All" },
+        pagination: {
+          label: "List pages",
+          prev: "Previous",
+          next: "Next",
+          pageOf: "Page {page} of {pages}",
+          range: "{from}–{to} of {total}",
+        },
+      },
+      detail: {
+        metaTitle: "Request",
+        heading: "Request from {name}",
+        fields: {
+          date: "Received",
+          name: "Name",
+          email: "Email",
+          items: "Products",
+          locale: "Site language",
+          message: "Comment",
+          order: "Order",
+          status: "Status",
+        },
+        noMessage: "No comment",
+        noPrice: "Not set",
+        itemsTable: { caption: "Products in the request", product: "Product", quantity: "Qty", price: "Price each", sum: "Sum", total: "Estimated total" },
+        productDeleted: "Product was deleted from the catalogue",
+        openOnSite: "Open the product page on the site",
+        localeNames: { en: "English", fr: "French" },
+        reply: "Reply by email",
+        replySubject: "Re: {product}",
+        createOrder: "Create order",
+        viewOrder: "Open order",
+        statusForm: { label: "Change status", save: "Save status", saving: "Saving…", saved: "Status updated" },
+        errors: { forbidden: "No access: please sign in again", notFound: "Request not found", unknown: "Could not save. Please try again." },
+      },
+      fromRequest: {
+        note: "Creating an order from a request: {name}, {email}. After saving, the request will be marked “In an order”.",
+        backToRequest: "Back to the request",
+      },
+    },
+  },
+};
