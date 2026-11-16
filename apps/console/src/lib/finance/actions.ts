@@ -9,6 +9,7 @@ import {
   deleteFinanceOption,
   deleteOrder as removeOrder,
   financeOptionExists,
+  findOrderRequest,
   productExists,
   renameFinanceOption,
   updateExpense as writeExpense,
@@ -57,12 +58,18 @@ async function prepareOrder(values: OrderFormValues) {
   return { db, result: validateOrder(values, { channelExists, productExists: (id) => known.has(id) }) };
 }
 
-export async function createOrder(values: OrderFormValues): Promise<SaveResult> {
+/** `fromRequestId`: the order converts a customer request, which is then linked and marked "converted" in the same batch. */
+export async function createOrder(values: OrderFormValues, fromRequestId?: string): Promise<SaveResult> {
   if (!(await allowed())) return { ok: false, formError: "forbidden" };
+  if (fromRequestId !== undefined && !isUuid(fromRequestId)) return { ok: false, formError: "notFound" };
   try {
     const { db, result } = await prepareOrder(values);
     if ("errors" in result) return { ok: false, errors: result.errors };
-    return { ok: true, id: await insertOrder(db, result.input) };
+    if (fromRequestId) {
+      const request = await findOrderRequest(db, fromRequestId);
+      if (!request || request.orderId) return { ok: false, formError: "notFound" };
+    }
+    return { ok: true, id: await insertOrder(db, result.input, fromRequestId) };
   } catch (e) {
     console.error("createOrder failed", e);
     return { ok: false, formError: "unknown" };

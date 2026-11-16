@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq, gte, lte, max, sql } from "drizzle-orm";
+import { and, asc, count, desc, eq, gte, isNull, lte, max, sql } from "drizzle-orm";
 import type { BatchItem } from "drizzle-orm/batch";
 import type { Db } from "./client";
 import { isUniqueViolation } from "./products";
@@ -6,6 +6,7 @@ import {
   expenses,
   financeOptions,
   orderItems,
+  orderRequests,
   orders,
   productTranslations,
   products,
@@ -178,7 +179,7 @@ export type Page<T> = { items: T[]; total: number; page: number; pageCount: numb
 const lineRevenue = sql`${orderItems.quantity} * ${orderItems.unitPrice}`;
 const lineCost = sql`${orderItems.quantity} * ${orderItems.unitCost}`;
 
-function clampPage(total: number, page: number, pageSize: number) {
+export function clampPage(total: number, page: number, pageSize: number) {
   const pageCount = Math.max(1, Math.ceil(total / pageSize));
   return { pageCount, current: Math.min(Math.max(1, Math.floor(page) || 1), pageCount) };
 }
@@ -237,11 +238,20 @@ function itemRows(orderId: string, input: OrderInput) {
 }
 
 /** The order and its lines in one atomic batch; the id is generated here so the lines can point at it. */
-export async function createOrder(db: Db, input: OrderInput): Promise<string> {
+export async function createOrder(db: Db, input: OrderInput, fromRequestId?: string): Promise<string> {
   const id = crypto.randomUUID();
   await runBatch(db, [
     db.insert(orders).values({ id, orderedOn: input.orderedOn, channelId: input.channelId, note: input.note }),
     db.insert(orderItems).values(itemRows(id, input)),
+    // Converting an enquiry: link it and close it in the same batch, only if it was not converted before.
+    ...(fromRequestId
+      ? [
+          db
+            .update(orderRequests)
+            .set({ orderId: id, status: "converted" })
+            .where(and(eq(orderRequests.id, fromRequestId), isNull(orderRequests.orderId))),
+        ]
+      : []),
   ]);
   return id;
 }

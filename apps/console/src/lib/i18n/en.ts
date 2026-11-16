@@ -1,5 +1,6 @@
 import type { Dictionary } from "./index";
 import { financeEn } from "./finance/en";
+import { requestsEn } from "./requests/en";
 
 export const en: Dictionary = {
   brand: {
@@ -36,6 +37,7 @@ export const en: Dictionary = {
       categories: "Categories",
       collections: "Collections",
       ...financeEn.nav,
+      ...requestsEn.nav,
     },
     logout: "Sign out",
     toast: { close: "Close notification" },
@@ -50,6 +52,7 @@ export const en: Dictionary = {
   },
   pages: {
     ...financeEn.pages,
+    ...requestsEn.pages,
     dashboard: {
       metaTitle: "Dashboard",
       heading: "Dashboard",

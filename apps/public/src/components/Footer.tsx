@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 import { siteConfig } from "@/lib/site-config";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
@@ -7,9 +8,11 @@ import type { Dictionary } from "@/lib/dictionaries/en";
 type FooterProps = {
   lang: Locale;
   dict: Dictionary;
+  /** The 404 page: the other language's version of an unknown URL is a 404 too. */
+  hideLocaleSwitcher?: boolean;
 };
 
-export default function Footer({ lang, dict }: FooterProps) {
+export default function Footer({ lang, dict, hideLocaleSwitcher = false }: FooterProps) {
   const year = new Date().getFullYear();
   const nav = [
     { href: localeHref(lang, ""), label: dict.nav.home },
@@ -75,9 +78,12 @@ export default function Footer({ lang, dict }: FooterProps) {
       </div>
 
       <div className="border-t border-filament/10">
-        <p className="mx-auto max-w-6xl px-5 py-5 text-xs text-filament/50">
-          © {year} {siteConfig.name}. {dict.footer.rights}
-        </p>
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-5 py-3">
+          <p className="text-xs text-filament/50">
+            © {year} {siteConfig.name}. {dict.footer.rights}
+          </p>
+          {!hideLocaleSwitcher && <LocaleSwitcher current={lang} label={dict.localeSwitcher.label} tone="dark" />}
+        </div>
       </div>
     </footer>
   );

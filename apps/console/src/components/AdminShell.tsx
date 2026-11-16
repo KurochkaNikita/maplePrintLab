@@ -9,9 +9,11 @@ import PublishBar from "@/components/PublishBar";
 import { authClient } from "@/lib/auth/client";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useT } from "@/components/LocaleProvider";
+import { format } from "@/lib/i18n";
 import ChartIcon from "@/icons/chart.svg";
 import CloseIcon from "@/icons/close.svg";
 import GridIcon from "@/icons/grid.svg";
+import InboxIcon from "@/icons/inbox.svg";
 import ListIcon from "@/icons/list.svg";
 import MenuIcon from "@/icons/menu.svg";
 import PackageIcon from "@/icons/package.svg";
@@ -21,11 +23,13 @@ import WalletIcon from "@/icons/wallet.svg";
 
 export interface AdminShellProps {
   children: ReactNode;
+  /** Requests with status "new": shown as a badge next to "Requests" in the navigation. */
+  newRequestCount?: number;
 }
 
 const navItems: {
   href: string;
-  key: "products" | "categories" | "collections" | "finance" | "orders" | "expenses" | "settings";
+  key: "products" | "categories" | "collections" | "requests" | "finance" | "orders" | "expenses" | "settings";
   icon: ReactNode;
 }[] = [
   {
@@ -49,6 +53,7 @@ const navItems: {
       <StarIcon className="h-5 w-5 shrink-0" />
     ),
   },
+  { href: "/requests", key: "requests", icon: <InboxIcon className="h-5 w-5 shrink-0" /> },
   { href: "/finance", key: "finance", icon: <ChartIcon className="h-5 w-5 shrink-0" /> },
   { href: "/orders", key: "orders", icon: <ReceiptIcon className="h-5 w-5 shrink-0" /> },
   { href: "/expenses", key: "expenses", icon: <WalletIcon className="h-5 w-5 shrink-0" /> },
@@ -57,6 +62,7 @@ const navItems: {
 
 export function AdminShell({
   children,
+  newRequestCount = 0,
 }: AdminShellProps) {
   const t = useT();
   const pathname = usePathname();
@@ -183,6 +189,12 @@ export function AdminShell({
                   >
                     {item.icon}
                     <span>{t.shell.nav[item.key]}</span>
+                    {item.key === "requests" && newRequestCount > 0 && (
+                      <span className="ml-auto rounded-full bg-amber-deep px-2 py-0.5 text-xs font-semibold tabular-nums text-white">
+                        <span aria-hidden="true">{newRequestCount}</span>
+                        <span className="visually-hidden">{format(t.pages.requests.badgeLabel, { count: newRequestCount })}</span>
+                      </span>
+                    )}
                   </Link>
                 </li>
               );
