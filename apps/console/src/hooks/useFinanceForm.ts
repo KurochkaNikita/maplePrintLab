@@ -15,6 +15,8 @@ export interface UseFinanceFormOptions<V> {
   save: (values: V) => Promise<SaveResult>;
   /** A create form clears itself after saving so the next record can be typed in; an edit form keeps its values. */
   resetAfterSave: boolean;
+  /** Where to go after a successful save instead of staying on the form (e.g. back to the request an order came from). */
+  redirectTo?: string;
   /** Notification texts of a successful save. */
   messages: { created: string; saved: string };
 }
@@ -23,7 +25,7 @@ export interface UseFinanceFormOptions<V> {
  * State and behaviour shared by the order and expense forms: values, per-field errors, saving, notifications
  * and moving focus to the first invalid field. The form components only render.
  */
-export function useFinanceForm<V>({ initialValues, idPrefix, validate, save, resetAfterSave, messages }: UseFinanceFormOptions<V>) {
+export function useFinanceForm<V>({ initialValues, idPrefix, validate, save, resetAfterSave, redirectTo, messages }: UseFinanceFormOptions<V>) {
   const router = useRouter();
   const { notify } = useToast();
   const formErrors = useT().pages.finance.formErrors;
@@ -69,9 +71,10 @@ export function useFinanceForm<V>({ initialValues, idPrefix, validate, save, res
       const result = await save(values);
       if (result.ok) {
         setErrors({});
-        if (resetAfterSave) setValues(initialValues);
+        if (resetAfterSave && !redirectTo) setValues(initialValues);
         notify("success", resetAfterSave ? messages.created : messages.saved);
-        router.refresh();
+        if (redirectTo) router.push(redirectTo);
+        else router.refresh();
       } else if ("errors" in result) {
         showFieldErrors(result.errors);
       } else {

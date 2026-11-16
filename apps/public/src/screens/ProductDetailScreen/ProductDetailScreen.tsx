@@ -4,8 +4,8 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { formatDimensions } from "@/lib/dimensions";
 import { formatPrice } from "@/lib/price";
 import PriceTiers from "@/components/PriceTiers";
-import CtaLink from "@/components/CtaLink";
-import { categoryHref, collectionHref, localeHref, productHref, type Locale } from "@/lib/i18n";
+import AddToRequestButton from "@/components/cart/AddToRequestButton";
+import { categoryHref, collectionHref, localeHref, productHref, requestHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
 import type { ProductCategory, ProductCollection, ProductItem } from "@/lib/products";
 import ProductJsonLd from "./ProductJsonLd";
@@ -78,9 +78,14 @@ export default function ProductDetailScreen({
           </dl>
 
           <div className="mt-6 max-w-md rounded-2xl border border-line bg-white p-5 shadow-sm">
-            <CtaLink href={`/${lang}/contact/`} className="w-full">
-              {t.ctaLabel}
-            </CtaLink>
+            <AddToRequestButton
+              label={t.ctaLabel}
+              slug={item.slug}
+              requestHref={requestHref(lang)}
+              contactHref={`/${lang}/contact/`}
+              labels={dict.order}
+              className="w-full"
+            />
             <p className="mt-3 text-center text-sm text-ink/80">{t.ctaNote}</p>
             <ul className="mt-4 space-y-2 border-t border-line pt-4 text-sm text-charcoal">
               {t.perks.map((perk) => (

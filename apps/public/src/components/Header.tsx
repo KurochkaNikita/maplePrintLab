@@ -2,17 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import HeaderNav from "@/components/HeaderNav";
 import { siteConfig } from "@/lib/site-config";
-import { localeHref, type Locale } from "@/lib/i18n";
+import { localeHref, requestHref, type Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/dictionaries/en";
 
 type HeaderProps = {
   lang: Locale;
   dict: Dictionary;
-  /** The 404 page: the other language's version of an unknown URL is a 404 too. */
-  hideLocaleSwitcher?: boolean;
 };
 
-export default function Header({ lang, dict, hideLocaleSwitcher = false }: HeaderProps) {
+export default function Header({ lang, dict }: HeaderProps) {
   const nav = [
     { href: localeHref(lang, ""), label: dict.nav.home },
     { href: localeHref(lang, "products"), label: dict.nav.products },
@@ -44,8 +42,8 @@ export default function Header({ lang, dict, hideLocaleSwitcher = false }: Heade
           items={nav}
           navAria={dict.nav.primaryAria}
           menuLabel={dict.nav.menu}
-          localeLabel={dict.localeSwitcher.label}
-          hideLocaleSwitcher={hideLocaleSwitcher}
+          cartHref={requestHref(lang)}
+          cartLabel={dict.order.cartLink}
         />
       </div>
     </header>

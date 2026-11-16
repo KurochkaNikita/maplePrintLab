@@ -1,5 +1,5 @@
 import Link from "next/link";
-import LocaleSwitcher from "@/components/LocaleSwitcher";
+import HeaderCartLink from "@/components/cart/HeaderCartLink";
 import type { Locale } from "@/lib/i18n";
 
 type HeaderNavProps = {
@@ -7,8 +7,9 @@ type HeaderNavProps = {
   items: { href: string; label: string }[];
   navAria: string;
   menuLabel: string;
-  localeLabel: string;
-  hideLocaleSwitcher: boolean;
+  /** The request page and the accessible name of its link; the link shows once something is in the list. */
+  cartHref: string;
+  cartLabel: string;
 };
 
 /**
@@ -21,8 +22,8 @@ export default function HeaderNav({
   items,
   navAria,
   menuLabel,
-  localeLabel,
-  hideLocaleSwitcher,
+  cartHref,
+  cartLabel,
 }: HeaderNavProps) {
   return (
     <>
@@ -33,10 +34,12 @@ export default function HeaderNav({
         aria-controls="site-menu"
         className="peer sr-only"
       />
+      {/* Flex order: next to the burger on small screens, after the menu on wide ones. */}
+      <HeaderCartLink href={cartHref} label={cartLabel} className="order-1 ml-auto md:order-3 md:ml-0" />
       <label
         htmlFor="site-menu-toggle"
         aria-hidden="true"
-        className="-mr-2 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded text-charcoal peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-amber-deep peer-checked:[&_.icon-open]:hidden peer-checked:[&_.icon-close]:block md:hidden"
+        className="order-2 -mr-2 inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded text-charcoal peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-amber-deep peer-checked:[&_.icon-open]:hidden peer-checked:[&_.icon-close]:block md:hidden"
       >
         <svg
           viewBox="0 0 24 24"
@@ -62,7 +65,7 @@ export default function HeaderNav({
 
       <div
         id="site-menu"
-        className="hidden w-full flex-col gap-y-2 peer-checked:flex md:flex md:w-auto md:flex-row md:flex-wrap md:items-center md:gap-x-5"
+        className="order-3 hidden w-full flex-col gap-y-2 peer-checked:flex md:order-2 md:ml-auto md:flex md:w-auto md:flex-row md:flex-wrap md:items-center md:gap-x-5"
       >
         <nav aria-label={navAria}>
           <ul className="flex flex-col font-mono text-xs uppercase tracking-wider md:flex-row md:flex-wrap md:items-center md:gap-x-5 md:gap-y-1">
@@ -78,8 +81,6 @@ export default function HeaderNav({
             ))}
           </ul>
         </nav>
-
-        {!hideLocaleSwitcher && <LocaleSwitcher current={lang} label={localeLabel} />}
       </div>
     </>
   );

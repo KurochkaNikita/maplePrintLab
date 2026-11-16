@@ -34,7 +34,7 @@ export default function NotFoundView({ dicts }: { dicts: Record<Locale, Dictiona
 
   return (
     <>
-      <Header lang={lang} dict={dict} hideLocaleSwitcher />
+      <Header lang={lang} dict={dict} />
       <main className="flex flex-1 items-center justify-center">
         <div className="mx-auto max-w-3xl px-5 py-16 text-center">
           <p className="font-mono text-xs uppercase tracking-wider text-teal">{t.code}</p>
@@ -51,7 +51,7 @@ export default function NotFoundView({ dicts }: { dicts: Record<Locale, Dictiona
           </div>
         </div>
       </main>
-      <Footer lang={lang} dict={dict} />
+      <Footer lang={lang} dict={dict} hideLocaleSwitcher />
     </>
   );
 }

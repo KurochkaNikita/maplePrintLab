@@ -10,7 +10,8 @@ import type { OrderFormValues, OrderItemValues } from "@/lib/finance/types";
 import { validateOrder } from "@/lib/finance/validation";
 import { useFinanceForm } from "./useFinanceForm";
 
-export type OrderFormTarget = { mode: "create" } | { mode: "edit"; orderId: string };
+/** `requestId`: the order is created from a customer request and links back to it. */
+export type OrderFormTarget = { mode: "create"; requestId?: string } | { mode: "edit"; orderId: string };
 
 export interface UseOrderFormOptions {
   target: OrderFormTarget;
@@ -32,8 +33,9 @@ export function useOrderForm({ target, initialValues, channels, products }: UseO
       });
       return "errors" in result ? result.errors : null;
     },
-    save: (values) => (target.mode === "create" ? createOrder(values) : updateOrder(target.orderId, values)),
+    save: (values) => (target.mode === "create" ? createOrder(values, target.requestId) : updateOrder(target.orderId, values)),
     resetAfterSave: target.mode === "create",
+    redirectTo: target.mode === "create" && target.requestId ? `/requests/${target.requestId}` : undefined,
     messages: { created: t.status.created, saved: t.status.saved },
   });
   const { values, change, clearErrors } = form;
