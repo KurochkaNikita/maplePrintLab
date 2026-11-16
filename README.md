@@ -54,8 +54,9 @@ max 5 requests per hour per hashed IP (429). Title and price are read from the d
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | public | Turnstile site key. |
 
 Manual steps: verify `mapleprintlab.store` in Resend (add the SPF and DKIM DNS records it shows), create a Turnstile widget
-for `mapleprintlab.store`, and apply the migration `packages/db/drizzle/0004_order_requests.sql`
-(`yarn workspace @maple-print-lab/db db:migrate`). For local testing use Cloudflare's test keys
+for `mapleprintlab.store`. The `order_requests` and `order_request_items` tables must exist in the database
+(the migration files were removed once applied; regenerate them with `yarn workspace @maple-print-lab/db db:generate`
+if a new database is needed). For local testing use Cloudflare's test keys
 (site `1x00000000000000000000AA`, secret `1x0000000000000000000000000000000AA`).
 
 ## Environment variables
