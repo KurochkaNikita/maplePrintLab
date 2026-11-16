@@ -5,6 +5,7 @@ import {
   integer,
   jsonb,
   numeric,
+  pgEnum,
   pgTable,
   primaryKey,
   text,
@@ -13,6 +14,7 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
+import { ORDER_REQUEST_STATUSES, type OrderRequestStatus } from "./order-request-status";
 
 /** JSON shapes stored in jsonb columns. */
 export type PriceTier = { from: number; to?: number; amount: number };
@@ -250,4 +252,54 @@ export const expenses = pgTable(
     ...timestamps,
   },
   (t) => [index("expenses_spent_on_idx").on(t.spentOn)],
+);
+
+/** Lifecycle of a customer enquiry from the product page. */
+export { ORDER_REQUEST_STATUSES, type OrderRequestStatus };
+export const orderRequestStatus = pgEnum("order_request_status", ORDER_REQUEST_STATUSES);
+
+/**
+ * An enquiry left through the "Order this piece" dialog on the public site. Not an `orders` row: those are
+ * sales for the finance section; a request becomes one only when the admin converts it (`orderId`).
+ */
+export const orderRequests = pgTable(
+  "order_requests",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    status: orderRequestStatus("status").notNull().default("new"),
+    firstName: text("first_name").notNull(),
+    lastName: text("last_name").notNull(),
+    email: text("email").notNull(),
+    message: text("message"),
+    /** Language of the page the customer wrote from. */
+    locale: text("locale").$type<"en" | "fr">().notNull(),
+    /** sha256(ip + IP_HASH_SALT); the address itself is never stored. */
+    ipHash: text("ip_hash").notNull(),
+    /** Set when the request is converted into a sale. */
+    orderId: uuid("order_id").references(() => orders.id, { onDelete: "set null" }),
+  },
+  (t) => [
+    index("order_requests_created_idx").on(t.createdAt),
+    index("order_requests_status_idx").on(t.status),
+    index("order_requests_ip_created_idx").on(t.ipHash, t.createdAt),
+  ],
+);
+
+/** One line of a request. Title and price are copied at the time of the request, so later catalogue edits do not rewrite it. */
+export const orderRequestItems = pgTable(
+  "order_request_items",
+  {
+    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+    requestId: uuid("request_id")
+      .notNull()
+      .references(() => orderRequests.id, { onDelete: "cascade" }),
+    /** Null once the product is deleted; the snapshot below stays. */
+    productId: integer("product_id").references(() => products.id, { onDelete: "set null" }),
+    productSlug: text("product_slug").notNull(),
+    productTitle: text("product_title").notNull(),
+    productPrice: numeric("product_price", { precision: 10, scale: 2 }),
+    quantity: integer("quantity").notNull().default(1),
+  },
+  (t) => [index("order_request_items_request_idx").on(t.requestId)],
 );

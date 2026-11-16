@@ -1,4 +1,5 @@
 import { financeRu } from "./finance/ru";
+import { requestsRu } from "./requests/ru";
 
 export const ru = {
   brand: {
@@ -35,6 +36,7 @@ export const ru = {
       categories: "Категории",
       collections: "Коллекции",
       ...financeRu.nav,
+      ...requestsRu.nav,
     },
     logout: "Выйти",
     toast: { close: "Закрыть уведомление" },
@@ -49,6 +51,7 @@ export const ru = {
   },
   pages: {
     ...financeRu.pages,
+    ...requestsRu.pages,
     dashboard: {
       metaTitle: "Панель управления",
       heading: "Панель управления",

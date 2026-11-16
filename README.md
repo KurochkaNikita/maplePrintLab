@@ -31,6 +31,33 @@ The public site is static, so edits made in the console appear only after a rebu
 console calls a Vercel Deploy Hook of the public project (`SITE_DEPLOY_HOOK_URL`, set in the console project only).
 Create the hook in Vercel: public project -> Settings -> Git -> Deploy Hooks.
 
+## Order requests ("Add to request")
+
+Visitors add pieces to a request list (kept in the browser, `localStorage`) and send it from `/<lang>/request/`; there is no payment. The public site is static, so the form posts to a
+**public** route handler of the console, `POST /api/order-request` (the only route that skips `requireAdmin()`).
+It validates, applies the anti-spam checks, saves a row in `order_requests`, then mails the shop owner through Resend
+(Reply-To = the customer). A failed mail never loses the request. Requests are managed in the console under **Requests**;
+"Create order" opens `/orders/new` prefilled and, once saved, links the order and marks the request `converted`.
+
+Anti-spam: hidden `website` field (answers 200 and does nothing), minimum 2 s fill time, Cloudflare Turnstile,
+max 5 requests per hour per hashed IP (429). Title and price are read from the database, not from the browser.
+
+| Variable | App | Purpose |
+| --- | --- | --- |
+| `PUBLIC_SITE_ORIGIN` | console | Origin(s) allowed by CORS (comma-separated): `https://mapleprintlab.store`, plus `https://localhost:3000` locally. |
+| `RESEND_API_KEY` | console | Resend API key. Without it the mail is logged instead of sent. |
+| `ORDER_NOTIFY_EMAIL` | console | Inbox that receives new requests. |
+| `ORDER_FROM_EMAIL` | console | Sender, default `Maple Print Lab <orders@mapleprintlab.store>`. |
+| `TURNSTILE_SECRET_KEY` | console | Turnstile secret. Required in production. |
+| `IP_HASH_SALT` | console | Salt for `sha256(ip + salt)`. Required in production. |
+| `NEXT_PUBLIC_ORDER_API_URL` | public | Full URL of the endpoint, e.g. `https://admin.mapleprintlab.store/api/order-request`. Without it the button stays a link to `/contact/`. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | public | Turnstile site key. |
+
+Manual steps: verify `mapleprintlab.store` in Resend (add the SPF and DKIM DNS records it shows), create a Turnstile widget
+for `mapleprintlab.store`, and apply the migration `packages/db/drizzle/0004_order_requests.sql`
+(`yarn workspace @maple-print-lab/db db:migrate`). For local testing use Cloudflare's test keys
+(site `1x00000000000000000000AA`, secret `1x0000000000000000000000000000000AA`).
+
 ## Environment variables
 
 See `apps/public/.env.example` and `apps/console/.env.example`. `DATABASE_URL` for the public site is needed at build time only.

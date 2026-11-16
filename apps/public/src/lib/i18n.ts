@@ -48,6 +48,11 @@ export function localeHref(locale: Locale, route: (typeof routes)[number]): stri
   return route ? `/${locale}/${route}/` : `/${locale}/`;
 }
 
+/** `/en/request/`: the page where the visitor reviews the pieces they picked and sends one request. Not in `routes`: it is `noindex`. */
+export function requestHref(locale: Locale): string {
+  return `/${locale}/request/`;
+}
+
 /** `/en/category/toys/` */
 export function categoryHref(locale: Locale, id: string): string {
   return `/${locale}/category/${id}/`;
