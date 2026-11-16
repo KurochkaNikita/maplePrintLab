@@ -1,9 +1,15 @@
-/** Origins allowed to call the public order endpoint: `PUBLIC_SITE_ORIGIN`, comma-separated (production and local dev). */
-export function allowedOrigins(env = process.env.PUBLIC_SITE_ORIGIN): string[] {
-  return (env ?? "")
-    .split(",")
+/**
+ * Origins allowed to call the public order endpoint: the public site (`NEXT_PUBLIC_SITE_URL`) plus the optional
+ * extra origins in `PUBLIC_SITE_ORIGIN`, comma-separated (local dev, Vercel previews).
+ */
+export function allowedOrigins(
+  site = process.env.NEXT_PUBLIC_SITE_URL,
+  extra = process.env.PUBLIC_SITE_ORIGIN,
+): string[] {
+  const origins = [site ?? "", ...(extra ?? "").split(",")]
     .map((origin) => origin.trim().replace(/\/+$/, ""))
     .filter(Boolean);
+  return [...new Set(origins)];
 }
 
 /** The request's own origin when it is on the list, otherwise null. Never a wildcard. */

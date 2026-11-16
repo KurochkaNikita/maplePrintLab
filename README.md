@@ -44,13 +44,14 @@ max 5 requests per hour per hashed IP (429). Title and price are read from the d
 
 | Variable | App | Purpose |
 | --- | --- | --- |
-| `PUBLIC_SITE_ORIGIN` | console | Origin(s) allowed by CORS (comma-separated): `https://mapleprintlab.store`, plus `https://localhost:3000` locally. |
+| `NEXT_PUBLIC_SITE_URL` | console | Public site origin; it is allowed by CORS automatically. |
+| `PUBLIC_SITE_ORIGIN` | console | Optional extra CORS origins (comma-separated), e.g. `https://localhost:3000` locally or a preview URL. Not needed in production. |
 | `RESEND_API_KEY` | console | Resend API key. Without it the mail is logged instead of sent. |
 | `ORDER_NOTIFY_EMAIL` | console | Inbox that receives new requests. |
 | `ORDER_FROM_EMAIL` | console | Sender, default `Maple Print Lab <orders@mapleprintlab.store>`. |
 | `TURNSTILE_SECRET_KEY` | console | Turnstile secret. Required in production. |
 | `IP_HASH_SALT` | console | Salt for `sha256(ip + salt)`. Required in production. |
-| `NEXT_PUBLIC_ORDER_API_URL` | public | Full URL of the endpoint, e.g. `https://admin.mapleprintlab.store/api/order-request`. Without it the button stays a link to `/contact/`. |
+| `NEXT_PUBLIC_CONSOLE_URL` | public | Console origin, e.g. `https://admin.mapleprintlab.store` (locally `https://localhost:3001`); the form posts to `<it>/api/order-request`. Without it the button stays a link to `/contact/`. |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | public | Turnstile site key. |
 
 Manual steps: verify `mapleprintlab.store` in Resend (add the SPF and DKIM DNS records it shows), create a Turnstile widget
