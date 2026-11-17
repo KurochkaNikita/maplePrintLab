@@ -1,9 +1,14 @@
 import type { ProductRecord } from "@maple-print-lab/db";
 import { productPath } from "@maple-print-lab/db/src/locales";
 import BackLink from "@/components/BackLink";
-import ButtonLink from "@/components/ButtonLink";
+import IconLink from "@/components/IconLink";
+import MarketplaceButton from "@/components/marketplace/MarketplaceButton";
 import ProductThumb from "@/components/ProductThumb";
+import ExternalLinkIcon from "@/icons/external-link.svg";
+import PencilIcon from "@/icons/pencil.svg";
 import type { Dictionary } from "@/lib/i18n";
+import { buildListing } from "@/lib/marketplace/build-listing";
+import { MARKETPLACE_EXTENSION_ID } from "@/lib/marketplace/defaults";
 import { productThumbUrl } from "@/lib/products/thumb-url";
 import ProductViewStatus from "./ProductViewStatus";
 
@@ -32,18 +37,20 @@ export function ProductViewHeader({ t, product, categoryTitle, siteUrl }: Produc
             <ProductViewStatus published={product.published} noindex={product.noindex} isNew={product.isNew} labels={t.view} />
           </div>
         </div>
-        <div className="flex shrink-0 flex-wrap items-center gap-3">
-          <ButtonLink href={`/products/${product.id}/edit`}>{t.view.edit}</ButtonLink>
+        <div className="flex shrink-0 flex-wrap items-start gap-2">
+          <IconLink variant="solid" icon={PencilIcon} label={t.view.edit} href={`/products/${product.id}/edit`} />
           {product.published && siteUrl && (
-            <ButtonLink
-              variant="secondary"
+            <IconLink
+              variant="outline"
+              icon={ExternalLinkIcon}
+              label={t.view.openOnSiteNewTab}
               href={`${siteUrl}${productPath("en", product.slug)}`}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={t.view.openOnSiteNewTab}
-            >
-              {t.view.openOnSite}
-            </ButtonLink>
+            />
+          )}
+          {product.published && siteUrl && (
+            <MarketplaceButton t={t.view.marketplace} listing={buildListing(product, siteUrl)} extensionId={MARKETPLACE_EXTENSION_ID} />
           )}
         </div>
       </header>

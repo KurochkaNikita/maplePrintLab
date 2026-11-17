@@ -13,13 +13,14 @@
     "build": "yarn build:public && yarn build:console",
     "build:public": "yarn workspace @maple-print-lab/public build",
     "build:console": "yarn workspace @maple-print-lab/console build",
-    "typecheck": "yarn workspaces run typecheck"
+    "typecheck": "yarn workspaces run typecheck",
+    "build:extension": "yarn workspace @maple-print-lab/extension build"
   },
   "devDependencies": {
     "concurrently": "^10.0.6"
   },
   "resolutions": {
-    "next": "16.4.4",
+    "next": "16.4.6",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   }

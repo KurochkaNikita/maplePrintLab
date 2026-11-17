@@ -14,3 +14,6 @@ next-env.d.ts
 certificates
 
 .vercel
+.test-build
+dist
+apps/extension/marketplace-filler.zip
