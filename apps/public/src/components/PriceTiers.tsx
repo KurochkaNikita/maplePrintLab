@@ -29,7 +29,7 @@ export default function PriceTiers({ lang, dict, tiers, className = "" }: PriceT
           {tiers.map((tier) => (
             <tr key={tier.from} className="border-b border-line last:border-b-0">
               <th scope="row" className="py-2.5 pr-4 font-normal text-ink/80">
-                {tier.to ? `${tier.from}–${tier.to}` : `${tier.from}+`} {t.quantityUnit}
+                {tier.to ? (tier.to === tier.from ? `${tier.from}` : `${tier.from}–${tier.to}`) : `${tier.from}+`} {t.quantityUnit}
               </th>
               <td className="py-2.5 text-right font-display text-charcoal">
                 {formatAmount(tier.amount, "CAD", lang, true)} {dict.price.currencySuffix}

@@ -149,6 +149,7 @@ export const en: Dictionary = {
           tierQuantity: "Quantity",
           tierPrice: "Price per piece",
           tierRange: "{from}–{to} pcs",
+          tierSingle: "{from} pcs",
           tierOpen: "{from}+ pcs",
           cost: "Cost",
           costNone: "not set",

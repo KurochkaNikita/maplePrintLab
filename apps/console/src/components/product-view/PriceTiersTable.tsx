@@ -23,7 +23,7 @@ export function PriceTiersTable({ t, locale, tiers }: PriceTiersTableProps) {
         {tiers.map((tier) => (
           <tr key={tier.from}>
             <td className="py-1 pr-8 tabular-nums">
-              {tier.to === undefined ? format(t.tierOpen, { from: tier.from }) : format(t.tierRange, { from: tier.from, to: tier.to })}
+              {tier.to === undefined ? format(t.tierOpen, { from: tier.from }) : tier.to === tier.from ? format(t.tierSingle, { from: tier.from }) : format(t.tierRange, { from: tier.from, to: tier.to })}
             </td>
             <td className="py-1 tabular-nums">{formatMoney(tier.amount, locale)}</td>
           </tr>

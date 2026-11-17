@@ -64,7 +64,9 @@ export default function ProductCard({
         </h3>
         <p className="mt-1.5 text-sm text-ink/80">{note}</p>
         {price && (
-          <p className="mt-auto pt-4 font-display text-lg font-semibold text-charcoal">{price}</p>
+          <p className="mt-auto pt-4 font-display text-lg font-semibold leading-6 text-charcoal [font-variant-numeric:lining-nums_tabular-nums]">
+            {price}
+          </p>
         )}
       </div>
     </Link>

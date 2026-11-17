@@ -149,6 +149,7 @@ export const ru = {
           tierQuantity: "Количество",
           tierPrice: "Цена за шт",
           tierRange: "{from}–{to} шт",
+          tierSingle: "{from} шт",
           tierOpen: "от {from} шт",
           cost: "Себестоимость",
           costNone: "не указана",
