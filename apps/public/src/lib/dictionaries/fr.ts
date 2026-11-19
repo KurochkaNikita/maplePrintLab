@@ -8,6 +8,7 @@ const fr: Dictionary = {
     home: "Accueil",
     products: "Produits",
     about: "À propos",
+    privacy: "Confidentialité",
     howToOrder: "Comment commander",
     contact: "Contact",
     primaryAria: "Navigation principale",
@@ -117,6 +118,11 @@ const fr: Dictionary = {
       description:
         "Maple Print Lab, petit studio de Coquitlam : tableaux multicouches et jouets pour gobelets de café, imprimés en 3D sur commande en PLA.",
     },
+    privacy: {
+      title: "Politique de confidentialité",
+      description:
+        "Comment Maple Print Lab traite vos données : ce que recueille notre formulaire de commande, et pourquoi l’extension Chrome Marketplace filler ne recueille rien.",
+    },
     howToOrder: {
       title: "Comment commander",
       description:
@@ -208,6 +214,86 @@ const fr: Dictionary = {
     ],
     ctaHeading: "Une pièce en tête ?",
     ctaLabel: "Nous écrire",
+  },
+
+  privacy: {
+    badge: "Confidentialité",
+    title: "Politique de confidentialité",
+    updated: "Dernière mise à jour : 18 novembre 2026",
+    intro:
+      "Maple Print Lab est un petit studio d’impression 3D de Coquitlam, C.-B., Canada. Cette page comporte deux parties : la politique générale de ce site et une politique distincte pour notre extension Chrome interne.",
+    tocHeading: "Sur cette page",
+    highlights: [
+      { title: "Seulement ce que vous saisissez", body: "Une demande contient uniquement votre nom, votre courriel, votre message et les pièces choisies." },
+      { title: "L’extension ne recueille rien", body: "Marketplace filler est un outil réservé à l’équipe qui n’envoie aucune donnée d’utilisateur." },
+      { title: "Ni pub, ni traceurs", body: "Aucun témoin publicitaire ni outil d’analyse de tiers sur ce site." },
+    ],
+    groups: [
+      {
+        label: "Partie 1",
+        heading: "Politique générale",
+        intro: "S’applique à ce site, mapleprintlab.store.",
+        sections: [
+          {
+            heading: "Demandes de commande",
+            body: "Lorsque vous envoyez une demande, nous recueillons ce que vous saisissez dans le formulaire : prénom, nom, adresse courriel, message et pièces choisies. Nous l’utilisons uniquement pour vous répondre, confirmer le prix et les délais et fabriquer votre commande. Nous ne le vendons pas et ne l’utilisons pas à des fins publicitaires.",
+          },
+          {
+            heading: "Protection contre le pourriel",
+            body: "Le formulaire utilise Cloudflare Turnstile pour distinguer les personnes des robots. Turnstile peut traiter des données techniques comme votre adresse IP et des détails sur votre navigateur, selon la politique de confidentialité de Cloudflare.",
+          },
+          {
+            heading: "Témoins et analyse",
+            body: "Ce site n’utilise ni témoins publicitaires ni outils d’analyse de tiers.",
+          },
+          {
+            heading: "Partage et conservation",
+            body: "Les demandes sont stockées dans une base de données fournie par nos hébergeurs et ne sont visibles que par notre équipe. Nous ne communiquons vos renseignements à personne d’autre, sauf si la loi l’exige. Nous conservons une demande le temps nécessaire pour traiter votre commande et tenir nos registres, puis nous la supprimons.",
+          },
+          {
+            heading: "Vos droits",
+            body: "Vous pouvez demander en tout temps à consulter, corriger ou supprimer les renseignements que nous détenons à votre sujet en écrivant à {email}. En vertu des lois canadiennes sur la protection de la vie privée, vous pouvez aussi communiquer avec le Commissariat à la protection de la vie privée du Canada.",
+          },
+        ],
+      },
+      {
+        label: "Partie 2",
+        heading: "Politique de l’extension Chrome",
+        intro: "S’applique à « Maple Print Lab: Marketplace filler », un outil interne pour notre équipe qui fait gagner du temps pour créer des annonces de nos produits sur d’autres plateformes. En bref, il ne recueille rien.",
+        sections: [
+          {
+            heading: "À qui elle s’adresse",
+            body: "L’extension est un outil de travail pour l’équipe de Maple Print Lab. Elle n’est pas destinée au grand public et ne sert à rien sans accès à notre console d’administration. Elle sert à créer plus vite, et avec moins d’erreurs, des annonces sur d’autres plateformes (pour l’instant, Facebook Marketplace).",
+          },
+          {
+            heading: "Ce qu’elle fait",
+            body: "Lorsqu’un membre de l’équipe clique sur « To Marketplace » dans notre console, l’extension reçoit la fiche du produit (titre, prix, description et liens des photos), ouvre la page de création d’annonce de Facebook Marketplace et remplit les champs et les photos. Elle n’appuie jamais sur Suivant ni sur Publier : une personne vérifie l’annonce et la publie.",
+          },
+          {
+            heading: "Données recueillies",
+            body: "Aucune. L’extension ne recueille, ne conserve, ne vend ni ne transmet de données personnelles ou sensibles. Elle ne lit pas votre compte Facebook, vos messages, vos contacts ni votre historique de navigation, ne voit pas les mots de passe et n’a ni analyse, ni publicité, ni traceur.",
+          },
+          {
+            heading: "Stockage temporaire",
+            body: "Pour transmettre le produit de la console à l’onglet Facebook, l’extension garde la fiche dans le stockage de session du navigateur. Elle est supprimée juste avant le remplissage du formulaire, et le navigateur l’efface de toute façon à sa fermeture. Rien n’est conservé de façon permanente.",
+          },
+          {
+            heading: "Accès réseau",
+            body: "L’extension télécharge les photos des produits depuis notre site et notre stockage public d’images pour les joindre au formulaire. Elle n’envoie aucune donnée. Elle n’accepte des messages que de notre console d’administration.",
+          },
+          {
+            heading: "Permissions expliquées",
+            body: "« storage » : garde la fiche temporairement, comme décrit plus haut. Accès à notre domaine et à notre stockage d’images : télécharge les photos des produits. Accès à facebook.com/marketplace/create : remplit le formulaire d’annonce sur cette page seulement.",
+          },
+          {
+            heading: "Tiers",
+            body: "Nous ne partageons rien avec des tiers. Ce qu’un membre de l’équipe publie sur Facebook Marketplace est traité par Facebook selon sa propre politique de confidentialité.",
+          },
+        ],
+      },
+    ],
+    contactHeading: "Une question ou une demande de suppression ?",
+    contactLabel: "Écrivez-nous",
   },
 
   howToOrder: {

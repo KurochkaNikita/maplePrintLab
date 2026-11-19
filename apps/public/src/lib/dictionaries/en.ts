@@ -6,6 +6,7 @@ const en = {
     home: "Home",
     products: "Products",
     about: "About",
+    privacy: "Privacy",
     howToOrder: "How to order",
     contact: "Contact",
     primaryAria: "Main navigation",
@@ -115,6 +116,11 @@ const en = {
       description:
         "Maple Print Lab is a small studio in Coquitlam, Metro Vancouver, making layered wall art and coffee cup toys, 3D-printed to order in PLA.",
     },
+    privacy: {
+      title: "Privacy policy",
+      description:
+        "How Maple Print Lab handles your data: what our order form collects, and why our Marketplace filler Chrome extension collects nothing.",
+    },
     howToOrder: {
       title: "How to order",
       description:
@@ -206,6 +212,86 @@ const en = {
     ],
     ctaHeading: "Have a piece in mind?",
     ctaLabel: "Get in touch",
+  },
+
+  privacy: {
+    badge: "Privacy",
+    title: "Privacy policy",
+    updated: "Last updated: November 18, 2026",
+    intro:
+      "Maple Print Lab is a small 3D-printing studio in Coquitlam, BC, Canada. This page has two parts: the general policy for this website, and a separate policy for our internal Chrome extension.",
+    tocHeading: "On this page",
+    highlights: [
+      { title: "Only what you type", body: "An order request holds just your name, email, message and the pieces you picked." },
+      { title: "Extension collects nothing", body: "Marketplace filler is a staff-only tool that sends no user data anywhere." },
+      { title: "No ads, no trackers", body: "No advertising cookies and no third-party analytics on this website." },
+    ],
+    groups: [
+      {
+        label: "Part 1",
+        heading: "General policy",
+        intro: "Applies to this website, mapleprintlab.store.",
+        sections: [
+          {
+            heading: "Order requests",
+            body: "When you send an order request we collect what you type into the form: your first and last name, your email address, your message and the pieces you picked. We use it only to reply to you, confirm price and timing, and make your order. We do not sell it or use it for advertising.",
+          },
+          {
+            heading: "Spam Protection",
+            body: "The request form uses Cloudflare Turnstile to tell people from bots. Turnstile may process technical data such as your IP address and browser details, under Cloudflare’s own privacy policy.",
+          },
+          {
+            heading: "Cookies and analytics",
+            body: "This website does not use advertising cookies or third-party analytics.",
+          },
+          {
+            heading: "Sharing and storage",
+            body: "Order requests are stored in a database provided by our hosting vendors and are visible only to our team. We share personal information with nobody else, except when the law requires it. We keep a request for as long as needed to handle your order and our records, then delete it.",
+          },
+          {
+            heading: "Your rights",
+            body: "You can ask to see, correct or delete the information we hold about you at any time by writing to {email}. Under Canadian privacy law you may also contact the Office of the Privacy Commissioner of Canada.",
+          },
+        ],
+      },
+      {
+        label: "Part 2",
+        heading: "Chrome extension policy",
+        intro: "Applies to “Maple Print Lab: Marketplace filler”, an internal tool for our staff that saves time when creating listings for our products on other platforms. In short, it collects nothing.",
+        sections: [
+          {
+            heading: "Who it is for",
+            body: "The extension is a work tool for Maple Print Lab staff. It is not meant for the general public and does nothing useful without access to our admin console. Its purpose is to make creating listings on other platforms (today, Facebook Marketplace) faster and less error-prone.",
+          },
+          {
+            heading: "What it does",
+            body: "When a team member clicks “To Marketplace” in our admin console, the extension receives that product’s listing (title, price, description and photo links), opens the Facebook Marketplace “create listing” page and fills in the form fields and photos. It never presses Next or Publish: a person checks the listing and publishes it.",
+          },
+          {
+            heading: "Data it collects",
+            body: "None. The extension does not collect, store, sell or transmit personal or sensitive user data. It does not read your Facebook account, messages, contacts or browsing history, does not see passwords, and has no analytics, advertising or trackers.",
+          },
+          {
+            heading: "Temporary storage",
+            body: "To pass the product from the admin page to the Facebook tab, the extension keeps the listing in the browser’s session storage. It is deleted right before the form is filled, and the browser clears it anyway when it closes. Nothing is saved permanently.",
+          },
+          {
+            heading: "Network access",
+            body: "The extension downloads the product photos from our own website and our public image storage so it can attach them to the form. It sends no data anywhere. It accepts messages only from our admin console.",
+          },
+          {
+            heading: "Permissions explained",
+            body: "“storage”: holds the listing temporarily, as described above. Access to our shop domain and image storage: downloads product photos. Access to facebook.com/marketplace/create: fills the listing form on that page only.",
+          },
+          {
+            heading: "Third parties",
+            body: "We share nothing with third parties. What a team member publishes on Facebook Marketplace is handled by Facebook under its own privacy policy.",
+          },
+        ],
+      },
+    ],
+    contactHeading: "Questions or a deletion request?",
+    contactLabel: "Email us",
   },
 
   howToOrder: {

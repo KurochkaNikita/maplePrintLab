@@ -34,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "how-to-order": latest(dictionaries, lastModified("src/screens/HowToOrderScreen.tsx")),
     about: latest(dictionaries, lastModified("src/screens/AboutScreen.tsx")),
     contact: latest(dictionaries, lastModified("src/screens/ContactScreen.tsx", "src/lib/site-config.ts")),
+    privacy: latest(dictionaries, lastModified("src/screens/PrivacyScreen.tsx")),
   } satisfies Record<(typeof routes)[number], Date | undefined>;
 
   const pages = locales.flatMap((lang) =>

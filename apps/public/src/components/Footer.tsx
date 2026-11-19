@@ -20,6 +20,7 @@ export default function Footer({ lang, dict, hideLocaleSwitcher = false }: Foote
     { href: localeHref(lang, "how-to-order"), label: dict.nav.howToOrder },
     { href: localeHref(lang, "about"), label: dict.nav.about },
     { href: localeHref(lang, "contact"), label: dict.nav.contact },
+    { href: localeHref(lang, "privacy"), label: dict.nav.privacy },
   ];
 
   return (

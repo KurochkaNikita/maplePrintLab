@@ -45,6 +45,6 @@ The extension is distributed as an **Unlisted** item: not searchable, installabl
    - `storage`: temporarily holds the product between the admin page and the Facebook tab (`chrome.storage.session`, deleted after filling).
    - Host permissions (`*.public.blob.vercel-storage.com`, the shop domain): download product photos to attach to the form.
    - Content script on `facebook.com/marketplace/create/*`: fills the form fields.
-   - Data usage: collects nothing, sells nothing, sends nothing to any server. A privacy policy URL may still be required: a one-line page on the site is enough.
+   - Data usage: collects nothing, sells nothing, sends nothing to any server. Privacy policy URL: `https://mapleprintlab.store/en/privacy/` (a dedicated policy page; the store rejects a homepage or owner site as the policy link).
 5. After approval, copy the item's ID from the dashboard into `NEXT_PUBLIC_MARKETPLACE_EXTENSION_ID` (console, Vercel and `.env.local`) and show the install link in the admin.
 6. Updates: raise `version` in `manifest.json`, run `package`, upload the new zip. Installed copies update themselves.
