@@ -12,6 +12,8 @@ export type OrderFormValues = {
   /** YYYY-MM-DD */
   orderedOn: string;
   channelId: string;
+  /** One of `ORDER_STATUSES`; "" until one is chosen, which does not pass validation. */
+  status: string;
   note: string;
   items: OrderItemValues[];
 };
@@ -33,11 +35,12 @@ export type ErrorCode =
   | "unknownChannel"
   | "unknownCategory"
   | "unknownProduct"
+  | "unknownStatus"
   | "itemsRequired";
 
 export type FieldError = { code: ErrorCode; max?: number };
 
-/** Keyed by field path: `orderedOn`, `channelId`, `items`, `items.<i>.description|quantity|unitPrice|unitCost|productId`. */
+/** Keyed by field path: `orderedOn`, `channelId`, `status`, `items`, `items.<i>.description|quantity|unitPrice|unitCost|productId`. */
 export type FieldErrors = Record<string, FieldError>;
 
 export type FormErrorKind = "forbidden" | "notFound" | "unknown";

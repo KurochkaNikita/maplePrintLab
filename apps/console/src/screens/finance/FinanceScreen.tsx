@@ -29,7 +29,7 @@ const periodHref = (period: PeriodId) => (period === DEFAULT_PERIOD ? "/finance"
 /** Earned, spent and profit for a period: headline numbers, two charts, and where the money comes from and goes. */
 export function FinanceScreen({ t, locale, period, granularity, summary, points, history, today }: FinanceScreenProps) {
   const p = t.pages.finance;
-  const isEmpty = summary.orderCount === 0 && summary.expenses === 0;
+  const isEmpty = summary.orderCount === 0 && summary.expenses === 0 && summary.pending.orderCount === 0;
 
   return (
     <div className="space-y-8">

@@ -11,6 +11,7 @@ import SelectField from "@/components/SelectField";
 import TextareaField from "@/components/TextareaField";
 import { useOrderForm, type OrderFormTarget } from "@/hooks/useOrderForm";
 import { errorText } from "@/lib/finance/error-text";
+import { ORDER_STATUSES } from "@/lib/finance/order-status";
 import { fieldId, type OrderFormValues } from "@/lib/finance/types";
 import { format } from "@/lib/i18n";
 import OrderItemCard from "./OrderItemCard";
@@ -67,6 +68,21 @@ export function OrderForm({ target, initialValues, channels, products, actions }
           {channels.map((c) => (
             <option key={c.id} value={c.id}>
               {c.name}
+            </option>
+          ))}
+        </SelectField>
+        <SelectField
+          id={fieldId("of", "status")}
+          label={t.statusLabel}
+          required
+          error={err("status")}
+          value={values.status}
+          onChange={(v) => change({ ...values, status: v }, "status")}
+        >
+          <option value="">{t.statusPlaceholder}</option>
+          {ORDER_STATUSES.map((s) => (
+            <option key={s} value={s}>
+              {dict.pages.orders.status[s]}
             </option>
           ))}
         </SelectField>

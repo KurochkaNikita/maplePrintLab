@@ -1,76 +1,45 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import PageHeader from "@/components/PageHeader";
-import { getDict } from "@/lib/i18n/server";
+import { countNewOrderRequests, countOrderStages, createDb, getFinanceSummary, listOpenOrders, listPopularItems } from "@maple-print-lab/db";
+import { previousMonthRange } from "@/lib/dashboard/stats";
+import { periodRange, todayIso } from "@/lib/finance/period";
+import { getDict, getLocale } from "@/lib/i18n/server";
+import DashboardScreen from "@/screens/dashboard/DashboardScreen";
 
 export async function generateMetadata(): Promise<Metadata> {
   return { title: (await getDict()).pages.dashboard.metaTitle };
 }
 
 export default async function DashboardPage() {
-  const t = await getDict();
-  const cards = [
-    {
-      href: "/products",
-      title: t.pages.products.heading,
-      description: t.pages.products.description,
-    },
-    {
-      href: "/categories",
-      title: t.pages.categories.heading,
-      description: t.pages.categories.description,
-    },
-    {
-      href: "/collections",
-      title: t.pages.collections.heading,
-      description: t.pages.collections.description,
-    },
-    {
-      href: "/finance",
-      title: t.pages.finance.heading,
-      description: t.pages.finance.description,
-    },
-  ];
+  const today = todayIso();
+  const month = periodRange("d30", today);
+
+  const db = createDb();
+  const [t, locale, newRequests, stages, queue, current, previous, popular] = await Promise.all([
+    getDict(),
+    getLocale(),
+    // As in the layout badge: requests that cannot be counted must not take the whole home page down.
+    countNewOrderRequests(db).catch((e) => {
+      console.error("countNewOrderRequests failed", e);
+      return 0;
+    }),
+    countOrderStages(db),
+    listOpenOrders(db),
+    getFinanceSummary(db, month),
+    getFinanceSummary(db, previousMonthRange(today)),
+    listPopularItems(db, month),
+  ]);
 
   return (
-    <div className="space-y-8">
-      <PageHeader
-        title={t.pages.dashboard.heading}
-        description={t.pages.dashboard.description}
-      />
-
-      <section aria-labelledby="sections-heading">
-        <h2
-          id="sections-heading"
-          className="font-display text-lg font-semibold text-charcoal"
-        >
-          {t.pages.dashboard.quickLinksHeading}
-        </h2>
-
-        <ul className="mt-4 grid gap-4 sm:grid-cols-2">
-          {cards.map((card) => (
-            <li key={card.href}>
-              <Link
-                href={card.href}
-                className="group flex h-full flex-col justify-between rounded-2xl border border-line bg-white p-6 shadow-sm transition-colors hover:border-charcoal"
-              >
-                <div>
-                  <h3 className="font-display text-xl font-semibold text-charcoal group-hover:text-amber-deep">
-                    {card.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink">
-                    {card.description}
-                  </p>
-                </div>
-                <span className="mt-5 inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-amber-deep">
-                  <span>{t.pages.dashboard.openSection}</span>
-                  <span aria-hidden="true">→</span>
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
+    <DashboardScreen
+      t={t}
+      locale={locale}
+      today={today}
+      newRequests={newRequests}
+      stages={stages}
+      queue={queue}
+      current={current}
+      previous={previous}
+      popular={popular}
+    />
   );
 }

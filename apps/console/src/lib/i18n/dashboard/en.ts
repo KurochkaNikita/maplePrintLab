@@ -1,0 +1,49 @@
+/** Strings of the home page. */
+export const dashboardEn = {
+  metaTitle: "Dashboard",
+  heading: "Home",
+  description: "What to do today and how the last 30 days went.",
+  actions: {
+    label: "Quick actions",
+    newOrder: "New order",
+    newExpense: "New expense",
+    newProduct: "New product",
+  },
+  attention: {
+    title: "Needs attention",
+    newRequests: "New requests",
+    ready: "Ready to hand over",
+    inProgress: "In progress",
+  },
+  queue: {
+    title: "Order queue",
+    all: "All orders",
+    empty: "All orders are delivered.",
+    columns: {
+      items: "Items",
+      status: "Status",
+      date: "Date",
+      waiting: "Waiting",
+      amount: "Amount",
+    },
+    days: "Days: {count}",
+    today: "Today",
+  },
+  money: {
+    title: "Money, last 30 days",
+    all: "Open finance",
+    income: "Earned",
+    profit: "Profit",
+    pending: "Awaiting payment",
+    pendingHint: "Undelivered orders: {count}",
+    more: "{amount} more than the 30 days before",
+    less: "{amount} less than the 30 days before",
+    same: "Same as the 30 days before",
+  },
+  popular: {
+    title: "Top items, last 30 days",
+    name: "Item",
+    quantity: "Pieces ordered",
+    empty: "No orders in the last 30 days.",
+  },
+};

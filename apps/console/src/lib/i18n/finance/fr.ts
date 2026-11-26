@@ -16,14 +16,16 @@ export const financeFr: FinanceStrings = {
       period: { label: "Période", d30: "30 jours", d90: "90 jours", m12: "12 mois", ytd: "Depuis janvier" },
       kpi: {
         income: "Encaissé",
-        incomeHint: "Total des ventes",
+        incomeHint: "Reçu pour les commandes remises",
         itemCost: "Coût des articles vendus",
-        itemCostHint: "Ce qu’a coûté la fabrication des articles vendus",
+        itemCostHint: "Fabrication des articles remis",
         expenses: "Dépenses",
-        expensesHint: "Équipement, publicité, emballage et plus",
+        expensesHint: "Publicité, matériel et autres",
         profit: "Profit",
-        profitHint: "Encaissé − coût des articles − dépenses",
-        orders: "Commandes",
+        profitHint: "Ce qui reste après les dépenses",
+        pending: "Paiement attendu",
+        pendingHint: "Commandes non remises : {count}",
+        orders: "Commandes payées",
         ordersHint: "Panier moyen : {amount}",
       },
       chart: {
@@ -63,6 +65,7 @@ export const financeFr: FinanceStrings = {
         unknownChannel: "Cette source n’existe pas, choisissez-en une dans la liste",
         unknownCategory: "Cette catégorie n’existe pas, choisissez-en une dans la liste",
         unknownProduct: "Ce produit n’existe pas, choisissez-en un dans la liste",
+        unknownStatus: "Statut inconnu, choisissez-en un dans la liste",
         itemsRequired: "Ajoutez au moins un article",
       },
       formErrors: {
@@ -73,15 +76,17 @@ export const financeFr: FinanceStrings = {
     },
     orders: {
       metaTitle: "Commandes",
+      status: { in_progress: "En cours", done: "Prête", delivered: "Remise" },
       heading: "Commandes",
-      description: "Les ventes : ce que nous avons vendu, à quel prix, ce que cela nous a coûté et d’où vient la commande.",
+      description: "Les ventes : ce que nous avons vendu, la provenance de la commande, son étape et notre profit.",
       backToList: "Retour aux commandes",
       list: {
         newButton: "Nouvelle commande",
         tableLabel: "Commandes",
+        sortByStatus: "Inverser le tri par statut",
         emptyTitle: "Aucune commande pour l’instant",
         emptyBody: "Ajoutez une première vente : elle apparaîtra ici et dans la page Finances.",
-        columns: { date: "Date", items: "Articles", channel: "Source", revenue: "Encaissé", cost: "Coût", profit: "Profit" },
+        columns: { date: "Date", items: "Articles", channel: "Source", status: "Statut", profit: "Profit" },
         pagination: {
           label: "Pages de la liste",
           prev: "Précédent",
@@ -94,6 +99,8 @@ export const financeFr: FinanceStrings = {
       edit: { metaTitle: "Commande", heading: "Commande du {date}", description: "Modifiez la commande. Les totaux de la page Finances sont mis à jour aussitôt." },
       form: {
         dateLabel: "Date de la commande",
+        statusLabel: "Statut",
+        statusPlaceholder: "Choisissez un statut",
         channelLabel: "Provenance",
         channelPlaceholder: "Choisissez une source",
         channelHint: "Vous pouvez modifier les sources dans la section Paramètres.",

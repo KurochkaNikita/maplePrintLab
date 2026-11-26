@@ -1,5 +1,6 @@
 import { financeRu } from "./finance/ru";
 import { requestsRu } from "./requests/ru";
+import { dashboardRu } from "./dashboard/ru";
 
 export const ru = {
   brand: {
@@ -32,6 +33,7 @@ export const ru = {
   },
   shell: {
     nav: {
+      home: "Главная",
       products: "Товары",
       categories: "Категории",
       collections: "Коллекции",
@@ -52,14 +54,7 @@ export const ru = {
   pages: {
     ...financeRu.pages,
     ...requestsRu.pages,
-    dashboard: {
-      metaTitle: "Панель управления",
-      heading: "Панель управления",
-      description:
-        "Выберите раздел в меню для управления товарами, категориями и коллекциями витрины.",
-      quickLinksHeading: "Разделы каталога",
-      openSection: "Перейти в раздел",
-    },
+    dashboard: dashboardRu,
     products: {
       metaTitle: "Товары",
       heading: "Товары",

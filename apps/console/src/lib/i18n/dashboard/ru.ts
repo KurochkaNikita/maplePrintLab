@@ -1,0 +1,49 @@
+/** Strings of the home page. */
+export const dashboardRu = {
+  metaTitle: "Панель управления",
+  heading: "Главная",
+  description: "Что сделать сегодня и как прошли последние 30 дней.",
+  actions: {
+    label: "Быстрые действия",
+    newOrder: "Новый заказ",
+    newExpense: "Новый расход",
+    newProduct: "Новый товар",
+  },
+  attention: {
+    title: "Требует внимания",
+    newRequests: "Новые заявки",
+    ready: "Готовы, пора отдать",
+    inProgress: "В работе",
+  },
+  queue: {
+    title: "Очередь заказов",
+    all: "Все заказы",
+    empty: "Все заказы отданы.",
+    columns: {
+      items: "Позиции",
+      status: "Статус",
+      date: "Дата",
+      waiting: "Прошло",
+      amount: "Сумма",
+    },
+    days: "Дней: {count}",
+    today: "Сегодня",
+  },
+  money: {
+    title: "Деньги за 30 дней",
+    all: "Открыть финансы",
+    income: "Получили",
+    profit: "Прибыль",
+    pending: "Ожидается оплата",
+    pendingHint: "Неотданные заказы: {count}",
+    more: "На {amount} больше прошлых 30 дней",
+    less: "На {amount} меньше прошлых 30 дней",
+    same: "Как за прошлые 30 дней",
+  },
+  popular: {
+    title: "Лучшие товары за 30 дней",
+    name: "Позиция",
+    quantity: "Заказано, шт.",
+    empty: "За 30 дней заказов не было.",
+  },
+};

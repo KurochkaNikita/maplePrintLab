@@ -4,16 +4,14 @@ export interface KpiCardProps {
   value: string;
   /** Optional one-line explanation under the value. */
   hint?: string;
-  /** Smaller value text, for rows of many tiles or long values such as dates. */
-  compact?: boolean;
 }
 
 /** One headline number with a short explanation. */
-export function KpiCard({ label, value, hint, compact = false }: KpiCardProps) {
+export function KpiCard({ label, value, hint }: KpiCardProps) {
   return (
-    <div className="min-w-0 rounded-2xl border border-line bg-white p-4 shadow-sm sm:p-5">
+    <div className="min-w-0 rounded-2xl border border-line bg-white p-4 shadow-sm">
       <dt className="text-sm font-medium text-ink">{label}</dt>
-      <dd className={`mt-1 break-words font-display font-semibold tabular-nums text-charcoal ${compact ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"}`}>{value}</dd>
+      <dd className="mt-1 break-words font-display text-xl font-semibold tabular-nums text-charcoal">{value}</dd>
       {hint && <dd className="mt-1 text-sm text-ink">{hint}</dd>}
     </div>
   );

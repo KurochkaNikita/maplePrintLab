@@ -21,14 +21,16 @@ export const financeRu = {
       },
       kpi: {
         income: "Получили",
-        incomeHint: "Сумма всех продаж",
+        incomeHint: "Оплата за отданные заказы",
         itemCost: "Себестоимость проданного",
-        itemCostHint: "Сколько стоило изготовить проданное",
+        itemCostHint: "Изготовление отданного",
         expenses: "Расходы",
-        expensesHint: "Оборудование, реклама, упаковка и другое",
+        expensesHint: "Реклама, техника и прочее",
         profit: "Прибыль",
-        profitHint: "Получили − себестоимость − расходы",
-        orders: "Заказов",
+        profitHint: "Остаток после всех трат",
+        pending: "Ожидается оплата",
+        pendingHint: "Неотданные заказы: {count}",
+        orders: "Оплаченных заказов",
         ordersHint: "Средний чек: {amount}",
       },
       chart: {
@@ -71,6 +73,7 @@ export const financeRu = {
         unknownChannel: "Такого источника нет, выберите из списка",
         unknownCategory: "Такой категории нет, выберите из списка",
         unknownProduct: "Такого товара нет, выберите из списка",
+        unknownStatus: "Такого статуса нет, выберите из списка",
         itemsRequired: "Добавьте хотя бы одну позицию",
       },
       formErrors: {
@@ -81,15 +84,17 @@ export const financeRu = {
     },
     orders: {
       metaTitle: "Заказы",
+      status: { in_progress: "В работе", done: "Готов", delivered: "Отдан" },
       heading: "Заказы",
-      description: "Продажи: что продали, за сколько, во сколько это обошлось и откуда пришёл заказ.",
+      description: "Продажи: что продали, откуда пришёл заказ, на каком он этапе и сколько мы заработали.",
       backToList: "К списку заказов",
       list: {
         newButton: "Новый заказ",
         tableLabel: "Список заказов",
+        sortByStatus: "Изменить порядок заказов по статусу",
         emptyTitle: "Заказов пока нет",
         emptyBody: "Добавьте первую продажу, и она появится здесь и на странице «Финансы».",
-        columns: { date: "Дата", items: "Позиции", channel: "Откуда", revenue: "Получили", cost: "Себестоимость", profit: "Прибыль" },
+        columns: { date: "Дата", items: "Позиции", channel: "Откуда", status: "Статус", profit: "Прибыль" },
         pagination: {
           label: "Страницы списка",
           prev: "Назад",
@@ -102,6 +107,8 @@ export const financeRu = {
       edit: { metaTitle: "Заказ", heading: "Заказ от {date}", description: "Исправьте данные заказа. Итоги на странице «Финансы» обновятся сразу." },
       form: {
         dateLabel: "Дата заказа",
+        statusLabel: "Статус",
+        statusPlaceholder: "Выберите статус",
         channelLabel: "Откуда заказ",
         channelPlaceholder: "Выберите источник",
         channelHint: "Список источников можно менять в разделе «Настройки».",

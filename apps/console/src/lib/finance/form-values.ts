@@ -10,13 +10,14 @@ export const emptyOrderItem = (): OrderItemValues => ({
 });
 
 export function emptyOrderValues(today: string): OrderFormValues {
-  return { orderedOn: today, channelId: "", note: "", items: [emptyOrderItem()] };
+  return { orderedOn: today, channelId: "", status: "", note: "", items: [emptyOrderItem()] };
 }
 
 export function toOrderFormValues(order: OrderRecord): OrderFormValues {
   return {
     orderedOn: order.orderedOn,
     channelId: String(order.channelId),
+    status: order.status ?? "",
     note: order.note,
     items: order.items.map((item) => ({
       productId: item.productId === null ? "" : String(item.productId),

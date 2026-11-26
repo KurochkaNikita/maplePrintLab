@@ -1,6 +1,7 @@
 import type { Dictionary } from "./index";
 import { financeEn } from "./finance/en";
 import { requestsEn } from "./requests/en";
+import { dashboardEn } from "./dashboard/en";
 
 export const en: Dictionary = {
   brand: {
@@ -33,6 +34,7 @@ export const en: Dictionary = {
   },
   shell: {
     nav: {
+      home: "Home",
       products: "Products",
       categories: "Categories",
       collections: "Collections",
@@ -53,14 +55,7 @@ export const en: Dictionary = {
   pages: {
     ...financeEn.pages,
     ...requestsEn.pages,
-    dashboard: {
-      metaTitle: "Dashboard",
-      heading: "Dashboard",
-      description:
-        "Pick a section in the menu to manage products, categories, and collections for the storefront.",
-      quickLinksHeading: "Catalogue sections",
-      openSection: "Open section",
-    },
+    dashboard: dashboardEn,
     products: {
       metaTitle: "Products",
       heading: "Products",

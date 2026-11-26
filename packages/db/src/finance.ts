@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq, gte, isNull, lte, max, sql } from "drizzle-orm";
+import { and, asc, count, desc, eq, gte, isNull, lte, max, ne, or, sql } from "drizzle-orm";
 import type { BatchItem } from "drizzle-orm/batch";
 import type { Db } from "./client";
 import { isUniqueViolation } from "./products";
@@ -11,6 +11,7 @@ import {
   productTranslations,
   products,
   type FinanceOptionKind,
+  type OrderStatus,
 } from "./schema";
 
 export type { FinanceOptionKind };
@@ -157,16 +158,19 @@ export type OrderInput = {
   /** YYYY-MM-DD */
   orderedOn: string;
   channelId: number;
+  status: OrderStatus;
   note: string;
   items: OrderItemInput[];
 };
 
-export type OrderRecord = OrderInput & { id: string };
+/** A stored status can be empty (the column allows it); saving an order requires one. */
+export type OrderRecord = Omit<OrderInput, "status"> & { id: string; status: OrderStatus | null };
 
 export type OrderListItem = {
   id: string;
   orderedOn: string;
   channelName: string;
+  status: OrderStatus | null;
   note: string;
   /** Line descriptions joined with commas. */
   summary: string;
@@ -184,7 +188,17 @@ export function clampPage(total: number, page: number, pageSize: number) {
   return { pageCount, current: Math.min(Math.max(1, Math.floor(page) || 1), pageCount) };
 }
 
-export async function listOrders(db: Db, { page = 1, pageSize = 20 }: { page?: number; pageSize?: number } = {}): Promise<Page<OrderListItem>> {
+/** Queue position of a status: ready but not handed over comes first, then work in progress, then delivered. */
+const statusRank = sql`case ${orders.status} when 'done' then 0 when 'in_progress' then 1 when 'delivered' then 2 end`;
+
+/**
+ * Orders grouped by status, newest first inside a group. `statusDir: "desc"` reverses the groups only;
+ * orders without a status come last either way.
+ */
+export async function listOrders(
+  db: Db,
+  { page = 1, pageSize = 20, statusDir = "asc" }: { page?: number; pageSize?: number; statusDir?: "asc" | "desc" } = {},
+): Promise<Page<OrderListItem>> {
   const [{ total }] = await db.select({ total: count() }).from(orders);
   const { pageCount, current } = clampPage(total, page, pageSize);
 
@@ -193,6 +207,7 @@ export async function listOrders(db: Db, { page = 1, pageSize = 20 }: { page?: n
       id: orders.id,
       orderedOn: orders.orderedOn,
       channelName: financeOptions.name,
+      status: orders.status,
       note: orders.note,
       summary: sql<string>`coalesce(string_agg(${orderItems.description}, ', ' order by ${orderItems.id}), '')`,
       revenue: sql<string>`coalesce(sum(${lineRevenue}), 0)`,
@@ -202,7 +217,11 @@ export async function listOrders(db: Db, { page = 1, pageSize = 20 }: { page?: n
     .innerJoin(financeOptions, eq(financeOptions.id, orders.channelId))
     .leftJoin(orderItems, eq(orderItems.orderId, orders.id))
     .groupBy(orders.id, financeOptions.name)
-    .orderBy(desc(orders.orderedOn), desc(orders.createdAt))
+    .orderBy(
+      statusDir === "desc" ? sql`${statusRank} desc nulls last` : sql`${statusRank} asc nulls last`,
+      desc(orders.orderedOn),
+      desc(orders.createdAt),
+    )
     .limit(pageSize)
     .offset((current - 1) * pageSize);
 
@@ -222,6 +241,7 @@ export async function findOrder(db: Db, id: string): Promise<OrderRecord | null>
     id: row.id,
     orderedOn: row.orderedOn,
     channelId: row.channelId,
+    status: row.status,
     note: row.note,
     items: items.map((i) => ({
       productId: i.productId,
@@ -241,7 +261,7 @@ function itemRows(orderId: string, input: OrderInput) {
 export async function createOrder(db: Db, input: OrderInput, fromRequestId?: string): Promise<string> {
   const id = crypto.randomUUID();
   await runBatch(db, [
-    db.insert(orders).values({ id, orderedOn: input.orderedOn, channelId: input.channelId, note: input.note }),
+    db.insert(orders).values({ id, orderedOn: input.orderedOn, channelId: input.channelId, status: input.status, note: input.note }),
     db.insert(orderItems).values(itemRows(id, input)),
     // Converting an enquiry: link it and close it in the same batch, only if it was not converted before.
     ...(fromRequestId
@@ -263,7 +283,7 @@ export async function updateOrder(db: Db, id: string, input: OrderInput): Promis
   await runBatch(db, [
     db
       .update(orders)
-      .set({ orderedOn: input.orderedOn, channelId: input.channelId, note: input.note, updatedAt: new Date() })
+      .set({ orderedOn: input.orderedOn, channelId: input.channelId, status: input.status, note: input.note, updatedAt: new Date() })
       .where(eq(orders.id, id)),
     db.delete(orderItems).where(eq(orderItems.orderId, id)),
     db.insert(orderItems).values(itemRows(id, input)),
@@ -274,6 +294,53 @@ export async function updateOrder(db: Db, id: string, input: OrderInput): Promis
 export async function deleteOrder(db: Db, id: string): Promise<boolean> {
   const deleted = await db.delete(orders).where(eq(orders.id, id)).returning({ id: orders.id });
   return deleted.length > 0;
+}
+
+/** Orders not handed over yet, in the same order as the orders list: ready first, newest first inside a status. */
+export async function listOpenOrders(db: Db, limit = 7): Promise<OrderListItem[]> {
+  const rows = await db
+    .select({
+      id: orders.id,
+      orderedOn: orders.orderedOn,
+      channelName: financeOptions.name,
+      status: orders.status,
+      note: orders.note,
+      summary: sql<string>`coalesce(string_agg(${orderItems.description}, ', ' order by ${orderItems.id}), '')`,
+      revenue: sql<string>`coalesce(sum(${lineRevenue}), 0)`,
+      cost: sql<string>`coalesce(sum(${lineCost}), 0)`,
+    })
+    .from(orders)
+    .innerJoin(financeOptions, eq(financeOptions.id, orders.channelId))
+    .leftJoin(orderItems, eq(orderItems.orderId, orders.id))
+    .where(isUnpaid)
+    .groupBy(orders.id, financeOptions.name)
+    .orderBy(sql`${statusRank} asc nulls last`, desc(orders.orderedOn), desc(orders.createdAt))
+    .limit(limit);
+  return rows.map((r) => ({ ...r, revenue: money(r.revenue), cost: money(r.cost) }));
+}
+
+export type OrderStageCounts = { done: number; inProgress: number };
+
+/** How many orders wait to be handed over and how many are being made, over all time. */
+export async function countOrderStages(db: Db): Promise<OrderStageCounts> {
+  const rows = await db.select({ status: orders.status, total: count() }).from(orders).groupBy(orders.status);
+  const totalOf = (status: OrderStatus) => rows.find((r) => r.status === status)?.total ?? 0;
+  return { done: totalOf("done"), inProgress: totalOf("in_progress") };
+}
+
+export type PopularItem = { description: string; quantity: number };
+
+/** Most ordered items by pieces. Unpaid orders count too: this is demand, not money. */
+export async function listPopularItems(db: Db, { from, to }: { from: string; to: string }, limit = 5): Promise<PopularItem[]> {
+  const rows = await db
+    .select({ description: orderItems.description, quantity: sql<string>`sum(${orderItems.quantity})` })
+    .from(orders)
+    .innerJoin(orderItems, eq(orderItems.orderId, orders.id))
+    .where(and(gte(orders.orderedOn, from), lte(orders.orderedOn, to)))
+    .groupBy(orderItems.description)
+    .orderBy(desc(sql`sum(${orderItems.quantity})`), asc(orderItems.description))
+    .limit(limit);
+  return rows.map((r) => ({ description: r.description, quantity: Number(r.quantity) }));
 }
 
 // ---------------------------------------------------------------------------
@@ -487,14 +554,21 @@ export type FinanceSeriesPoint = {
   expenses: number;
 };
 
+/** An order is paid once it is delivered; only paid orders count as earned money. */
+const isPaid = eq(orders.status, "delivered");
+const isUnpaid = or(isNull(orders.status), ne(orders.status, "delivered"));
+
 export type FinanceSummary = {
-  /** Sum of quantity × price of all lines. */
+  /** Sum of quantity × price of the lines of paid orders. */
   income: number;
-  /** Sum of quantity × our unit cost of all lines. */
+  /** Sum of quantity × our unit cost of the lines of paid orders. */
   itemCost: number;
   /** Sum of expenses. */
   expenses: number;
+  /** Paid orders of the period. */
   orderCount: number;
+  /** Orders not paid yet, over all time: money still owed does not drop out with the period filter. */
+  pending: { amount: number; orderCount: number };
   series: FinanceSeriesPoint[];
   byChannel: { name: string; income: number; profit: number }[];
   topItems: { description: string; quantity: number; income: number; profit: number }[];
@@ -510,10 +584,10 @@ export async function getFinanceSummary(
   const bucketOf = (column: typeof orders.orderedOn | typeof expenses.spentOn) =>
     sql<string>`to_char(date_trunc('${sql.raw(unit)}', ${column}::timestamp), 'YYYY-MM-DD')`;
 
-  const orderRange = and(gte(orders.orderedOn, from), lte(orders.orderedOn, to));
+  const orderRange = and(isPaid, gte(orders.orderedOn, from), lte(orders.orderedOn, to));
   const expenseRange = and(gte(expenses.spentOn, from), lte(expenses.spentOn, to));
 
-  const [salesByBucket, expensesByBucket, orderCounts, byChannel, topItems, expensesByCategory] = await Promise.all([
+  const [salesByBucket, expensesByBucket, orderCounts, byChannel, topItems, expensesByCategory, [unpaid]] = await Promise.all([
     db
       .select({
         bucket: bucketOf(orders.orderedOn),
@@ -562,6 +636,14 @@ export async function getFinanceSummary(
       .where(expenseRange)
       .groupBy(financeOptions.name)
       .orderBy(desc(sql`sum(${expenses.amount})`)),
+    db
+      .select({
+        amount: sql<string>`coalesce(sum(${lineRevenue}), 0)`,
+        orderCount: sql<string>`count(distinct ${orders.id})`,
+      })
+      .from(orders)
+      .leftJoin(orderItems, eq(orderItems.orderId, orders.id))
+      .where(isUnpaid),
   ]);
 
   const points = new Map<string, FinanceSeriesPoint>();
@@ -579,6 +661,7 @@ export async function getFinanceSummary(
     itemCost: series.reduce((sum, p) => sum + p.itemCost, 0),
     expenses: series.reduce((sum, p) => sum + p.expenses, 0),
     orderCount: orderCounts[0]?.total ?? 0,
+    pending: { amount: money(unpaid.amount), orderCount: Number(unpaid.orderCount) },
     series,
     byChannel: byChannel.map((r) => ({ name: r.name, income: money(r.income), profit: money(r.income) - money(r.itemCost) })),
     topItems: topItems.map((r) => ({
@@ -591,7 +674,7 @@ export async function getFinanceSummary(
   };
 }
 
-/** Totals per day with activity over all time, oldest first. The caller turns them into running totals. */
+/** Totals per day with activity over all time (paid orders only), oldest first. The caller turns them into running totals. */
 export async function getFinanceHistory(db: Db): Promise<FinanceSeriesPoint[]> {
   const [sales, spent] = await Promise.all([
     db
@@ -602,6 +685,7 @@ export async function getFinanceHistory(db: Db): Promise<FinanceSeriesPoint[]> {
       })
       .from(orders)
       .innerJoin(orderItems, eq(orderItems.orderId, orders.id))
+      .where(isPaid)
       .groupBy(orders.orderedOn),
     db.select({ day: expenses.spentOn, amount: sql<string>`coalesce(sum(${expenses.amount}), 0)` }).from(expenses).groupBy(expenses.spentOn),
   ]);

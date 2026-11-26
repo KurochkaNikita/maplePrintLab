@@ -1,6 +1,7 @@
 import type { Dictionary } from "./index";
 import { financeFr } from "./finance/fr";
 import { requestsFr } from "./requests/fr";
+import { dashboardFr } from "./dashboard/fr";
 
 export const fr: Dictionary = {
   brand: {
@@ -33,6 +34,7 @@ export const fr: Dictionary = {
   },
   shell: {
     nav: {
+      home: "Accueil",
       products: "Produits",
       categories: "Catégories",
       collections: "Collections",
@@ -53,14 +55,7 @@ export const fr: Dictionary = {
   pages: {
     ...financeFr.pages,
     ...requestsFr.pages,
-    dashboard: {
-      metaTitle: "Tableau de bord",
-      heading: "Tableau de bord",
-      description:
-        "Choisissez une section dans le menu pour gérer les produits, les catégories et les collections de la boutique.",
-      quickLinksHeading: "Sections du catalogue",
-      openSection: "Ouvrir la section",
-    },
+    dashboard: dashboardFr,
     products: {
       metaTitle: "Produits",
       heading: "Produits",

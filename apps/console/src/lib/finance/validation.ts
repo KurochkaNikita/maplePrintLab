@@ -1,5 +1,6 @@
 import type { ExpenseInput, OrderInput, OrderItemInput } from "@maple-print-lab/db";
 import { isValidDate, parseMoney } from "./money";
+import { isOrderStatus } from "./order-status";
 import {
   DESCRIPTION_MAX,
   NOTE_MAX,
@@ -48,6 +49,9 @@ export function validateOrder(
 
   const orderedOn = date("orderedOn", values.orderedOn);
   const channelId = id("channelId", values.channelId, ctx.channelExists, "unknownChannel");
+  const { status } = values;
+  if (!status) errors.status = { code: "required" };
+  else if (!isOrderStatus(status)) errors.status = { code: "unknownStatus" };
   const note = values.note.trim();
   if (note.length > NOTE_MAX) errors.note = { code: "tooLong", max: NOTE_MAX };
 
@@ -80,8 +84,9 @@ export function validateOrder(
     return { productId, description, quantity, unitPrice: (price ?? 0).toFixed(2), unitCost: (cost ?? 0).toFixed(2) };
   });
 
-  if (Object.keys(errors).length) return { errors };
-  return { input: { orderedOn, channelId, note, items } };
+  // An invalid status has already added an error; repeating the check here narrows the type.
+  if (Object.keys(errors).length || !isOrderStatus(status)) return { errors };
+  return { input: { orderedOn, channelId, status, note, items } };
 }
 
 export function validateExpense(

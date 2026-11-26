@@ -9,7 +9,7 @@ export interface FinanceKpisProps {
   summary: FinanceSummary;
 }
 
-/** Headline numbers of the period: earned, cost of goods, expenses, profit, and the order count. */
+/** Headline numbers: earned, cost of goods, expenses and profit of the period, money still awaited, and the order count. */
 export function FinanceKpis({ t, locale, summary }: FinanceKpisProps) {
   const money = (amount: number) => formatMoney(amount, locale);
   const profit = summary.income - summary.itemCost - summary.expenses;
@@ -17,11 +17,12 @@ export function FinanceKpis({ t, locale, summary }: FinanceKpisProps) {
 
   return (
     <>
-      <dl className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <dl className="grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))] gap-4">
         <KpiCard label={t.income} value={money(summary.income)} hint={t.incomeHint} />
         <KpiCard label={t.itemCost} value={money(summary.itemCost)} hint={t.itemCostHint} />
         <KpiCard label={t.expenses} value={money(summary.expenses)} hint={t.expensesHint} />
         <KpiCard label={t.profit} value={money(profit)} hint={t.profitHint} />
+        <KpiCard label={t.pending} value={money(summary.pending.amount)} hint={format(t.pendingHint, { count: summary.pending.orderCount })} />
       </dl>
       <p className="text-sm text-ink">
         <span className="font-medium text-charcoal">

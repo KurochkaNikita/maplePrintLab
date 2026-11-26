@@ -14,11 +14,11 @@ export function ProductSalesTiles({ t, locale, summary }: ProductSalesTilesProps
   return (
     <div className="space-y-3">
       <dl className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <KpiCard compact label={t.units} value={new Intl.NumberFormat(locale).format(summary.units)} />
-        <KpiCard compact label={t.revenue} value={formatMoney(summary.revenue, locale)} />
-        <KpiCard compact label={t.profit} value={formatMoney(summary.profit, locale)} />
-        <KpiCard compact label={t.orders} value={new Intl.NumberFormat(locale).format(summary.orders)} />
-        <KpiCard compact label={t.lastSold} value={summary.lastSoldOn ? formatDate(summary.lastSoldOn, locale) : "—"} />
+        <KpiCard label={t.units} value={new Intl.NumberFormat(locale).format(summary.units)} />
+        <KpiCard label={t.revenue} value={formatMoney(summary.revenue, locale)} />
+        <KpiCard label={t.profit} value={formatMoney(summary.profit, locale)} />
+        <KpiCard label={t.orders} value={new Intl.NumberFormat(locale).format(summary.orders)} />
+        <KpiCard label={t.lastSold} value={summary.lastSoldOn ? formatDate(summary.lastSoldOn, locale) : "—"} />
       </dl>
       <p className="text-sm text-ink">{t.scopeNote}</p>
       {summary.linesWithoutCost > 0 && (

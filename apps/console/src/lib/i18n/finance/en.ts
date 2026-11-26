@@ -16,14 +16,16 @@ export const financeEn: FinanceStrings = {
       period: { label: "Period", d30: "30 days", d90: "90 days", m12: "12 months", ytd: "Year to date" },
       kpi: {
         income: "Earned",
-        incomeHint: "Total sales",
+        incomeHint: "Paid for delivered orders",
         itemCost: "Cost of goods sold",
-        itemCostHint: "What the sold items cost to make",
+        itemCostHint: "Making what was delivered",
         expenses: "Expenses",
-        expensesHint: "Equipment, ads, packaging and more",
+        expensesHint: "Ads, equipment and more",
         profit: "Profit",
-        profitHint: "Earned − cost of goods − expenses",
-        orders: "Orders",
+        profitHint: "What is left after all costs",
+        pending: "Awaiting payment",
+        pendingHint: "Undelivered orders: {count}",
+        orders: "Paid orders",
         ordersHint: "Average order: {amount}",
       },
       chart: {
@@ -63,6 +65,7 @@ export const financeEn: FinanceStrings = {
         unknownChannel: "No such source, pick one from the list",
         unknownCategory: "No such category, pick one from the list",
         unknownProduct: "No such product, pick one from the list",
+        unknownStatus: "No such status, choose one from the list",
         itemsRequired: "Add at least one item",
       },
       formErrors: {
@@ -73,15 +76,17 @@ export const financeEn: FinanceStrings = {
     },
     orders: {
       metaTitle: "Orders",
+      status: { in_progress: "In progress", done: "Ready", delivered: "Delivered" },
       heading: "Orders",
-      description: "Sales: what we sold, for how much, what it cost us and where the order came from.",
+      description: "Sales: what we sold, where the order came from, what stage it is at and what we earned.",
       backToList: "Back to orders",
       list: {
         newButton: "New order",
         tableLabel: "Orders",
+        sortByStatus: "Reverse the order by status",
         emptyTitle: "No orders yet",
         emptyBody: "Add your first sale and it will show up here and on the Finance page.",
-        columns: { date: "Date", items: "Items", channel: "Source", revenue: "Earned", cost: "Cost", profit: "Profit" },
+        columns: { date: "Date", items: "Items", channel: "Source", status: "Status", profit: "Profit" },
         pagination: {
           label: "List pages",
           prev: "Previous",
@@ -94,6 +99,8 @@ export const financeEn: FinanceStrings = {
       edit: { metaTitle: "Order", heading: "Order of {date}", description: "Edit the order. Totals on the Finance page update right away." },
       form: {
         dateLabel: "Order date",
+        statusLabel: "Status",
+        statusPlaceholder: "Choose a status",
         channelLabel: "Where it came from",
         channelPlaceholder: "Choose a source",
         channelHint: "You can edit the sources in the Settings section.",

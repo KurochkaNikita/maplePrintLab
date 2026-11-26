@@ -13,6 +13,7 @@ import { format } from "@/lib/i18n";
 import ChartIcon from "@/icons/chart.svg";
 import CloseIcon from "@/icons/close.svg";
 import GridIcon from "@/icons/grid.svg";
+import HomeIcon from "@/icons/home.svg";
 import InboxIcon from "@/icons/inbox.svg";
 import ListIcon from "@/icons/list.svg";
 import MenuIcon from "@/icons/menu.svg";
@@ -29,9 +30,10 @@ export interface AdminShellProps {
 
 const navItems: {
   href: string;
-  key: "products" | "categories" | "collections" | "requests" | "finance" | "orders" | "expenses" | "settings";
+  key: "home" | "products" | "categories" | "collections" | "requests" | "finance" | "orders" | "expenses" | "settings";
   icon: ReactNode;
 }[] = [
+  { href: "/", key: "home", icon: <HomeIcon className="h-5 w-5 shrink-0" /> },
   {
     href: "/products",
     key: "products",
