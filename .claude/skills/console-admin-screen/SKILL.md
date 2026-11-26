@@ -38,7 +38,7 @@ If a page grows markup, move it to the screen. If a screen needs data it does no
 4. **Pages** under `src/app/(admin)/<section>/`: list `page.tsx`, `new/page.tsx`, `[id]/page.tsx`. `(admin)/layout.tsx` already guards the session. Add the path to the `matcher` in `src/proxy.ts` if it is a new top-level section. `params` and `searchParams` are Promises (Next 16). Start independent queries together with `Promise.all`; use React `cache()` when `generateMetadata` and the page need the same record.
 5. **Screens** in `src/screens/<section>/`, one per page.
 6. **Strings**: add every new string to **all three** dictionaries (`lib/i18n/ru.ts` defines the type, then `en.ts`, `fr.ts`); placeholders use `{name}` with `format()`. French uses Canadian style. No hard-coded text in components.
-7. **Nav**: add the section to `navItems` in `components/AdminShell.tsx` and `shell.nav` in the dictionaries.
+7. **Nav**: add the section to a group of `navGroups` in `components/nav/nav-groups.ts` and to `shell.nav` in the dictionaries.
 
 ## UI conventions
 

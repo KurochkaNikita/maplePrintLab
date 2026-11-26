@@ -32,6 +32,7 @@ export const ru = {
     genericError: "Не удалось выполнить вход. Попробуйте ещё раз.",
   },
   shell: {
+    navGroups: { sales: "Продажи", catalog: "Каталог", money: "Деньги" },
     nav: {
       home: "Главная",
       products: "Товары",

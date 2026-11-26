@@ -33,6 +33,7 @@ export const fr: Dictionary = {
     genericError: "Connexion impossible. Veuillez réessayer.",
   },
   shell: {
+    navGroups: { sales: "Ventes", catalog: "Catalogue", money: "Argent" },
     nav: {
       home: "Accueil",
       products: "Produits",

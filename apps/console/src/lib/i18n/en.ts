@@ -33,6 +33,7 @@ export const en: Dictionary = {
     genericError: "Could not sign in. Please try again.",
   },
   shell: {
+    navGroups: { sales: "Sales", catalog: "Catalogue", money: "Money" },
     nav: {
       home: "Home",
       products: "Products",

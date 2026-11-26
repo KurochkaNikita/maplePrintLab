@@ -9,58 +9,16 @@ import PublishBar from "@/components/PublishBar";
 import { authClient } from "@/lib/auth/client";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useT } from "@/components/LocaleProvider";
-import { format } from "@/lib/i18n";
-import ChartIcon from "@/icons/chart.svg";
+import NavGroupList from "@/components/nav/NavGroupList";
+import { navGroups } from "@/components/nav/nav-groups";
 import CloseIcon from "@/icons/close.svg";
-import GridIcon from "@/icons/grid.svg";
-import HomeIcon from "@/icons/home.svg";
-import InboxIcon from "@/icons/inbox.svg";
-import ListIcon from "@/icons/list.svg";
 import MenuIcon from "@/icons/menu.svg";
-import PackageIcon from "@/icons/package.svg";
-import ReceiptIcon from "@/icons/receipt.svg";
-import StarIcon from "@/icons/star.svg";
-import WalletIcon from "@/icons/wallet.svg";
 
 export interface AdminShellProps {
   children: ReactNode;
   /** Requests with status "new": shown as a badge next to "Requests" in the navigation. */
   newRequestCount?: number;
 }
-
-const navItems: {
-  href: string;
-  key: "home" | "products" | "categories" | "collections" | "requests" | "finance" | "orders" | "expenses" | "settings";
-  icon: ReactNode;
-}[] = [
-  { href: "/", key: "home", icon: <HomeIcon className="h-5 w-5 shrink-0" /> },
-  {
-    href: "/products",
-    key: "products",
-    icon: (
-      <PackageIcon className="h-5 w-5 shrink-0" />
-    ),
-  },
-  {
-    href: "/categories",
-    key: "categories",
-    icon: (
-      <GridIcon className="h-5 w-5 shrink-0" />
-    ),
-  },
-  {
-    href: "/collections",
-    key: "collections",
-    icon: (
-      <StarIcon className="h-5 w-5 shrink-0" />
-    ),
-  },
-  { href: "/requests", key: "requests", icon: <InboxIcon className="h-5 w-5 shrink-0" /> },
-  { href: "/finance", key: "finance", icon: <ChartIcon className="h-5 w-5 shrink-0" /> },
-  { href: "/orders", key: "orders", icon: <ReceiptIcon className="h-5 w-5 shrink-0" /> },
-  { href: "/expenses", key: "expenses", icon: <WalletIcon className="h-5 w-5 shrink-0" /> },
-  { href: "/settings", key: "settings", icon: <ListIcon className="h-5 w-5 shrink-0" /> },
-];
 
 export function AdminShell({
   children,
@@ -99,10 +57,6 @@ export function AdminShell({
     } finally {
       setIsLoggingOut(false);
     }
-  };
-
-  const isItemActive = (href: string) => {
-    return pathname === href || pathname.startsWith(`${href}/`);
   };
 
   return (
@@ -173,38 +127,16 @@ export function AdminShell({
           aria-label={t.a11y.primaryNav}
           className={`${
             mobileMenuOpen ? "block" : "hidden"
-          } border-b border-line bg-white px-4 py-4 lg:block lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r lg:bg-transparent lg:px-6 lg:py-8`}
+          } border-b border-line bg-white px-4 py-4 lg:block lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r lg:bg-transparent lg:px-6 lg:py-6`}
         >
-          <ul className="space-y-1.5">
-            {navItems.map((item) => {
-              const active = isItemActive(item.href);
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className={`flex min-h-11 items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors ${
-                      active
-                        ? "border-l-4 border-amber-deep bg-charcoal font-semibold text-filament shadow-sm"
-                        : "text-charcoal hover:bg-charcoal/5"
-                    }`}
-                  >
-                    {item.icon}
-                    <span>{t.shell.nav[item.key]}</span>
-                    {item.key === "requests" && newRequestCount > 0 && (
-                      <span className="ml-auto rounded-full bg-amber-deep px-2 py-0.5 text-xs font-semibold tabular-nums text-white">
-                        <span aria-hidden="true">{newRequestCount}</span>
-                        <span className="visually-hidden">{format(t.pages.requests.badgeLabel, { count: newRequestCount })}</span>
-                      </span>
-                    )}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          <div className="space-y-5">
+            {navGroups.map((group) => (
+              <NavGroupList key={group.id} group={group} pathname={pathname} newRequestCount={newRequestCount} />
+            ))}
+          </div>
 
           {/* Переключатель языка и кнопка «Выйти» внизу боковой панели */}
-          <div className="mt-6 space-y-3 border-t border-line pt-4">
+          <div className="mt-4 space-y-3">
             <LanguageSwitcher className="w-full" />
 
             <Button
