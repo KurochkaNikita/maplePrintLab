@@ -217,7 +217,7 @@ const en = {
   privacy: {
     badge: "Privacy",
     title: "Privacy policy",
-    updated: "Last updated: November 18, 2026",
+    updated: "Last updated: November 26, 2026",
     intro:
       "Maple Print Lab is a small 3D-printing studio in Coquitlam, BC, Canada. This page has two parts: the general policy for this website, and a separate policy for our internal Chrome extension.",
     tocHeading: "On this page",
@@ -273,7 +273,7 @@ const en = {
           },
           {
             heading: "Temporary storage",
-            body: "To pass the product from the admin page to the Facebook tab, the extension keeps the listing in the browser’s session storage. It is deleted right before the form is filled, and the browser clears it anyway when it closes. Nothing is saved permanently.",
+            body: "To pass the product from the admin page to the Facebook tab, the extension keeps the listing in the browser’s session storage. The pending copy is deleted right before the form is filled. The latest listing and the list of filled fields are also kept there, so the extension’s window can show them and let you copy the text. The next listing replaces them, and the browser clears them when it closes. Nothing is saved permanently.",
           },
           {
             heading: "Network access",

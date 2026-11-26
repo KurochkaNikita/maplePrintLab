@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Maple Print Lab: Marketplace filler</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <img src="icons/48.png" alt="" aria-hidden="true" width="40" height="40" />
+      <div>
+        <h1>Marketplace filler</h1>
+        <p>Maple Print Lab · <span id="version"></span></p>
+      </div>
+    </header>
+
+    <main>
+      <p>Fills the Facebook Marketplace listing form with a product from our admin. You always press <strong>Next</strong> and <strong>Publish</strong> yourself.</p>
+
+      <section aria-labelledby="last-fill-heading">
+        <h2 id="last-fill-heading">Last fill</h2>
+        <div id="last-fill"></div>
+        <p id="announcer" class="visually-hidden" role="status"></p>
+      </section>
+
+      <section aria-labelledby="how-heading">
+        <h2 id="how-heading">How to use</h2>
+        <ol>
+          <li>Open a published product in the admin.</li>
+          <li>Click <strong>To Marketplace</strong>.</li>
+          <li>Check the form, choose the category and publish.</li>
+        </ol>
+        <p class="note">Facebook’s interface language must be <strong>English (US)</strong>.</p>
+      </section>
+    </main>
+
+    <footer>
+      <a class="button primary" href="https://admin.mapleprintlab.store/" target="_blank" rel="noopener">Open admin</a>
+      <a href="https://mapleprintlab.store/en/privacy/" target="_blank" rel="noopener">Privacy policy</a>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

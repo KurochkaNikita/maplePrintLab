@@ -1,6 +1,7 @@
 import { STORAGE_KEY, isSupportedListing, type MarketplaceListing } from "../listing";
 import { CONDITION_NEW, LABELS, findDropdown, findOption, findTextField, isFormReady } from "./fields";
 import { attachPhotos } from "./photos";
+import { saveLastFill } from "../last-fill";
 import { showError, showOverlay, type OverlayRow } from "./overlay";
 
 const FORM_TIMEOUT_MS = 20_000;
@@ -101,12 +102,17 @@ async function main(): Promise<void> {
 
   // Remove first, so a tab refresh never fills the form a second time.
   await chrome.storage.session.remove(STORAGE_KEY);
+  // A separate copy for the popup. It is only displayed and copied, never used to fill the form.
+  await saveLastFill({ listing: stored, state: "filling" });
 
   if (!(await waitForForm())) {
+    await saveLastFill({ listing: stored, state: "form-not-found" });
     showError("The form did not load in 20 seconds. Reload the page and send the product again.");
     return;
   }
-  showOverlay(await fillForm(stored));
+  const rows = await fillForm(stored);
+  showOverlay(rows);
+  await saveLastFill({ listing: stored, state: "done", rows });
 }
 
 void main();

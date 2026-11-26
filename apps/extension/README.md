@@ -17,9 +17,13 @@ MARKETPLACE_EXTENSION_KEY="<public key>" yarn build:extension
 Without a `key` in the manifest, Chrome derives the ID from the folder path. To pin it: create a key pair once (`openssl genrsa -out key.pem 2048`, keep `key.pem` private and out of git), then
 `openssl rsa -in key.pem -pubout -outform DER | openssl base64 -A` gives the value for `MARKETPLACE_EXTENSION_KEY`. The build writes it into `dist/manifest.json` as `key`.
 
+## Popup
+
+Clicking the toolbar icon opens `src/popup/`: what the extension does, how to use it, and the **last fill** (title, price, which fields were filled, and copy buttons for the text values, for when a field has to be done by hand). It cannot fill the form again.
+
 ## How it works
 
-Admin → `chrome.runtime.sendMessage(EXTENSION_ID, …)` → `src/background.ts` checks the sender (`https://admin.mapleprintlab.store` or `http://localhost`) and the listing `version`, stores it in `chrome.storage.session` and opens the form. `src/content/fill.ts` waits for the form, **removes the listing from storage first** (a refresh never fills twice), fills the fields and shows a status card.
+Admin → `chrome.runtime.sendMessage(EXTENSION_ID, …)` → `src/background.ts` checks the sender (`https://admin.mapleprintlab.store` or `http://localhost`) and the listing `version`, stores it in `chrome.storage.session` and opens the form. `src/content/fill.ts` waits for the form, **removes the listing from storage first** (a refresh never fills twice), fills the fields and shows a status card. A separate copy for the popup (`lastFill`, `src/last-fill.ts`) stays in `chrome.storage.session` until the next fill or until the browser closes; the form is never filled from it.
 
 The listing type lives in `src/listing.ts` and is imported by the console.
 
@@ -42,7 +46,7 @@ The extension is distributed as an **Unlisted** item: not searchable, installabl
 3. Store listing: description, a 128 px icon (`icons/128.png`), at least one 1280×800 screenshot, category Productivity. **Visibility: Unlisted.**
 4. Privacy tab:
    - Single purpose: "Fills the Facebook Marketplace listing form with a product chosen in the Maple Print Lab admin. The user publishes the listing."
-   - `storage`: temporarily holds the product between the admin page and the Facebook tab (`chrome.storage.session`, deleted after filling).
+   - `storage`: temporarily holds the product between the admin page and the Facebook tab (`chrome.storage.session`). The latest product stays there so the popup can show it and copy its text, until the next one replaces it or the browser closes.
    - Host permissions (`*.public.blob.vercel-storage.com`, the shop domain): download product photos to attach to the form.
    - Content script on `facebook.com/marketplace/create/*`: fills the form fields.
    - Data usage: collects nothing, sells nothing, sends nothing to any server. Privacy policy URL: `https://mapleprintlab.store/en/privacy/` (a dedicated policy page; the store rejects a homepage or owner site as the policy link).

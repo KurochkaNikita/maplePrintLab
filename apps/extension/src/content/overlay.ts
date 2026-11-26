@@ -3,6 +3,8 @@ export type OverlayRow = { label: string; status: FieldStatus; note?: string };
 
 const ID = "mpl-marketplace-overlay";
 
+export const statusText = (status: FieldStatus): string => (status === "filled" ? "✓ Filled" : "✎ Do it yourself");
+
 /** Small status card in the corner. Status is text ("filled" / "do it yourself"), never colour alone. */
 export function showOverlay(rows: OverlayRow[], heading = "Maple Print Lab: form filled"): void {
   document.getElementById(ID)?.remove();
@@ -26,8 +28,7 @@ export function showOverlay(rows: OverlayRow[], heading = "Maple Print Lab: form
   for (const row of rows) {
     const li = document.createElement("li");
     li.style.cssText = "padding:2px 0";
-    const mark = row.status === "filled" ? "✓ Filled" : "✎ Do it yourself";
-    li.textContent = `${mark}: ${row.label}${row.note ? ` (${row.note})` : ""}`;
+    li.textContent = `${statusText(row.status)}: ${row.label}${row.note ? ` (${row.note})` : ""}`;
     list.append(li);
   }
   box.append(list);
