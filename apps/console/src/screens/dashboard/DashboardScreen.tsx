@@ -1,5 +1,6 @@
 import type { FinanceSummary, OrderListItem, OrderStageCounts, PopularItem } from "@maple-print-lab/db";
 import AttentionBlock from "@/components/dashboard/AttentionBlock";
+import ExtensionCard from "@/components/dashboard/ExtensionCard";
 import MonthMoney from "@/components/dashboard/MonthMoney";
 import OrderQueue from "@/components/dashboard/OrderQueue";
 import PopularItems from "@/components/dashboard/PopularItems";
@@ -31,6 +32,7 @@ export function DashboardScreen({ t, locale, today, newRequests, stages, queue, 
     <div className="space-y-8">
       <PageHeader title={p.heading} description={p.description} />
       <QuickActions t={p.actions} />
+      <ExtensionCard t={p.extension} />
       <AttentionBlock t={p.attention} newRequests={newRequests} stages={stages} />
       <OrderQueue t={p.queue} statusLabels={t.pages.orders.status} locale={locale} orders={queue} today={today} />
       <MonthMoney t={p.money} locale={locale} current={current} previous={previous} />

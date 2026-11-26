@@ -10,4 +10,8 @@ export const MARKETPLACE_DEFAULTS = {
   leadTimeDays: 5,
 };
 
+/** Unlisted Chrome Web Store item: it can be installed only from this link. */
+export const MARKETPLACE_EXTENSION_STORE_URL =
+  "https://chromewebstore.google.com/detail/maple-print-lab-marketpla/kiopiinjlnboipacmnbeelpdkkaadgeg";
+
 export const MARKETPLACE_EXTENSION_ID = process.env.NEXT_PUBLIC_MARKETPLACE_EXTENSION_ID ?? "";

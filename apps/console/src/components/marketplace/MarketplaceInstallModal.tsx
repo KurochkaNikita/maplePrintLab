@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import ExtensionStoreLink from "@/components/marketplace/ExtensionStoreLink";
 import Modal from "@/components/Modal";
 import type { Dictionary } from "@/lib/i18n";
 
@@ -16,7 +17,8 @@ export function MarketplaceInstallModal({ t, onClose }: MarketplaceInstallModalP
           <li key={step}>{step}</li>
         ))}
       </ol>
-      <div className="flex justify-end">
+      <div className="flex flex-wrap justify-end gap-3">
+        <ExtensionStoreLink label={t.storeLink} newTab={t.storeLinkNewTab} />
         <Button onClick={onClose}>{t.close}</Button>
       </div>
     </Modal>

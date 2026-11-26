@@ -9,6 +9,13 @@ export const dashboardEn = {
     newExpense: "New expense",
     newProduct: "New product",
   },
+  extension: {
+    hide: "Hide for a month",
+    title: "Quick listing",
+    body: "To fill in a Facebook Marketplace listing quickly, use our Chrome extension: open a published product and click “To Marketplace”. You press Publish yourself.",
+    link: "Install the extension",
+    newTab: "(opens in a new tab)",
+  },
   attention: {
     title: "Needs attention",
     newRequests: "New requests",

@@ -9,6 +9,13 @@ export const dashboardFr = {
     newExpense: "Nouvelle dépense",
     newProduct: "Nouveau produit",
   },
+  extension: {
+    hide: "Masquer pendant un mois",
+    title: "Publication rapide",
+    body: "Pour remplir rapidement une annonce Facebook Marketplace, utilisez notre extension Chrome : ouvrez un produit publié et cliquez sur « Vers Marketplace ». C’est vous qui publiez.",
+    link: "Installer l’extension",
+    newTab: "(s’ouvre dans un nouvel onglet)",
+  },
   attention: {
     title: "À surveiller",
     newRequests: "Nouvelles demandes",
