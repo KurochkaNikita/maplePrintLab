@@ -1,50 +1,26 @@
 "use client";
 
-import { useRef } from "react";
 import Checkbox from "@/components/Checkbox";
 import InputField from "@/components/InputField";
 import { useT } from "@/components/LocaleProvider";
-import { useProductFormContext } from "@/hooks/useProductFormContext";
-import { DIMENSION_AXES, DIMENSION_UNITS, convertLength, type DimensionUnit } from "@/lib/products/dimensions";
-import { fieldId } from "@/lib/products/types";
 import Switch from "@/components/Switch";
+import { useProductFormContext } from "@/hooks/useProductFormContext";
+import { fieldId } from "@/lib/products/types";
 import PriceTiersEditor from "./PriceTiersEditor";
-import { errorText, withDimension } from "./shared";
+import ProductCostSection from "./ProductCostSection";
+import ProductPriceComparison from "./ProductPriceComparison";
+import { errorText } from "./shared";
 
+/** First our cost of one piece, then the selling price, then how it compares. */
 export function PricingTab() {
   const { values, errors, change: onChange } = useProductFormContext();
   const dict = useT();
   const t = dict.pages.products.form.pricing;
   const err = (key: string) => errorText(errors, key, dict);
-  // Value when a size field gained focus: the other unit is recalculated only if it changed.
-  const onFocusValue = useRef("");
-
-  /**
-   * Keeps the units in step (cm <-> in) after the user leaves a size field, but never overwrites
-   * a hand-set value (e.g. 10 in) just because the field was visited.
-   */
-  const syncOtherUnit = (unit: DimensionUnit, index: number, value: string) => {
-    if (value === onFocusValue.current) return;
-    const other = unit === "cm" ? "in" : "cm";
-    const converted = convertLength(value, unit);
-    if (converted !== null) {
-      onChange(withDimension(values, other, index, converted), `dimensions.${other}.${index}`);
-    }
-  };
 
   return (
     <div className="space-y-8">
-      <InputField
-        id={fieldId("material")}
-        label={t.materialLabel}
-        required
-        hint={t.materialHint}
-        error={err("material")}
-        className="max-w-sm"
-        name="material"
-        value={values.material}
-        onChange={(v) => onChange({ ...values, material: v }, "material")}
-      />
+      <ProductCostSection />
 
       <Switch
         label={t.modeTiers}
@@ -80,51 +56,7 @@ export function PricingTab() {
         <PriceTiersEditor />
       )}
 
-      <InputField
-        id={fieldId("costAmount")}
-        label={t.cost.label}
-        hint={t.cost.hint}
-        error={err("costAmount")}
-        className="max-w-sm"
-        name="costAmount"
-        inputMode="decimal"
-        autoComplete="off"
-        value={values.costAmount}
-        onChange={(v) => onChange({ ...values, costAmount: v }, "costAmount")}
-      />
-
-      <fieldset className="space-y-4">
-        <legend className="font-display text-lg font-semibold text-charcoal">{t.dimensionsLabel}</legend>
-        <p className="text-sm text-ink">{t.dimensionsHint}</p>
-
-        <div className="grid gap-6 lg:grid-cols-2">
-          {DIMENSION_UNITS.map((unit) => (
-            <fieldset key={unit} className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:p-6">
-              <legend className="px-2 text-sm font-semibold text-charcoal">{unit === "cm" ? t.cm : t.inch}</legend>
-              <div className="grid grid-cols-3 gap-3">
-                {DIMENSION_AXES.map((axis, index) => {
-                  const key = `dimensions.${unit}.${index}`;
-                  return (
-                    <InputField
-                      key={axis}
-                      id={fieldId(key)}
-                      label={t[axis]}
-                      required
-                      error={err(key)}
-                      inputMode="decimal"
-                      autoComplete="off"
-                      value={values.dimensions[unit][index]}
-                      onChange={(v) => onChange(withDimension(values, unit, index, v), key)}
-                      onFocus={(e) => (onFocusValue.current = e.target.value)}
-                      onBlur={(e) => syncOtherUnit(unit, index, e.target.value)}
-                    />
-                  );
-                })}
-              </div>
-            </fieldset>
-          ))}
-        </div>
-      </fieldset>
+      <ProductPriceComparison />
     </div>
   );
 }

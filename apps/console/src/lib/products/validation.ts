@@ -1,4 +1,6 @@
-import type { PriceTier, ProductInput, ProductTextInput } from "@maple-print-lab/db";
+import type { PriceTier, PrintJob, ProductInput, ProductTextInput } from "@maple-print-lab/db";
+import { totalCost } from "@/lib/print-cost/calc";
+import { parsePrintCost } from "@/lib/print-cost/values";
 import {
   PRODUCT_LOCALES,
   MAX_PHOTOS,
@@ -138,9 +140,19 @@ export function validateProduct(
     }
   }
 
-  // Cost is optional: a product without one just prefills an empty cost in new orders.
+  // With a printer chosen the cost is calculated. Otherwise it is optional: a product without one just
+  // prefills an empty cost in new orders.
   let costAmount: string | null = null;
-  if (values.costAmount.trim()) {
+  let printJob: PrintJob | null = null;
+  if (values.print.printer) {
+    const result = parsePrintCost(values.print);
+    if ("job" in result) {
+      printJob = result.job;
+      costAmount = totalCost(result.job).toFixed(2);
+    } else {
+      for (const [field, error] of Object.entries(result.errors)) errors[`print.${field}`] = error;
+    }
+  } else if (values.costAmount.trim()) {
     const cost = parseDecimal(values.costAmount.trim(), 2);
     if (cost === null || cost >= 100_000_000) errors.costAmount = { code: "invalidPrice" };
     else costAmount = cost.toFixed(2);
@@ -202,6 +214,7 @@ export function validateProduct(
       // "From" only makes sense next to a price the admin typed in.
       priceFrom: values.priceMode === "tiers" ? false : values.priceFrom,
       costAmount,
+      printJob,
       dimensions: { cm, in: inches },
       images,
       translations,

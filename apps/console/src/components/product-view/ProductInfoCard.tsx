@@ -5,9 +5,11 @@ import { format, type Dictionary, type Locale } from "@/lib/i18n";
 import { basePrice, unitMargin } from "@/lib/products/margin";
 import InfoRow from "./InfoRow";
 import PriceTiersTable from "./PriceTiersTable";
+import ProductPrintDetails from "./ProductPrintDetails";
 
 export interface ProductInfoCardProps {
   t: Dictionary["pages"]["products"]["view"]["info"];
+  printCost: Dictionary["printCost"];
   locale: Locale;
   product: ProductRecord;
   collectionTitles: string[];
@@ -16,7 +18,7 @@ export interface ProductInfoCardProps {
 const join = (values: readonly number[]) => values.join(" × ");
 
 /** Price, cost, margin per piece, size, collections and the last change. Read-only: copy and SEO live in the editor. */
-export function ProductInfoCard({ t, locale, product, collectionTitles }: ProductInfoCardProps) {
+export function ProductInfoCard({ t, printCost, locale, product, collectionTitles }: ProductInfoCardProps) {
   const money = (amount: number) => formatMoney(amount, locale);
   const base = basePrice(product);
   const margin = unitMargin(product);
@@ -48,6 +50,7 @@ export function ProductInfoCard({ t, locale, product, collectionTitles }: Produc
           ) : (
             money(Number(product.costAmount))
           )}
+          {product.printJob && <ProductPrintDetails t={printCost} locale={locale} job={product.printJob} />}
         </InfoRow>
         <InfoRow label={t.margin}>
           {margin ? (

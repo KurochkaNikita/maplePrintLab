@@ -2,7 +2,6 @@
 
 import type { ReactNode } from "react";
 import type { FinanceOption, ProductSaleOption } from "@maple-print-lab/db";
-import Button from "@/components/Button";
 import FormActionBar from "@/components/FormActionBar";
 import FormError from "@/components/FormError";
 import InputField from "@/components/InputField";
@@ -14,7 +13,7 @@ import { errorText } from "@/lib/finance/error-text";
 import { ORDER_STATUSES } from "@/lib/finance/order-status";
 import { fieldId, type OrderFormValues } from "@/lib/finance/types";
 import { format } from "@/lib/i18n";
-import OrderItemCard from "./OrderItemCard";
+import OrderItems from "./OrderItems";
 import OrderTotals from "./OrderTotals";
 
 export interface OrderFormProps {
@@ -39,7 +38,6 @@ export function OrderForm({ target, initialValues, channels, products, actions }
 
   const banner = f.errorTotal ? format(t.errorSummary, { count: f.errorTotal }) : null;
   const submitLabel = f.saving ? t.actions.saving : f.isEdit ? t.actions.save : t.actions.create;
-  const itemsError = err("items");
 
   return (
     <form onSubmit={f.submit} noValidate className="space-y-6">
@@ -98,31 +96,7 @@ export function OrderForm({ target, initialValues, channels, products, actions }
         />
       </div>
 
-      <fieldset className="rounded-2xl border border-line bg-white p-4 shadow-sm sm:p-6">
-        <legend className="px-2 font-display text-lg font-semibold text-charcoal">{t.items.legend}</legend>
-        <ul className="space-y-6">
-          {values.items.map((item, index) => (
-            <OrderItemCard
-              key={index}
-              index={index}
-              item={item}
-              errors={errors}
-              products={products}
-              onChange={f.setItem}
-              onPickProduct={f.pickProduct}
-              onRemove={f.removeItem}
-            />
-          ))}
-        </ul>
-        <Button id={fieldId("of", "items")} type="button" variant="secondary" size="sm" className="mt-4" onClick={f.addItem}>
-          {t.items.add}
-        </Button>
-        {itemsError && (
-          <p role="alert" className="mt-2 text-sm font-medium text-amber-deep">
-            {itemsError}
-          </p>
-        )}
-      </fieldset>
+      <OrderItems form={f} products={products} error={err("items")} />
 
       <OrderTotals {...f.totals} />
 

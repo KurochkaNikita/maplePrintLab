@@ -16,6 +16,7 @@ import {
 import { sql } from "drizzle-orm";
 import { ORDER_REQUEST_STATUSES, type OrderRequestStatus } from "./order-request-status";
 import { ORDER_STATUSES, type OrderStatus } from "./order-status";
+import type { PrintJob } from "./print-job";
 
 /** JSON shapes stored in jsonb columns. */
 export type PriceTier = { from: number; to?: number; amount: number };
@@ -117,6 +118,8 @@ export const products = pgTable(
     priceFrom: boolean("price_from").notNull().default(false),
     /** What one piece costs us to make (material, power, packaging). Null = not entered yet. Prefills new order lines. */
     costAmount: numeric("cost_amount", { precision: 10, scale: 2 }),
+    /** How `cost_amount` was calculated; null when the cost was typed in by hand. */
+    printJob: jsonb("print_job").$type<PrintJob>(),
     dimensions: jsonb("dimensions").$type<Dimensions>().notNull(),
     published: boolean("published").notNull().default(true),
     /** Page stays live but gets `noindex` and is left out of the sitemap. */
@@ -239,6 +242,8 @@ export const orderItems = pgTable(
     quantity: integer("quantity").notNull().default(1),
     unitPrice: numeric("unit_price", { precision: 10, scale: 2 }).notNull(),
     unitCost: numeric("unit_cost", { precision: 10, scale: 2 }).notNull().default("0"),
+    /** How `unit_cost` was calculated; null when it was typed in by hand. */
+    printJob: jsonb("print_job").$type<PrintJob>(),
   },
   (t) => [index("order_items_order_idx").on(t.orderId), index("order_items_product_idx").on(t.productId)],
 );

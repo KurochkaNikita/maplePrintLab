@@ -15,6 +15,7 @@ import {
   type Highlight,
   type PriceTier,
 } from "./schema";
+import type { PrintJob } from "./print-job";
 import { PRODUCT_LOCALES, productPath, type ProductLocale } from "./locales";
 
 export { PRODUCT_LOCALES, productPath, type ProductLocale };
@@ -54,6 +55,8 @@ export type ProductInput = {
   priceFrom: boolean;
   /** Our cost of one piece, or null when not entered. */
   costAmount: string | null;
+  /** The calculation behind `costAmount`, or null when it was typed in. */
+  printJob: PrintJob | null;
   dimensions: Dimensions;
   /** Main photo first; the position is the index. */
   images: ProductImageInput[];
@@ -228,6 +231,7 @@ export async function findProduct(db: Db, id: number): Promise<ProductRecord | n
     priceTiers: row.priceTiers,
     priceFrom: row.priceFrom,
     costAmount: row.costAmount,
+    printJob: row.printJob,
     dimensions: row.dimensions,
     updatedAt: row.updatedAt,
     images: imageRows.map((img) => ({ file: img.file, width: img.width, height: img.height, alts: img.alts })),
@@ -298,6 +302,7 @@ function productRow(input: ProductInput) {
     priceTiers: input.priceTiers,
     priceFrom: input.priceFrom,
     costAmount: input.costAmount,
+    printJob: input.printJob,
     dimensions: input.dimensions,
   };
 }

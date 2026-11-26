@@ -1,3 +1,5 @@
+import type { PrintCostValues } from "@/lib/print-cost/types";
+
 /** Form values are strings; numbers are parsed in `validation.ts`. */
 export type OrderItemValues = {
   /** Catalogue product id, or "" for a custom item. */
@@ -5,7 +7,9 @@ export type OrderItemValues = {
   description: string;
   quantity: string;
   unitPrice: string;
+  /** Typed in by hand; ignored while `print.printer` is chosen. */
   unitCost: string;
+  print: PrintCostValues;
 };
 
 export type OrderFormValues = {
@@ -31,6 +35,7 @@ export type ErrorCode =
   | "tooLong"
   | "invalidNumber"
   | "invalidPrice"
+  | "invalidTime"
   | "invalidDate"
   | "unknownChannel"
   | "unknownCategory"
@@ -40,7 +45,7 @@ export type ErrorCode =
 
 export type FieldError = { code: ErrorCode; max?: number };
 
-/** Keyed by field path: `orderedOn`, `channelId`, `status`, `items`, `items.<i>.description|quantity|unitPrice|unitCost|productId`. */
+/** Keyed by field path: `orderedOn`, `channelId`, `status`, `items`, `items.<i>.description|quantity|unitPrice|unitCost|productId`, `items.<i>.print.<field>`. */
 export type FieldErrors = Record<string, FieldError>;
 
 export type FormErrorKind = "forbidden" | "notFound" | "unknown";

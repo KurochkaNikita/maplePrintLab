@@ -1,4 +1,5 @@
 import type { Dictionary } from "./index";
+import { printCostFr } from "./print-cost/fr";
 import { financeFr } from "./finance/fr";
 import { requestsFr } from "./requests/fr";
 import { dashboardFr } from "./dashboard/fr";
@@ -53,6 +54,7 @@ export const fr: Dictionary = {
       forbidden: "Accès refusé : reconnectez-vous",
     },
   },
+  printCost: printCostFr,
   pages: {
     ...financeFr.pages,
     ...requestsFr.pages,
@@ -207,7 +209,8 @@ export const fr: Dictionary = {
         tabs: {
           general: "Général",
           content: "Contenu",
-          pricing: "Prix et dimensions",
+          pricing: "Prix",
+          size: "Dimensions et matériau",
           images: "Photos",
           seo: "SEO",
         },
@@ -334,6 +337,7 @@ export const fr: Dictionary = {
           slugTaken: "Un autre produit utilise déjà ce slug",
           tooLong: "Trop long : {max} caractères au maximum",
           invalidNumber: "Saisissez un nombre positif",
+          invalidTime: "Nombres entiers : heures jusqu’à 999, minutes de 0 à 59",
           invalidPrice: "Saisissez un prix supérieur à zéro, avec deux décimales au plus",
           tierOrder: "Les plages doivent être croissantes, sans chevauchement",
           tiersRequired: "Ajoutez au moins un palier ou choisissez « Un seul prix »",

@@ -1,4 +1,6 @@
-import type { ExpenseInput, OrderInput, OrderItemInput } from "@maple-print-lab/db";
+import type { ExpenseInput, OrderInput, OrderItemInput, PrintJob } from "@maple-print-lab/db";
+import { totalCost } from "@/lib/print-cost/calc";
+import { parsePrintCost } from "@/lib/print-cost/values";
 import { isValidDate, parseMoney } from "./money";
 import { isOrderStatus } from "./order-status";
 import {
@@ -76,12 +78,25 @@ export function validateOrder(
     if (item.unitPrice.trim() === "") errors[key("unitPrice")] = { code: "required" };
     else if (price === null) errors[key("unitPrice")] = { code: "invalidPrice" };
 
-    // Cost is required (0 is allowed): a blank cost must not silently count as pure profit.
-    const cost = item.unitCost.trim() === "" ? null : parseMoney(item.unitCost);
-    if (item.unitCost.trim() === "") errors[key("unitCost")] = { code: "required" };
-    else if (cost === null) errors[key("unitCost")] = { code: "invalidPrice" };
+    // With a printer chosen the cost is calculated here, never taken from the client.
+    let printJob: PrintJob | null = null;
+    let cost: number | null = null;
+    if (item.print.printer) {
+      const result = parsePrintCost(item.print);
+      if ("job" in result) {
+        printJob = result.job;
+        cost = totalCost(result.job);
+      } else {
+        for (const [field, error] of Object.entries(result.errors)) errors[key(`print.${field}`)] = error;
+      }
+    } else {
+      // Cost is required (0 is allowed): a blank cost must not silently count as pure profit.
+      cost = item.unitCost.trim() === "" ? null : parseMoney(item.unitCost);
+      if (item.unitCost.trim() === "") errors[key("unitCost")] = { code: "required" };
+      else if (cost === null) errors[key("unitCost")] = { code: "invalidPrice" };
+    }
 
-    return { productId, description, quantity, unitPrice: (price ?? 0).toFixed(2), unitCost: (cost ?? 0).toFixed(2) };
+    return { productId, description, quantity, unitPrice: (price ?? 0).toFixed(2), unitCost: (cost ?? 0).toFixed(2), printJob };
   });
 
   // An invalid status has already added an error; repeating the check here narrows the type.

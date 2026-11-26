@@ -1,109 +1,51 @@
 "use client";
 
 import type { ProductSaleOption } from "@maple-print-lab/db";
-import InputField from "@/components/InputField";
-import { useLocale, useT } from "@/components/LocaleProvider";
-import RepeatableItem from "@/components/RepeatableItem";
-import SelectField from "@/components/SelectField";
-import { errorText } from "@/lib/finance/error-text";
-import { formatMoney } from "@/lib/finance/format";
-import { lineAmounts } from "@/lib/finance/totals";
-import { fieldId, type FieldErrors, type OrderItemValues } from "@/lib/finance/types";
-import { format } from "@/lib/i18n";
+import type { FieldErrors, OrderItemValues } from "@/lib/finance/types";
+import type { PrintCostValues } from "@/lib/print-cost/types";
+import OrderItemDetails from "./OrderItemDetails";
+import OrderItemHeader from "./OrderItemHeader";
+import OrderItemPricing from "./OrderItemPricing";
 
 export interface OrderItemCardProps {
   index: number;
   item: OrderItemValues;
   errors: FieldErrors;
   products: ProductSaleOption[];
+  collapsed: boolean;
+  onToggle: (index: number) => void;
   onChange: (index: number, patch: Partial<OrderItemValues>) => void;
   onPickProduct: (index: number, productId: string) => void;
+  onPickCustom: (index: number, typed: string) => void;
+  onPrintChange: (index: number, print: PrintCostValues) => void;
   onRemove: (index: number) => void;
 }
 
-/** One order line: a catalogue product or a custom item, its quantity, price and our cost. */
-export function OrderItemCard({ index, item, errors, products, onChange, onPickProduct, onRemove }: OrderItemCardProps) {
-  const dict = useT();
-  const locale = useLocale();
-  const t = dict.pages.orders.form.items;
-  const n = index + 1;
-  const key = (field: string) => `items.${index}.${field}`;
-  const id = (field: string) => fieldId("of", key(field));
-  const err = (field: string) => errorText(errors, key(field), dict);
-  const profit = lineAmounts(item).profit;
+/** One product of the order as its own foldable card. */
+export function OrderItemCard({ collapsed, onToggle, onRemove, ...line }: OrderItemCardProps) {
+  const titleId = `of-item-${line.index}-title`;
+  const bodyId = `of-item-${line.index}-body`;
 
   return (
-    <RepeatableItem
-      id={`of-item-${index}`}
-      title={format(t.itemTitle, { n })}
-      removeLabel={format(t.remove, { n })}
-      onRemove={() => onRemove(index)}
-      bodyClassName="sm:grid-cols-6"
-    >
-      <SelectField
-        id={id("productId")}
-        label={t.productLabel}
-        hint={t.productHint}
-        error={err("productId")}
-        className="sm:col-span-6"
-        value={item.productId}
-        onChange={(v) => onPickProduct(index, v)}
-      >
-        <option value="">{t.productCustom}</option>
-        {products.map((p) => (
-          <option key={p.id} value={p.id}>
-            {p.title}
-          </option>
-        ))}
-      </SelectField>
-
-      <InputField
-        id={id("description")}
-        label={t.descriptionLabel}
-        required
-        hint={item.productId ? undefined : t.descriptionHint}
-        error={err("description")}
-        className="sm:col-span-6"
-        autoComplete="off"
-        value={item.description}
-        onChange={(v) => onChange(index, { description: v })}
+    // No overflow-hidden: the product suggestions open over the card's edge.
+    <li aria-labelledby={titleId} className="rounded-2xl border border-line bg-white shadow-sm">
+      <OrderItemHeader
+        titleId={titleId}
+        bodyId={bodyId}
+        number={line.index + 1}
+        item={line.item}
+        collapsed={collapsed}
+        onToggle={() => onToggle(line.index)}
+        onRemove={() => onRemove(line.index)}
       />
-      <InputField
-        id={id("quantity")}
-        label={t.quantityLabel}
-        required
-        error={err("quantity")}
-        className="sm:col-span-2"
-        inputMode="numeric"
-        autoComplete="off"
-        value={item.quantity}
-        onChange={(v) => onChange(index, { quantity: v })}
-      />
-      <InputField
-        id={id("unitPrice")}
-        label={t.priceLabel}
-        required
-        error={err("unitPrice")}
-        className="sm:col-span-2"
-        inputMode="decimal"
-        autoComplete="off"
-        value={item.unitPrice}
-        onChange={(v) => onChange(index, { unitPrice: v })}
-      />
-      <InputField
-        id={id("unitCost")}
-        label={t.costLabel}
-        required
-        hint={t.costHint}
-        error={err("unitCost")}
-        className="sm:col-span-2"
-        inputMode="decimal"
-        autoComplete="off"
-        value={item.unitCost}
-        onChange={(v) => onChange(index, { unitCost: v })}
-      />
-      <p className="text-sm font-medium text-charcoal sm:col-span-6">{format(t.lineProfit, { amount: formatMoney(profit, locale) })}</p>
-    </RepeatableItem>
+      {/* Folded, not unmounted: focus can move to a field as soon as the card opens. */}
+      <div id={bodyId} hidden={collapsed} className="p-4 sm:p-6">
+        <div className="space-y-5">
+          <OrderItemDetails {...line} />
+          <OrderItemPricing {...line} />
+        </div>
+      </div>
+    </li>
   );
 }
 

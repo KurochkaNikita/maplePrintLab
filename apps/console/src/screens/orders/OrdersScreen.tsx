@@ -29,8 +29,9 @@ export function OrdersScreen({ t, locale, orders, total, page, pageCount, pageSi
   const getHref = (target: number) => ordersListHref({ statusDir, page: target });
 
   const columns: DataTableColumn<OrderListItem>[] = [
-    { id: "items", header: p.list.columns.items, className: "max-w-xs truncate", cell: (o) => o.summary || "—" },
-   { id: "channel", header: p.list.columns.channel, cell: (o) => o.channelName },
+    // The row header holds the link that opens the order: without it the rows cannot be clicked.
+    { id: "items", header: p.list.columns.items, rowHeader: true, cell: (o) => <span className="block max-w-xs truncate">{o.summary || "—"}</span> },
+    { id: "channel", header: p.list.columns.channel, cell: (o) => o.channelName },
     {
       id: "status",
       header: p.list.columns.status,
@@ -40,7 +41,6 @@ export function OrdersScreen({ t, locale, orders, total, page, pageCount, pageSi
     },
     { id: "date", header: p.list.columns.date, className: "whitespace-nowrap", cell: (o) => formatDate(o.orderedOn, locale) },
     { id: "profit", header: p.list.columns.profit, className: numeric, headerClassName: "text-right", cell: (o) => money(o.revenue - o.cost) },
-
   ];
 
   return (

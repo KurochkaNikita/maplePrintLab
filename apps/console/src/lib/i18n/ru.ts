@@ -1,3 +1,4 @@
+import { printCostRu } from "./print-cost/ru";
 import { financeRu } from "./finance/ru";
 import { requestsRu } from "./requests/ru";
 import { dashboardRu } from "./dashboard/ru";
@@ -52,6 +53,7 @@ export const ru = {
       forbidden: "Нет доступа: войдите снова",
     },
   },
+  printCost: printCostRu,
   pages: {
     ...financeRu.pages,
     ...requestsRu.pages,
@@ -207,7 +209,8 @@ export const ru = {
         tabs: {
           general: "Основное",
           content: "Описание",
-          pricing: "Цена и размеры",
+          pricing: "Цена",
+          size: "Размеры и материал",
           images: "Фото",
           seo: "SEO",
         },
@@ -335,6 +338,7 @@ export const ru = {
           slugTaken: "Такой slug уже занят другим товаром",
           tooLong: "Слишком длинно: не больше {max} символов",
           invalidNumber: "Введите положительное число",
+          invalidTime: "Целые числа: часы до 999, минуты от 0 до 59",
           invalidPrice: "Введите цену больше нуля, не более двух знаков после запятой",
           tierOrder: "Диапазоны идут по возрастанию, без пересечений",
           tiersRequired: "Добавьте хотя бы одну ступень или выберите «Одна цена»",

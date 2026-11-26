@@ -1,4 +1,5 @@
 import type { ExpenseRecord, OrderRecord } from "@maple-print-lab/db";
+import { emptyPrintCost, toPrintCostValues } from "@/lib/print-cost/values";
 import type { ExpenseFormValues, OrderFormValues, OrderItemValues } from "./types";
 
 export const emptyOrderItem = (): OrderItemValues => ({
@@ -7,6 +8,7 @@ export const emptyOrderItem = (): OrderItemValues => ({
   quantity: "1",
   unitPrice: "",
   unitCost: "",
+  print: emptyPrintCost(),
 });
 
 export function emptyOrderValues(today: string): OrderFormValues {
@@ -25,6 +27,7 @@ export function toOrderFormValues(order: OrderRecord): OrderFormValues {
       quantity: String(item.quantity),
       unitPrice: item.unitPrice,
       unitCost: item.unitCost,
+      print: toPrintCostValues(item.printJob),
     })),
   };
 }

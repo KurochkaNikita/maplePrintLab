@@ -1,5 +1,6 @@
 // Not "@maple-print-lab/db": this file is imported by client components, and the package root pulls in the DB driver.
 import { PRODUCT_LOCALES, productPath, type ProductLocale } from "@maple-print-lab/db/src/locales";
+import type { PrintCostValues } from "@/lib/print-cost/types";
 
 export { PRODUCT_LOCALES, productPath, type ProductLocale };
 
@@ -61,6 +62,8 @@ export type ProductFormValues = {
   priceFrom: boolean;
   /** Our cost of one piece; optional, blank means "not entered". */
   costAmount: string;
+  /** With a printer chosen, the saved cost is calculated from this instead. */
+  print: PrintCostValues;
   /** One value for every language (stored on each translation row). */
   material: string;
   /** Main photo first. */
@@ -77,6 +80,7 @@ export type ErrorCode =
   | "tooLong"
   | "invalidNumber"
   | "invalidPrice"
+  | "invalidTime"
   | "tierOrder"
   | "tiersRequired"
   | "photoRequired"
@@ -99,13 +103,14 @@ export type ActionResult =
   | { ok: false; errors: FieldErrors }
   | { ok: false; formError: "forbidden" | "notFound" | "unknown" };
 
-export type TabId = "general" | "content" | "pricing" | "images" | "seo";
-export const TAB_IDS: readonly TabId[] = ["general", "content", "pricing", "images", "seo"];
+export type TabId = "general" | "content" | "pricing" | "size" | "images" | "seo";
+export const TAB_IDS: readonly TabId[] = ["general", "content", "pricing", "size", "images", "seo"];
 
 /** Which tab holds the input behind a `FieldErrors` key. */
 export function tabOfField(key: string): TabId {
   if (key === "photos" || key.startsWith("photos.")) return "images";
-  if (key.startsWith("dimensions.") || key === "priceAmount" || key === "costAmount" || key === "material" || key.startsWith("priceTiers")) return "pricing";
+  if (key === "material" || key.startsWith("dimensions.")) return "size";
+  if (key === "priceAmount" || key === "costAmount" || key.startsWith("print.") || key.startsWith("priceTiers")) return "pricing";
   const [locale, field] = key.split(".");
   if (locale && (PRODUCT_LOCALES as readonly string[]).includes(locale)) {
     return field === "seoTitle" || field === "seoDescription" ? "seo" : "content";
@@ -126,7 +131,7 @@ export function localeOfField(key: string): ProductLocale | null {
 
 /** Number of invalid fields per tab, for the badges on the tab buttons. */
 export function countErrorsByTab(errors: FieldErrors): Record<TabId, number> {
-  const counts: Record<TabId, number> = { general: 0, content: 0, pricing: 0, images: 0, seo: 0 };
+  const counts: Record<TabId, number> = { general: 0, content: 0, pricing: 0, size: 0, images: 0, seo: 0 };
   for (const key of Object.keys(errors)) counts[tabOfField(key)] += 1;
   return counts;
 }

@@ -31,7 +31,7 @@ export function ProductScreen({ t, locale, product, categoryTitle, collectionTit
     <div className="space-y-8">
       {justCreated && <ProductCreatedToast productId={product.id} />}
       <ProductViewHeader t={p} product={product} categoryTitle={categoryTitle} siteUrl={siteUrl} />
-      <ProductInfoCard t={p.view.info} locale={locale} product={product} collectionTitles={collectionTitles} />
+      <ProductInfoCard t={p.view.info} printCost={t.printCost} locale={locale} product={product} collectionTitles={collectionTitles} />
 
       <section aria-labelledby="product-sales-heading" className="space-y-4">
         <h2 id="product-sales-heading" className="font-display text-lg font-semibold text-charcoal">{p.view.sales.heading}</h2>

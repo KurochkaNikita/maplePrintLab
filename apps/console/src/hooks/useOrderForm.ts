@@ -1,13 +1,17 @@
 "use client";
 
 import type { FinanceOption, ProductSaleOption } from "@maple-print-lab/db";
+import { useEffect, useState } from "react";
 import { useT } from "@/components/LocaleProvider";
 import { createOrder, updateOrder } from "@/lib/finance/actions";
 import { emptyOrderItem } from "@/lib/finance/form-values";
 import { roundMoney } from "@/lib/finance/money";
 import { lineAmounts } from "@/lib/finance/totals";
-import type { OrderFormValues, OrderItemValues } from "@/lib/finance/types";
+import { fieldId, type OrderFormValues, type OrderItemValues } from "@/lib/finance/types";
 import { validateOrder } from "@/lib/finance/validation";
+import { PRINT_COST_FIELDS, type PrintCostValues } from "@/lib/print-cost/types";
+import { toPrintCostValues } from "@/lib/print-cost/values";
+import { useCollapsedItems } from "./useCollapsedItems";
 import { useFinanceForm } from "./useFinanceForm";
 
 /** `requestId`: the order is created from a customer request and links back to it. */
@@ -39,9 +43,19 @@ export function useOrderForm({ target, initialValues, channels, products }: UseO
     messages: { created: t.status.created, saved: t.status.saved },
   });
   const { values, change, clearErrors } = form;
+  const folding = useCollapsedItems(values.items.length, form.errors);
+  const [addedIndex, setAddedIndex] = useState<number | null>(null);
+
+  // A new line starts at its product search.
+  useEffect(() => {
+    if (addedIndex !== null) document.getElementById(fieldId("of", `items.${addedIndex}.productId`))?.focus();
+  }, [addedIndex]);
 
   const setItem = (index: number, patch: Partial<OrderItemValues>) => {
-    const touched = Object.keys(patch).map((field) => `items.${index}.${field}`);
+    // The calculator is one nested value: editing it clears the messages of all its fields.
+    const touched = Object.keys(patch).flatMap((field) =>
+      field === "print" ? PRINT_COST_FIELDS.map((f) => `items.${index}.print.${f}`) : [`items.${index}.${field}`],
+    );
     change({ ...values, items: values.items.map((item, i) => (i === index ? { ...item, ...patch } : item)) }, ...touched);
   };
 
@@ -51,16 +65,28 @@ export function useOrderForm({ target, initialValues, channels, products }: UseO
     setItem(
       index,
       product
-        ? { productId, description: product.title, unitPrice: product.price, unitCost: product.cost }
+        ? { productId, description: product.title, unitPrice: product.price, unitCost: product.cost, print: toPrintCostValues(product.printJob) }
         : { productId: "" },
     );
   };
 
-  const addItem = () => change({ ...values, items: [...values.items, emptyOrderItem()] }, "items");
+  const setPrint = (index: number, print: PrintCostValues) => setItem(index, { print });
+
+  /** A product that is not in the catalogue: the typed text, if any, becomes its description. */
+  const pickCustom = (index: number, typed: string) =>
+    setItem(index, typed ? { productId: "", description: typed } : { productId: "" });
+
+  const addItem = () => {
+    folding.collapseAll();
+    setAddedIndex(values.items.length);
+    change({ ...values, items: [...values.items, emptyOrderItem()] }, "items");
+  };
 
   const removeItem = (index: number) => {
     // Later rows shift up, so their error keys are stale.
     clearErrors();
+    folding.forget(index);
+    setAddedIndex(null);
     change({ ...values, items: values.items.filter((_, i) => i !== index) });
   };
 
@@ -69,5 +95,5 @@ export function useOrderForm({ target, initialValues, channels, products }: UseO
     { revenue: 0, cost: 0, profit: 0 },
   );
 
-  return { ...form, setItem, pickProduct, addItem, removeItem, totals, isEdit: target.mode === "edit" };
+  return { ...form, setItem, setPrint, pickProduct, pickCustom, isCollapsed: folding.isCollapsed, toggleItem: folding.toggle, addItem, removeItem, totals, isEdit: target.mode === "edit" };
 }

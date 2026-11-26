@@ -14,6 +14,7 @@ import GeneralTab from "./GeneralTab";
 import ImagesTab from "./ImagesTab";
 import PricingTab from "./PricingTab";
 import SeoTab from "./SeoTab";
+import SizeTab from "./SizeTab";
 
 const ID_PREFIX = "product-form";
 const ERROR_ID = "product-form-error";
@@ -39,6 +40,7 @@ export function ProductFormLayout() {
     general: <GeneralTab />,
     content: <ContentTab />,
     pricing: <PricingTab />,
+    size: <SizeTab />,
     images: <ImagesTab />,
     seo: <SeoTab />,
   };

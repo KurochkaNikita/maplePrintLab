@@ -1,4 +1,5 @@
 import type { Dictionary } from "./index";
+import { printCostEn } from "./print-cost/en";
 import { financeEn } from "./finance/en";
 import { requestsEn } from "./requests/en";
 import { dashboardEn } from "./dashboard/en";
@@ -53,6 +54,7 @@ export const en: Dictionary = {
       forbidden: "No access: please sign in again",
     },
   },
+  printCost: printCostEn,
   pages: {
     ...financeEn.pages,
     ...requestsEn.pages,
@@ -207,7 +209,8 @@ export const en: Dictionary = {
         tabs: {
           general: "General",
           content: "Content",
-          pricing: "Price & size",
+          pricing: "Price",
+          size: "Size & material",
           images: "Photos",
           seo: "SEO",
         },
@@ -331,6 +334,7 @@ export const en: Dictionary = {
           slugTaken: "Another product already uses this slug",
           tooLong: "Too long: at most {max} characters",
           invalidNumber: "Enter a positive number",
+          invalidTime: "Whole numbers: hours up to 999, minutes 0 to 59",
           invalidPrice: "Enter a price above zero with at most two decimals",
           tierOrder: "Ranges must ascend without overlapping",
           tiersRequired: "Add at least one tier or choose “One price”",

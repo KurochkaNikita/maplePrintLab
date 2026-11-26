@@ -13,6 +13,7 @@ import {
   type FinanceOptionKind,
   type OrderStatus,
 } from "./schema";
+import type { PrintJob } from "./print-job";
 
 export type { FinanceOptionKind };
 
@@ -111,6 +112,7 @@ export type ProductSaleOption = {
   price: string;
   /** Our cost of one piece, "" when not entered. */
   cost: string;
+  printJob: PrintJob | null;
 };
 
 export async function listProductSaleOptions(db: Db): Promise<ProductSaleOption[]> {
@@ -122,6 +124,7 @@ export async function listProductSaleOptions(db: Db): Promise<ProductSaleOption[
       priceAmount: products.priceAmount,
       priceTiers: products.priceTiers,
       costAmount: products.costAmount,
+      printJob: products.printJob,
     })
     .from(products)
     .leftJoin(productTranslations, and(eq(productTranslations.productId, products.id), eq(productTranslations.locale, "en")))
@@ -131,6 +134,7 @@ export async function listProductSaleOptions(db: Db): Promise<ProductSaleOption[
     title: r.title ?? r.slug,
     price: r.priceAmount ?? (r.priceTiers?.[0] ? r.priceTiers[0].amount.toFixed(2) : ""),
     cost: r.costAmount ?? "",
+    printJob: r.printJob,
   }));
 }
 
@@ -152,6 +156,8 @@ export type OrderItemInput = {
   unitPrice: string;
   /** Decimal string, our cost of one piece. */
   unitCost: string;
+  /** The calculation behind `unitCost`, or null when it was typed in. */
+  printJob: PrintJob | null;
 };
 
 export type OrderInput = {
@@ -249,6 +255,7 @@ export async function findOrder(db: Db, id: string): Promise<OrderRecord | null>
       quantity: i.quantity,
       unitPrice: i.unitPrice,
       unitCost: i.unitCost,
+      printJob: i.printJob,
     })),
   };
 }

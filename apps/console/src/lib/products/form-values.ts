@@ -1,4 +1,5 @@
 import type { ProductRecord, ProductTextInput } from "@maple-print-lab/db";
+import { emptyPrintCost, toPrintCostValues } from "@/lib/print-cost/values";
 import { PRODUCT_LOCALES, type ProductFormValues, type ProductLocale, type ProductTextValues } from "./types";
 
 const emptyText = (): ProductTextValues => ({
@@ -30,6 +31,7 @@ export function emptyProductValues(sortOrder: number): ProductFormValues {
     priceTiers: [],
     priceFrom: false,
     costAmount: "",
+    print: emptyPrintCost(),
     material: "",
     photos: [],
     dimensions: { cm: ["", "", ""], in: ["", "", ""] },
@@ -59,6 +61,7 @@ export function toFormValues(product: ProductRecord): ProductFormValues {
     })),
     priceFrom: product.priceFrom,
     costAmount: product.costAmount ?? "",
+    print: toPrintCostValues(product.printJob),
     material: product.translations.en?.material ?? product.translations.fr?.material ?? "",
     photos: product.images.map((img) => ({
       url: img.file,
