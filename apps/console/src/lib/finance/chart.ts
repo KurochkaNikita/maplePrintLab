@@ -54,8 +54,19 @@ export function smoothPath(pts: Point[]): string {
 export const CHART_WIDTH = 480;
 export const CHART_HEIGHT = 280;
 const PAD = { left: 46, right: 16, top: 14, bottom: 32 };
+/** Space between a y-axis label and the plot. */
+export const AXIS_GAP = 10;
+/** Generous width of one character of a 14px axis label. */
+const AXIS_CHAR_WIDTH = 8;
+
+/** Left padding that fits the longest y-axis label: "−2,5 тыс." is much wider than "-2.5K". */
+function leftPad(labels: string[]): number {
+  return Math.max(PAD.left, Math.max(...labels.map((l) => l.length)) * AXIS_CHAR_WIDTH + AXIS_GAP);
+}
 
 export type ChartGeometry = {
+  /** Width of the picture in its own units. */
+  width: number;
   scale: Scale;
   /** Data x to picture x. */
   px: (x: number) => number;
@@ -70,17 +81,39 @@ export type ChartGeometry = {
 };
 
 /** Where things go in the picture: the y axis fits every value, the x axis spans the first to the last position. */
-export function chartGeometry(xs: number[], values: number[]): ChartGeometry {
+export function chartGeometry(xs: number[], values: number[], tickLabel: (value: number) => string, width = CHART_WIDTH): ChartGeometry {
   const scale = niceScale(Math.min(...values, 0), Math.max(...values, 0));
-  const left = PAD.left;
-  const right = CHART_WIDTH - PAD.right;
+  const left = leftPad(scale.ticks.map(tickLabel));
+  const right = width - PAD.right;
   const top = PAD.top;
   const bottom = CHART_HEIGHT - PAD.bottom;
   const first = xs[0];
   const span = xs[xs.length - 1] - first;
   const px = (x: number) => (span === 0 ? (left + right) / 2 : left + ((right - left) * (x - first)) / span);
   const py = (value: number) => top + (bottom - top) * (1 - (value - scale.min) / (scale.max - scale.min));
-  return { scale, px, py, left, right, top, bottom, zero: py(0) };
+  return { width, scale, px, py, left, right, top, bottom, zero: py(0) };
+}
+
+export type FittedTick = { x: number; label: string; anchor: "start" | "middle" | "end" };
+
+/** Smallest space between two labels under the x axis. */
+const TICK_GAP = 8;
+
+/**
+ * Labels under the x axis that do not run into each other, left to right: one at either edge grows inwards so the
+ * picture does not cut it, and one that would touch the previous label is left out.
+ */
+export function fitTicks(ticks: { x: number; label: string }[], g: ChartGeometry): FittedTick[] {
+  let taken = -Infinity;
+  return ticks.flatMap((tick, i) => {
+    const at = g.px(tick.x);
+    const size = tick.label.length * AXIS_CHAR_WIDTH;
+    const anchor = i === 0 && at - size / 2 < g.left ? "start" : at + size / 2 > g.width ? "end" : "middle";
+    const from = anchor === "start" ? at : anchor === "end" ? at - size : at - size / 2;
+    if (from < taken + TICK_GAP) return [];
+    taken = from + size;
+    return [{ ...tick, anchor }];
+  });
 }
 
 /** Index of the position closest to `at` (a picture x). */
